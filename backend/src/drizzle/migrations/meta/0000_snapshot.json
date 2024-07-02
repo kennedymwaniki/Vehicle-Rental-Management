@@ -1,5 +1,5 @@
 {
-  "id": "5de4f30e-1321-4154-9804-e7fd9864344e",
+  "id": "b66824a7-5888-4ca5-a004-3960e98a779d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -475,6 +475,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "password": {
+          "name": "password",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "contact_phone": {
           "name": "contact_phone",
           "type": "varchar",
@@ -602,8 +608,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "vehicle_id": {
-          "name": "vehicle_id",
+        "vehicle_spec": {
+          "name": "vehicle_spec",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -638,12 +644,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "vehicles_vehicle_id_vehiclespecifications_vehicle_id_fk": {
-          "name": "vehicles_vehicle_id_vehiclespecifications_vehicle_id_fk",
+        "vehicles_vehicle_spec_vehiclespecifications_vehicle_id_fk": {
+          "name": "vehicles_vehicle_spec_vehiclespecifications_vehicle_id_fk",
           "tableFrom": "vehicles",
           "tableTo": "vehiclespecifications",
           "columnsFrom": [
-            "vehicle_id"
+            "vehicle_spec"
           ],
           "columnsTo": [
             "vehicle_id"

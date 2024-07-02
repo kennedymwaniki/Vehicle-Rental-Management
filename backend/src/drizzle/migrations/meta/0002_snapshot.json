@@ -1,6 +1,6 @@
 {
-  "id": "f7773f72-e506-4d70-9033-85aeb832d104",
-  "prevId": "b66824a7-5888-4ca5-a004-3960e98a779d",
+  "id": "2203ab0a-eeaf-4e6f-bda9-142cff6fae7f",
+  "prevId": "f7773f72-e506-4d70-9033-85aeb832d104",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -143,15 +143,15 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "bookings_vehicle_id_vehicles_vehicleSpec_id_fk": {
-          "name": "bookings_vehicle_id_vehicles_vehicleSpec_id_fk",
+        "bookings_vehicle_id_vehicles_vehicle_id_fk": {
+          "name": "bookings_vehicle_id_vehicles_vehicle_id_fk",
           "tableFrom": "bookings",
           "tableTo": "vehicles",
           "columnsFrom": [
             "vehicle_id"
           ],
           "columnsTo": [
-            "vehicleSpec_id"
+            "vehicle_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -306,15 +306,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "fleetmanagement_vehicle_id_vehicles_vehicleSpec_id_fk": {
-          "name": "fleetmanagement_vehicle_id_vehicles_vehicleSpec_id_fk",
+        "fleetmanagement_vehicle_id_vehicles_vehicle_id_fk": {
+          "name": "fleetmanagement_vehicle_id_vehicles_vehicle_id_fk",
           "tableFrom": "fleetmanagement",
           "tableTo": "vehicles",
           "columnsFrom": [
             "vehicle_id"
           ],
           "columnsTo": [
-            "vehicleSpec_id"
+            "vehicle_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -602,14 +602,14 @@
       "name": "vehicles",
       "schema": "",
       "columns": {
-        "vehicleSpec_id": {
-          "name": "vehicleSpec_id",
+        "vehicle_id": {
+          "name": "vehicle_id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
-        "vehicle_spec": {
-          "name": "vehicle_spec",
+        "vehicle_specId": {
+          "name": "vehicle_specId",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -644,12 +644,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "vehicles_vehicle_spec_vehiclespecifications_vehicleSpec_id_fk": {
-          "name": "vehicles_vehicle_spec_vehiclespecifications_vehicleSpec_id_fk",
+        "vehicles_vehicle_specId_vehiclespecifications_vehicleSpec_id_fk": {
+          "name": "vehicles_vehicle_specId_vehiclespecifications_vehicleSpec_id_fk",
           "tableFrom": "vehicles",
           "tableTo": "vehiclespecifications",
           "columnsFrom": [
-            "vehicle_spec"
+            "vehicle_specId"
           ],
           "columnsTo": [
             "vehicleSpec_id"

@@ -30,7 +30,7 @@ export const UsersTable = pgTable("users", {
 });
 
 export const VehicleSpecificationsTable = pgTable("vehiclespecifications", {
-  vehicleId: serial("vehicle_id").primaryKey(),
+  vehicleSpecId: serial("vehicleSpec_id").primaryKey(),
   manufacturer: varchar("manufacturer").notNull(),
   model: varchar("model").notNull(),
   year: integer("year").notNull(),
@@ -43,9 +43,9 @@ export const VehicleSpecificationsTable = pgTable("vehiclespecifications", {
 });
 
 export const VehiclesTable = pgTable("vehicles", {
-  vehicleSpecId: serial("vehicleSpec_id").primaryKey(),
-  vehicleId: integer("vehicle_id").references(
-    () => VehicleSpecificationsTable.vehicleId,
+  vehicleId: serial("vehicle_id").primaryKey(),
+  vehicleSpecsId: integer("vehicle_specId").references(
+    () => VehicleSpecificationsTable.vehicleSpecId,
     { onDelete: "cascade" }
   ),
   rentalRate: decimal("rental_rate").notNull(),
@@ -68,10 +68,9 @@ export const BookingsTable = pgTable("bookings", {
   userId: integer("user_id").references(() => UsersTable.userId, {
     onDelete: "cascade",
   }),
-  vehicleId: integer("vehicle_id").references(
-    () => VehiclesTable.vehicleSpecId,
-    { onDelete: "cascade" }
-  ),
+  vehicleId: integer("vehicle_id").references(() => VehiclesTable.vehicleId, {
+    onDelete: "cascade",
+  }),
   locationId: integer("location_id").references(
     () => LocationsTable.locationId,
     { onDelete: "cascade" }
@@ -122,10 +121,9 @@ export const CustomerSupportTicketsTable = pgTable("customersupporttickets", {
 
 export const FleetManagementTable = pgTable("fleetmanagement", {
   fleetId: serial("fleet_id").primaryKey(),
-  vehicleId: integer("vehicle_id").references(
-    () => VehiclesTable.vehicleSpecId,
-    { onDelete: "cascade" }
-  ),
+  vehicleId: integer("vehicle_id").references(() => VehiclesTable.vehicleId, {
+    onDelete: "cascade",
+  }),
   acquisitionDate: date("acquisition_date").notNull(),
   depreciationRate: decimal("depreciation_rate"),
   currentValue: decimal("current_value"),
@@ -134,102 +132,6 @@ export const FleetManagementTable = pgTable("fleetmanagement", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
-
-// Users relationships
-export const userRelations = relations(UsersTable, ({ many }) => ({
-  bookings: many(BookingsTable),
-  payments: many(PaymentsTable),
-  authentication: many(AuthenticationTable),
-  customerSupportTickets: many(CustomerSupportTicketsTable),
-}));
-
-// Vehicle Specifications relationships
-export const vehicleSpecificationRelations = relations(
-  VehicleSpecificationsTable,
-  ({ one, many }) => ({
-    vehicle: one(VehiclesTable, {
-      fields: [VehicleSpecificationsTable.vehicleId],
-      references: [VehiclesTable.vehicleSpecId],
-    }),
-    fleetManagement: many(FleetManagementTable),
-  })
-);
-
-// Vehicles relationships
-export const vehicleRelations = relations(VehiclesTable, ({ one,many }) => ({
-  vehicleSpecification: one(VehicleSpecificationsTable, {
-    fields: [VehiclesTable.vehicleId],
-    references: [VehicleSpecificationsTable.vehicleId],
-  }),
-  bookings: many(BookingsTable),
-  fleetManagement: one(FleetManagementTable, {
-    fields: [VehiclesTable.vehicleSpecId],
-    references: [FleetManagementTable.vehicleId],
-  }),
-}));
-
-// Locations relationships
-export const locationRelations = relations(LocationsTable, ({ many }) => ({
-  bookings: many(BookingsTable),
-}));
-
-// Bookings relationships
-export const bookingRelations = relations(BookingsTable, ({ one,many }) => ({
-  user: one(UsersTable, {
-    fields: [BookingsTable.userId],
-    references: [UsersTable.userId],
-  }),
-  vehicle: one(VehiclesTable, {
-    fields: [BookingsTable.vehicleId],
-    references: [VehiclesTable.vehicleSpecId],
-  }),
-  location: one(LocationsTable, {
-    fields: [BookingsTable.locationId],
-    references: [LocationsTable.locationId],
-  }),
-  payments: many(PaymentsTable),
-}));
-
-// Payments relationships
-export const paymentRelations = relations(PaymentsTable, ({ one }) => ({
-  booking: one(BookingsTable, {
-    fields: [PaymentsTable.bookingId],
-    references: [BookingsTable.bookingId],
-  }),
-}));
-
-// Authentication relationships
-export const authenticationRelations = relations(
-  AuthenticationTable,
-  ({ one }) => ({
-    user: one(UsersTable, {
-      fields: [AuthenticationTable.userId],
-      references: [UsersTable.userId],
-    }),
-  })
-);
-
-// Customer Support Tickets relationships
-export const customerSupportTicketRelations = relations(
-  CustomerSupportTicketsTable,
-  ({ one }) => ({
-    user: one(UsersTable, {
-      fields: [CustomerSupportTicketsTable.userId],
-      references: [UsersTable.userId],
-    }),
-  })
-);
-
-// Fleet Management relationships
-export const fleetManagementRelations = relations(
-  FleetManagementTable,
-  ({ one }) => ({
-    vehicle: one(VehiclesTable, {
-      fields: [FleetManagementTable.vehicleId],
-      references: [VehiclesTable.vehicleSpecId],
-    }),
-  })
-);
 
 //types
 // User types
@@ -271,5 +173,3 @@ export type TSCustomerSupportTicket =
 // Fleet Management types
 export type TIFleetManagement = typeof FleetManagementTable.$inferInsert;
 export type TSFleetManagement = typeof FleetManagementTable.$inferSelect;
-
-
