@@ -1,5 +1,5 @@
 {
-  "id": "b66824a7-5888-4ca5-a004-3960e98a779d",
+  "id": "81e59264-6670-4a91-a4c9-99fa89dc971d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -108,9 +108,10 @@
         },
         "booking_status": {
           "name": "booking_status",
-          "type": "varchar",
+          "type": "booking_status",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'Pending'"
         },
         "created_at": {
@@ -143,15 +144,15 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "bookings_vehicle_id_vehicles_vehicleSpec_id_fk": {
-          "name": "bookings_vehicle_id_vehicles_vehicleSpec_id_fk",
+        "bookings_vehicle_id_vehicles_vehicle_id_fk": {
+          "name": "bookings_vehicle_id_vehicles_vehicle_id_fk",
           "tableFrom": "bookings",
           "tableTo": "vehicles",
           "columnsFrom": [
             "vehicle_id"
           ],
           "columnsTo": [
-            "vehicleSpec_id"
+            "vehicle_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -306,15 +307,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "fleetmanagement_vehicle_id_vehicles_vehicleSpec_id_fk": {
-          "name": "fleetmanagement_vehicle_id_vehicles_vehicleSpec_id_fk",
+        "fleetmanagement_vehicle_id_vehicles_vehicle_id_fk": {
+          "name": "fleetmanagement_vehicle_id_vehicles_vehicle_id_fk",
           "tableFrom": "fleetmanagement",
           "tableTo": "vehicles",
           "columnsFrom": [
             "vehicle_id"
           ],
           "columnsTo": [
-            "vehicleSpec_id"
+            "vehicle_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -395,9 +396,10 @@
         },
         "payment_status": {
           "name": "payment_status",
-          "type": "varchar",
+          "type": "payment_status",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'Pending'"
         },
         "payment_date": {
@@ -495,9 +497,10 @@
         },
         "role": {
           "name": "role",
-          "type": "varchar",
+          "type": "role",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'user'"
         },
         "created_at": {
@@ -532,8 +535,8 @@
       "name": "vehiclespecifications",
       "schema": "",
       "columns": {
-        "vehicle_id": {
-          "name": "vehicle_id",
+        "vehicleSpec_id": {
+          "name": "vehicleSpec_id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
@@ -602,14 +605,14 @@
       "name": "vehicles",
       "schema": "",
       "columns": {
-        "vehicleSpec_id": {
-          "name": "vehicleSpec_id",
+        "vehicle_id": {
+          "name": "vehicle_id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
-        "vehicle_spec": {
-          "name": "vehicle_spec",
+        "vehicle_specId": {
+          "name": "vehicle_specId",
           "type": "integer",
           "primaryKey": false,
           "notNull": false
@@ -644,15 +647,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "vehicles_vehicle_spec_vehiclespecifications_vehicle_id_fk": {
-          "name": "vehicles_vehicle_spec_vehiclespecifications_vehicle_id_fk",
+        "vehicles_vehicle_specId_vehiclespecifications_vehicleSpec_id_fk": {
+          "name": "vehicles_vehicle_specId_vehiclespecifications_vehicleSpec_id_fk",
           "tableFrom": "vehicles",
           "tableTo": "vehiclespecifications",
           "columnsFrom": [
-            "vehicle_spec"
+            "vehicle_specId"
           ],
           "columnsTo": [
-            "vehicle_id"
+            "vehicleSpec_id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -662,7 +665,34 @@
       "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "public.booking_status": {
+      "name": "booking_status",
+      "schema": "public",
+      "values": [
+        "Pending",
+        "Completed",
+        "Failed"
+      ]
+    },
+    "public.payment_status": {
+      "name": "payment_status",
+      "schema": "public",
+      "values": [
+        "Pending",
+        "Completed",
+        "Failed"
+      ]
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": [
+        "user",
+        "admin"
+      ]
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},

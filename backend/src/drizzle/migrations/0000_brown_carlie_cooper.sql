@@ -1,3 +1,21 @@
+DO $$ BEGIN
+ CREATE TYPE "public"."booking_status" AS ENUM('Pending', 'Completed', 'Failed');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "public"."payment_status" AS ENUM('Pending', 'Completed', 'Failed');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "public"."role" AS ENUM('user', 'admin');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "authentication" (
 	"auth_id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer,
@@ -14,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "bookings" (
 	"booking_date" date NOT NULL,
 	"return_date" date NOT NULL,
 	"total_amount" numeric NOT NULL,
-	"booking_status" varchar DEFAULT 'Pending',
+	"booking_status" "booking_status" DEFAULT 'Pending' NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now()
 );
@@ -54,7 +72,7 @@ CREATE TABLE IF NOT EXISTS "payments" (
 	"payment_id" serial PRIMARY KEY NOT NULL,
 	"booking_id" integer,
 	"amount" numeric NOT NULL,
-	"payment_status" varchar DEFAULT 'Pending',
+	"payment_status" "payment_status" DEFAULT 'Pending' NOT NULL,
 	"payment_date" timestamp DEFAULT now(),
 	"payment_method" varchar,
 	"transaction_id" varchar,
@@ -69,14 +87,14 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"password" varchar,
 	"contact_phone" varchar,
 	"address" text,
-	"role" varchar DEFAULT 'user',
+	"role" "role" DEFAULT 'user' NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "vehiclespecifications" (
-	"vehicle_id" serial PRIMARY KEY NOT NULL,
+	"vehicleSpec_id" serial PRIMARY KEY NOT NULL,
 	"manufacturer" varchar NOT NULL,
 	"model" varchar NOT NULL,
 	"year" integer NOT NULL,
@@ -89,8 +107,8 @@ CREATE TABLE IF NOT EXISTS "vehiclespecifications" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "vehicles" (
-	"vehicleSpec_id" serial PRIMARY KEY NOT NULL,
-	"vehicle_spec" integer,
+	"vehicle_id" serial PRIMARY KEY NOT NULL,
+	"vehicle_specId" integer,
 	"rental_rate" numeric NOT NULL,
 	"availability" boolean DEFAULT true,
 	"created_at" timestamp DEFAULT now(),
@@ -110,7 +128,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "bookings" ADD CONSTRAINT "bookings_vehicle_id_vehicles_vehicleSpec_id_fk" FOREIGN KEY ("vehicle_id") REFERENCES "public"."vehicles"("vehicleSpec_id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "bookings" ADD CONSTRAINT "bookings_vehicle_id_vehicles_vehicle_id_fk" FOREIGN KEY ("vehicle_id") REFERENCES "public"."vehicles"("vehicle_id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -128,7 +146,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "fleetmanagement" ADD CONSTRAINT "fleetmanagement_vehicle_id_vehicles_vehicleSpec_id_fk" FOREIGN KEY ("vehicle_id") REFERENCES "public"."vehicles"("vehicleSpec_id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "fleetmanagement" ADD CONSTRAINT "fleetmanagement_vehicle_id_vehicles_vehicle_id_fk" FOREIGN KEY ("vehicle_id") REFERENCES "public"."vehicles"("vehicle_id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -140,7 +158,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "vehicles" ADD CONSTRAINT "vehicles_vehicle_spec_vehiclespecifications_vehicle_id_fk" FOREIGN KEY ("vehicle_spec") REFERENCES "public"."vehiclespecifications"("vehicle_id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "vehicles" ADD CONSTRAINT "vehicles_vehicle_specId_vehiclespecifications_vehicleSpec_id_fk" FOREIGN KEY ("vehicle_specId") REFERENCES "public"."vehiclespecifications"("vehicleSpec_id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

@@ -7,16 +7,13 @@ import {
   boolean,
   timestamp,
   text,
+  pgEnum,
   date,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 // Enum for user roles
-enum UserRole {
-  USER = "user",
-  ADMIN = "admin",
-}
-
+export const roleEnum = pgEnum("role", ["user", "admin"]);
 export const UsersTable = pgTable("users", {
   userId: serial("user_id").primaryKey(),
   fullName: varchar("full_name").notNull(),
@@ -24,7 +21,7 @@ export const UsersTable = pgTable("users", {
   password: varchar("password"),
   contactPhone: varchar("contact_phone"),
   address: text("address"),
-  role: varchar("role").default(UserRole.USER),
+  role: roleEnum("role").default("user").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -63,6 +60,13 @@ export const LocationsTable = pgTable("locations", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// payment Enum (['Pending', 'Completed', 'Failed']
+export const bookingStatusEnum = pgEnum("booking_status", [
+  "Pending",
+  "Completed",
+  "Failed",
+]);
+
 export const BookingsTable = pgTable("bookings", {
   bookingId: serial("booking_id").primaryKey(),
   userId: integer("user_id").references(() => UsersTable.userId, {
@@ -78,10 +82,19 @@ export const BookingsTable = pgTable("bookings", {
   bookingDate: date("booking_date").notNull(),
   returnDate: date("return_date").notNull(),
   totalAmount: decimal("total_amount").notNull(),
-  bookingStatus: varchar("booking_status").default("Pending"),
+  bookingStatus: bookingStatusEnum("booking_status")
+    .default("Pending")
+    .notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+// payment Enum (['Pending', 'Completed', 'Failed']
+export const paymentStatusEnum = pgEnum("payment_status", [
+  "Pending",
+  "Completed",
+  "Failed",
+]);
 
 export const PaymentsTable = pgTable("payments", {
   paymentId: serial("payment_id").primaryKey(),
@@ -89,7 +102,9 @@ export const PaymentsTable = pgTable("payments", {
     onDelete: "cascade",
   }),
   amount: decimal("amount").notNull(),
-  paymentStatus: varchar("payment_status").default("Pending"),
+  paymentStatus: paymentStatusEnum("payment_status")
+    .default("Pending")
+    .notNull(),
   paymentDate: timestamp("payment_date").defaultNow(),
   paymentMethod: varchar("payment_method"),
   transactionId: varchar("transaction_id"),
@@ -132,6 +147,91 @@ export const FleetManagementTable = pgTable("fleetmanagement", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
+
+//relationships
+
+// Authentication relations (one-to-one with Users)
+export const authenticationRelations = relations(
+  AuthenticationTable,
+  ({ one }) => ({
+    user: one(UsersTable, {
+      fields: [AuthenticationTable.userId],
+      references: [UsersTable.userId],
+    }),
+  })
+);
+
+// Vehicles relations (many-to-one with VehicleSpecifications)
+export const vehicleRelations = relations(VehiclesTable, ({ one }) => ({
+  vehicleSpec: one(VehicleSpecificationsTable, {
+    fields: [VehiclesTable.vehicleSpecsId],
+    references: [VehicleSpecificationsTable.vehicleSpecId],
+  }),
+}));
+
+// Bookings relations (many-to-one with Users, Vehicles, and Locations, one-to-many with Payments)
+export const bookingRelations = relations(BookingsTable, ({ one, many }) => ({
+  user: one(UsersTable, {
+    fields: [BookingsTable.userId],
+    references: [UsersTable.userId],
+  }),
+  vehicle: one(VehiclesTable, {
+    fields: [BookingsTable.vehicleId],
+    references: [VehiclesTable.vehicleId],
+  }),
+  location: one(LocationsTable, {
+    fields: [BookingsTable.locationId],
+    references: [LocationsTable.locationId],
+  }),
+  payments: many(PaymentsTable),
+}));
+
+// Payments relations (many-to-one with Bookings)
+export const paymentRelations = relations(PaymentsTable, ({ one }) => ({
+  booking: one(BookingsTable, {
+    fields: [PaymentsTable.bookingId],
+    references: [BookingsTable.bookingId],
+  }),
+}));
+
+// CustomerSupportTickets relations (many-to-one with Users)
+export const customerSupportTicketRelations = relations(
+  CustomerSupportTicketsTable,
+  ({ one }) => ({
+    user: one(UsersTable, {
+      fields: [CustomerSupportTicketsTable.userId],
+      references: [UsersTable.userId],
+    }),
+  })
+);
+
+// FleetManagement relations (one-to-one with Vehicles)
+export const fleetManagementRelations = relations(
+  FleetManagementTable,
+  ({ one }) => ({
+    vehicle: one(VehiclesTable, {
+      fields: [FleetManagementTable.vehicleId],
+      references: [VehiclesTable.vehicleId],
+    }),
+  })
+);
+
+// User relations (one-to-many with Bookings and CustomerSupportTickets, one-to-one with Authentication)
+export const userRelations = relations(UsersTable, ({ one, many }) => ({
+  bookings: many(BookingsTable),
+  customerSupportTickets: many(CustomerSupportTicketsTable),
+  authentication: many(AuthenticationTable),
+}));
+
+// VehicleSpecifications relations (one-to-many with Vehicles)
+export const vehicleSpecificationsRelations = relations(
+  VehicleSpecificationsTable,
+  ({ many }) => ({
+    vehicles: many(VehiclesTable),
+  })
+);
+
+//end of relatiosnhips
 
 //types
 // User types

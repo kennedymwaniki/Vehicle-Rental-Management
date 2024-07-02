@@ -1,16 +1,31 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { serve } from "@hono/node-server";
+import { Hono } from "hono";
+import { userRouter } from "./users/userRouter";
+import { bookingRouter } from "./bookings/bookingsRouter";
+import { fleetRouter } from "./fleet/fleetRouter";
+import { locationRouter } from "./locations/locationRouter";
+import { paymentsRouter } from "./payments/paymentsRouter";
+import { vehicleRouter } from "./vehicles/vehicleRouter";
+import { vehicleSpecsRouter } from "./vehiclespecs/vehicleSpecsRouter";
+import { customerSupportRouter } from "./customerSupport/customerSupportRouter";
 
-const app = new Hono()
+const app = new Hono();
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+app.get("/", (c) => {
+  return c.text("Hello Hono!");
+});
+app.route("/api", userRouter);
+app.route("/api", bookingRouter);
+app.route("/api", fleetRouter);
+app.route("/api", locationRouter);
+app.route("/api", paymentsRouter);
+app.route("/api", vehicleRouter);
+app.route("/api", customerSupportRouter);
 
-const port = 3000
-console.log(`Server is running on port ${port}`)
+const port = 3000;
+console.log(`Server is running on port ${port}`);
 
 serve({
   fetch: app.fetch,
-  port
-})
+  port,
+});
