@@ -3,6 +3,15 @@ GET http://localhost:3000/api/users
 ###
 GET http://localhost:3000/api/users/20
 
+###
+
+PUT http://localhost:3000/api/users/3
+Content-Type: application/json
+
+{
+    "FullName": "John Doe",
+    "role":"admin"
+}
 
 ###
 DELETE  http://localhost:3000/api/users/19
@@ -10,6 +19,9 @@ DELETE  http://localhost:3000/api/users/19
 
 //end of user actions
 
+
+
+//bookings
 ###
 GET http://localhost:3000/api/bookings
 ###
@@ -20,6 +32,11 @@ DELETE  http://localhost:3000/api/bookings/3
 GET http://localhost:3000/api/fleet
 
 ###
+GET http://localhost:3000/api/fleet/2
+
+
+///end of fleets
+###
 GET http://localhost:3000/api/locations
 
 ###
@@ -28,8 +45,16 @@ GET http://localhost:3000/api/payments
 ###
 GET http://localhost:3000/api/vehicles
 
+
+
+
+///vehiclespecs
 ###
 GET http://localhost:3000/api/vehicle-specs
+
+
+
+///end of vehiclespecs
 
 ###
 GET http://localhost:3000/api/support-tickets

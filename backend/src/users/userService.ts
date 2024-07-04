@@ -3,7 +3,15 @@ import db from "../drizzle/db";
 import { TIUser, TSUser, UsersTable } from "../drizzle/schema";
 
 export const getUsersService = async () => {
-  const users = await db.query.UsersTable.findMany();
+  const users = await db.query.UsersTable.findMany({
+    columns: {
+      userId: true,
+      fullName: true,
+      email: true,
+      role: true,
+      contactPhone: true,
+    },
+  });
   return users;
 };
 
@@ -28,5 +36,3 @@ export const deleteUserService = async (id: number) => {
   await db.delete(UsersTable).where(eq(UsersTable.userId, id));
   return "User deleted successfully";
 };
-
-

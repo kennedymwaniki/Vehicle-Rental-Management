@@ -3,11 +3,22 @@ import db from "../drizzle/db";
 import { TIBooking, TSBooking, BookingsTable } from "../drizzle/schema";
 
 export const getBookingsService = async () => {
-  const bookings = await db.query.BookingsTable.findMany();
+  const bookings = await db.query.BookingsTable.findMany({
+    columns: {
+      bookingId: true,
+      userId: true,
+      bookingDate: true,
+      returnDate: true,
+      bookingStatus: true,
+      totalAmount: true,
+    },
+  });
   return bookings;
 };
 
-export const getBookingById = async (id: number): Promise<TSBooking | undefined> => {
+export const getBookingById = async (
+  id: number
+): Promise<TSBooking | undefined> => {
   const booking = await db.query.BookingsTable.findFirst({
     where: eq(BookingsTable.bookingId, id),
   });
@@ -20,7 +31,10 @@ export const createBookingService = async (booking: TIBooking) => {
 };
 
 export const updateBookingService = async (id: number, booking: TIBooking) => {
-  await db.update(BookingsTable).set(booking).where(eq(BookingsTable.bookingId, id));
+  await db
+    .update(BookingsTable)
+    .set(booking)
+    .where(eq(BookingsTable.bookingId, id));
   return booking;
 };
 
