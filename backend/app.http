@@ -1,5 +1,6 @@
 ###
 GET http://localhost:3000/api/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZWFuLmRvZUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwMTA3NjcyfQ.YvF2NI0oTJv1QtT1PazfglrERBExuEWNIcgbFcO_nVY
 ###
 GET http://localhost:3000/api/users/20
 
@@ -107,3 +108,25 @@ Content-Type: application/json
     "password": "password555"
 }
 
+//email testing
+###
+POST  http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "fullName": "Kennedy Mwangi",
+    "email": "mwangiken128@gmail.com",
+    "contactPhone": "+1234567890",
+    "password": "12345678",
+    "address": "123 Main St, Anytown, USA",
+    "role": "admin"
+}
+
+###
+POST  http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "kennedymwaniki089@gmail.com",
+    "password": "12345678"
+}

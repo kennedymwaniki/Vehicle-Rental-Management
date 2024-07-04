@@ -7,6 +7,7 @@ import {
   updateUser,
   deleteUser,
 } from "./userController";
+import { adminRoleAuth } from "../middleware/authBearer";
 
 export const userRouter = new Hono();
 // userRouter.use("*");
