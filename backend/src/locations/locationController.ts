@@ -66,7 +66,7 @@ import {
       if (location === undefined) return c.text("Location not found", 404);
   
       const res = await deleteLocationService(id);
-      if (!res) return c.text("Location not deleted", 404);
+      if (res === undefined) return c.text("Location not deleted", 404);
   
       return c.json({ msg: res }, 201);
     } catch (error: any) {

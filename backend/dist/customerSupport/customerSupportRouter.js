@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.customerSupportRouter = void 0;
+const hono_1 = require("hono");
+const customerSupportController_1 = require("./customerSupportController");
+exports.customerSupportRouter = new hono_1.Hono();
+exports.customerSupportRouter.get("/support-tickets", customerSupportController_1.getTickets);
+exports.customerSupportRouter.get("/support-tickets/:id", customerSupportController_1.getTicket);
+exports.customerSupportRouter.post("/support-tickets", customerSupportController_1.createTicket);
+exports.customerSupportRouter.put("/support-tickets/:id", customerSupportController_1.updateTicket);
+exports.customerSupportRouter.delete("/support-tickets/:id", customerSupportController_1.deleteTicket);

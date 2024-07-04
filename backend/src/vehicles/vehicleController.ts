@@ -64,7 +64,7 @@ export const deleteVehicle = async (c: Context) => {
     if (vehicle === undefined) return c.text("Vehicle not found", 404);
 
     const res = await deleteVehicleService(id);
-    if (!res) return c.text("Vehicle not deleted", 404);
+    if (res === undefined) return c.text("Vehicle not deleted", 404);
 
     return c.json({ msg: res }, 201);
   } catch (error: any) {

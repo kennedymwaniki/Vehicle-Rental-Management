@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.vehicleSpecsRouter = void 0;
+const hono_1 = require("hono");
+const vehicleSpecsController_1 = require("./vehicleSpecsController");
+exports.vehicleSpecsRouter = new hono_1.Hono();
+exports.vehicleSpecsRouter.get("/vehicle-specs", vehicleSpecsController_1.getVehicleSpecs);
+exports.vehicleSpecsRouter.get("/vehicle-specs/:id", vehicleSpecsController_1.getVehicleSpec);
+exports.vehicleSpecsRouter.post("/vehicle-specs", vehicleSpecsController_1.createVehicleSpec);
+exports.vehicleSpecsRouter.put("/vehicle-specs/:id", vehicleSpecsController_1.updateVehicleSpec);
+exports.vehicleSpecsRouter.delete("/vehicle-specs/:id", vehicleSpecsController_1.deleteVehicleSpec);
