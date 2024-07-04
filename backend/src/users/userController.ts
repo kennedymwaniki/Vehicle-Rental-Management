@@ -67,7 +67,7 @@ export const deleteUser = async (c: Context) => {
 
     //search for the user
     const user = await getUserById(id);
-    if (user === undefined) return c.text("User not found", 404);
+    if (user == undefined) return c.text("User not found", 404);
     //deleting the user
     const res = await deleteUserService(id);
     if (!res) return c.text("User not deleted", 404);

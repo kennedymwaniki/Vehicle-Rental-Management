@@ -9,6 +9,7 @@ import { vehicleRouter } from "./vehicles/vehicleRouter";
 import { vehicleSpecsRouter } from "./vehiclespecs/vehicleSpecsRouter";
 import { customerSupportRouter } from "./customerSupport/customerSupportRouter";
 import { cors } from "hono/cors";
+import { authRouter } from "./auth/authRouter";
 const app = new Hono();
 
 app.get("/", (c) => {
@@ -28,7 +29,9 @@ app.route("/api", fleetRouter);
 app.route("/api", locationRouter);
 app.route("/api", paymentsRouter);
 app.route("/api", vehicleRouter);
+app.route("/api", vehicleSpecsRouter);
 app.route("/api", customerSupportRouter);
+app.route("/api/auth", authRouter);
 
 const port = 3000;
 console.log(`Server is running on port ${port}`);

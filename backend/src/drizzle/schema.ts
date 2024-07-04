@@ -13,7 +13,7 @@ import {
 import { relations } from "drizzle-orm";
 
 // Enum for user roles
-export const roleEnum = pgEnum("role", ["user", "admin"]);
+export const roleEnum = pgEnum("role", ["user", "admin", "both"]);
 export const UsersTable = pgTable("users", {
   userId: serial("user_id").primaryKey(),
   fullName: varchar("full_name").notNull(),
@@ -112,11 +112,14 @@ export const PaymentsTable = pgTable("payments", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-export const AuthenticationTable = pgTable("authentication", {
+export const AuthUsersTable = pgTable("auth_users", {
   authId: serial("auth_id").primaryKey(),
   userId: integer("user_id").references(() => UsersTable.userId, {
     onDelete: "cascade",
   }),
+  email: varchar("email").unique(),
+  role: roleEnum("role").default("user"),
+
   password: varchar("password").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -151,15 +154,12 @@ export const FleetManagementTable = pgTable("fleetmanagement", {
 //relationships
 
 // Authentication relations (one-to-one with Users)
-export const authenticationRelations = relations(
-  AuthenticationTable,
-  ({ one }) => ({
-    user: one(UsersTable, {
-      fields: [AuthenticationTable.userId],
-      references: [UsersTable.userId],
-    }),
-  })
-);
+export const authenticationRelations = relations(AuthUsersTable, ({ one }) => ({
+  user: one(UsersTable, {
+    fields: [AuthUsersTable.userId],
+    references: [UsersTable.userId],
+  }),
+}));
 
 // Vehicles relations (many-to-one with VehicleSpecifications)
 export const vehicleRelations = relations(VehiclesTable, ({ one }) => ({
@@ -220,7 +220,7 @@ export const fleetManagementRelations = relations(
 export const userRelations = relations(UsersTable, ({ one, many }) => ({
   bookings: many(BookingsTable),
   customerSupportTickets: many(CustomerSupportTicketsTable),
-  authentication: many(AuthenticationTable),
+  authentication: many(AuthUsersTable),
 }));
 
 // VehicleSpecifications relations (one-to-many with Vehicles)
@@ -261,8 +261,8 @@ export type TIPayment = typeof PaymentsTable.$inferInsert;
 export type TSPayment = typeof PaymentsTable.$inferSelect;
 
 // Authentication types
-export type TIAuthentication = typeof AuthenticationTable.$inferInsert;
-export type TSAuthentication = typeof AuthenticationTable.$inferSelect;
+export type TIAuthUsers = typeof AuthUsersTable.$inferInsert;
+export type TSAuthUsers = typeof AuthUsersTable.$inferSelect;
 
 // Customer Support Tickets types
 export type TICustomerSupportTicket =

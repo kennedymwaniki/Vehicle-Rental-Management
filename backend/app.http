@@ -1,8 +1,20 @@
 ###
 GET http://localhost:3000/api/users
+###
+GET http://localhost:3000/api/users/20
+
+
+###
+DELETE  http://localhost:3000/api/users/19
+
+
+//end of user actions
 
 ###
 GET http://localhost:3000/api/bookings
+###
+DELETE  http://localhost:3000/api/bookings/3
+
 
 ###
 GET http://localhost:3000/api/fleet
@@ -15,3 +27,33 @@ GET http://localhost:3000/api/payments
 
 ###
 GET http://localhost:3000/api/vehicles
+
+###
+GET http://localhost:3000/api/vehicle-specs
+
+###
+GET http://localhost:3000/api/support-tickets
+
+###
+//authRouter
+POST  http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "fullName": "JackDoe Miller",
+    "email": "jack.doe@example.com",
+    "contactPhone": "+1234567890",
+    "password": "password888",
+    "address": "123 Main St, Anytown, USA",
+    "role": "user"
+}
+
+###
+POST  http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "jack.doe@example.com",
+    "password": "password888"
+}
+

@@ -26,4 +26,7 @@ export const updateUserService = async (id: number, user: TIUser) => {
 
 export const deleteUserService = async (id: number) => {
   await db.delete(UsersTable).where(eq(UsersTable.userId, id));
+  return "User deleted successfully";
 };
+
+

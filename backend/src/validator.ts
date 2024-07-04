@@ -49,14 +49,19 @@ export const PaymentSchema = z.object({
   paymentDate: z.string(),
   paymentMethod: z.string().nullable(),
   transactionId: z.string().nullable(),
-
 });
 
-export const AuthenticationSchema = z.object({
-  userId: z.number(),
+export const registerUserSchema = z.object({
+  fullName: z.string(),
+  email: z.string(),
+  contactPhone: z.string(),
   password: z.string(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
+  address: z.string(),
+  role: z.string().optional(),
+});
+export const loginUserSchema = z.object({
+  email: z.string(),
+  password: z.string(),
 });
 
 export const CustomerSupportTicketSchema = z.object({
@@ -64,7 +69,6 @@ export const CustomerSupportTicketSchema = z.object({
   subject: z.string(),
   description: z.string(),
   status: z.string(),
-
 });
 
 export const FleetManagementSchema = z.object({
@@ -74,5 +78,4 @@ export const FleetManagementSchema = z.object({
   currentValue: z.number().nullable(),
   maintenanceCost: z.number().nullable(),
   status: z.string(),
-  
 });
