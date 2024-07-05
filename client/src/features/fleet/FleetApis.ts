@@ -15,6 +15,8 @@ interface TFleet {
 export const fleetsAPI = createApi({
   reducerPath: "fleetsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
+  tagTypes: ['getFleets'],
+
   endpoints: (builder) => ({
     getFleets: builder.query<TFleet[], void>({
       query: () => "fleets",

@@ -16,6 +16,8 @@ interface TBooking {
 export const bookingsAPI = createApi({
   reducerPath: "bookingsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
+  tagTypes: ['getBookings'],
+
   endpoints: (builder) => ({
     getBookings: builder.query<TBooking[], void>({
       query: () => "bookings",

@@ -15,6 +15,7 @@ interface TPayment {
 export const paymentsAPI = createApi({
   reducerPath: "paymentsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
+  tagTypes: ['getPayments'],
   endpoints: (builder) => ({
     getPayments: builder.query<TPayment[], void>({
       query: () => "payments",

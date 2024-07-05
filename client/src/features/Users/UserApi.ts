@@ -11,6 +11,8 @@ interface TUser {
 export const usersAPI = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
+  tagTypes: ['getUsers'],
+
   endpoints: (builder) => ({
     getUsers: builder.query<TUser[], void>({
       query: () => "users",

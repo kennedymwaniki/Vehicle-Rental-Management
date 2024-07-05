@@ -12,6 +12,7 @@ interface TVehicle {
 export const vehiclesAPI = createApi({
   reducerPath: "vehiclesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
+  tagTypes:['getVehicles'],
   endpoints: (builder) => ({
     getVehicles: builder.query<TVehicle[], void>({
       query: () => "vehicles",
