@@ -1,6 +1,4 @@
-import { useGetFleetsQuery } from "./FleetApis";
-
-
+import { fleetsAPI } from "./FleetApis";
 
 const Fleets = () => {
   const {
@@ -8,7 +6,7 @@ const Fleets = () => {
     error,
     isLoading,
     isError,
-  } = useGetFleetsQuery();
+  } = fleetsAPI.useGetFleetsQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
