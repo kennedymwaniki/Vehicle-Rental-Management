@@ -1,22 +1,23 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { TBooking } from "./../../types/types";
 
-interface TBooking {
-  bookingId: number;
-  userId: number;
-  vehicleId: number;
-  locationId: number;
-  bookingDate: string;
-  returnDate: string;
-  totalAmount: number;
-  bookingStatus: "Pending" | "Completed" | "Failed";
-  createdAt: string;
-  updatedAt: string;
-}
+// interface TBooking {
+//   bookingId: number;
+//   userId: number;
+//   vehicleId: number;
+//   locationId: number;
+//   bookingDate: string;
+//   returnDate: string;
+//   totalAmount: number;
+//   bookingStatus: "Pending" | "Completed" | "Failed";
+//   createdAt: string;
+//   updatedAt: string;
+// }
 
 export const bookingsAPI = createApi({
   reducerPath: "bookingsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
-  tagTypes: ['getBookings'],
+  tagTypes: ["getBookings"],
 
   endpoints: (builder) => ({
     getBookings: builder.query<TBooking[], void>({

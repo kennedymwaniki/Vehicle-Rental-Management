@@ -1,18 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface TVehicle {
-  vehicleId: number;
-  vehicleSpecsId: number;
-  rentalRate: number;
-  availability: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
+import { TVehicle } from "./../../types/types";
 
 export const vehiclesAPI = createApi({
   reducerPath: "vehiclesApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
-  tagTypes:['getVehicles'],
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api/",
+  }),
+  tagTypes: ["getVehicles"],
   endpoints: (builder) => ({
     getVehicles: builder.query<TVehicle[], void>({
       query: () => "vehicles",

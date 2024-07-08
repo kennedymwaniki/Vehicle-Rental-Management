@@ -1,17 +1,12 @@
+import { TUser } from "./../../types/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface TUser {
-  id: number;
-  fullname: string;
-  email: string;
-  phone: string;
-  address: string;
-}
 
 export const usersAPI = createApi({
   reducerPath: "usersApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
-  tagTypes: ['getUsers'],
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api",
+  }),
+  tagTypes: ["getUsers"],
 
   endpoints: (builder) => ({
     getUsers: builder.query<TUser[], void>({
@@ -48,5 +43,9 @@ export const usersAPI = createApi({
   }),
 });
 
-
-export const { useGetUsersQuery, useCreateUserMutation, useUpdateUserMutation, useDeleteUserMutation } = usersAPI;
+export const {
+  useGetUsersQuery,
+  useCreateUserMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
+} = usersAPI;

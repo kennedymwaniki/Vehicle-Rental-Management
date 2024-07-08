@@ -1,21 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { TPayment } from "./../../types/types";
 
-interface TPayment {
-  paymentId: number;
-  bookingId: number;
-  amount: number;
-  paymentStatus: "Pending" | "Completed" | "Failed";
-  paymentDate: string;
-  paymentMethod: string;
-  transactionId: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export const paymentsAPI = createApi({
   reducerPath: "paymentsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
-  tagTypes: ['getPayments'],
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/" }),
+  tagTypes: ["getPayments"],
   endpoints: (builder) => ({
     getPayments: builder.query<TPayment[], void>({
       query: () => "payments",
@@ -46,6 +36,11 @@ export const paymentsAPI = createApi({
     }),
   }),
 });
+
+// export const useGetPaymentsQuery: UseQuery<QueryDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "getPayments", TPayment[], "paymentsApi">> = paymentsAPI.useGetPaymentsQuery;
+// export const useCreatePaymentMutation: UseMutation<MutationDefinition<Partial<TPayment>, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "getPayments", TPayment, "paymentsApi">> = paymentsAPI.useCreatePaymentMutation;
+// export const useUpdatePaymentMutation: UseMutation<MutationDefinition<Partial<TPayment>, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "getPayments", TPayment, "paymentsApi">> = paymentsAPI.useUpdatePaymentMutation;
+// export const useDeletePaymentMutation: UseMutation<MutationDefinition<number, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "getPayments", { ... }, "paymentsApi">> = paymentsAPI.useDeletePaymentMutation;
 
 export const {
   useGetPaymentsQuery,
