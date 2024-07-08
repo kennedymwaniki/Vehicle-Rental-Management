@@ -1,7 +1,12 @@
-import { useGetUsersQuery } from "./UserApi";
+import { usersAPI } from "./UserApi";
 
 const Users = () => {
-  const { data: usersData, error, isLoading, isError } = useGetUsersQuery();
+  const {
+    data: usersData,
+    error,
+    isLoading,
+    isError,
+  } = usersAPI.useGetUsersQuery();
 
   console.log({ usersData, error, isLoading, isError });
 
@@ -15,8 +20,13 @@ const Users = () => {
 
   return (
     <div>
+      <p className="text-yellow-400">Users</p>
       {usersData?.map((usr) => (
-        <div key={usr.id}>{usr.fullName}</div>
+        <div key={usr.userId}>
+          <>
+            {usr.userId}:{usr.fullName}
+          </>
+        </div>
       ))}
     </div>
   );

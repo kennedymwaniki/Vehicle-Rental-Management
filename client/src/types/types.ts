@@ -1,5 +1,5 @@
 export interface TUser {
-  id: number;
+  userId: number;
   fullName: string;
   email: string;
   phone: string;
@@ -59,4 +59,16 @@ export interface TTicket {
   status: string;
   createdAt: string;
   updatedAt: string;
+}
+export interface TVehicleSpecs {
+  vehicleSpec_id: number;
+  manufacturer: string;
+  model: string;
+  year: number;
+  fuel_type: string;
+  engine_capacity: string;
+  transmission: string;
+  seating_capacity: number;
+  color: string;
+  features: string;
 }

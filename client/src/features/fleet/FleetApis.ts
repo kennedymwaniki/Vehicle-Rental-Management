@@ -48,9 +48,4 @@ export const fleetsAPI = createApi({
   }),
 });
 
-export const {
-  useGetFleetsQuery,
-  useCreateFleetMutation,
-  useUpdateFleetMutation,
-  useDeleteFleetMutation,
-} = fleetsAPI;
+export default fleetsAPI;

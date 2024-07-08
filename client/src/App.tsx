@@ -1,5 +1,6 @@
 import Fleets from "./features/fleet/Fleets";
 import Payments from "./features/Payments/Payments";
+import TicketList from "./features/Tickets/TicketList";
 import Users from "./features/Users/Users";
 import Vehicles from "./features/vehicles/Vehicles";
 
@@ -10,6 +11,7 @@ const App = () => {
       <Payments />
       <Vehicles />
       <Fleets />
+      <TicketList />
     </div>
   );
 };

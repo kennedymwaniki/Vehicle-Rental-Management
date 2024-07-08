@@ -42,9 +42,4 @@ export const paymentsAPI = createApi({
 // export const useUpdatePaymentMutation: UseMutation<MutationDefinition<Partial<TPayment>, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "getPayments", TPayment, "paymentsApi">> = paymentsAPI.useUpdatePaymentMutation;
 // export const useDeletePaymentMutation: UseMutation<MutationDefinition<number, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, "getPayments", { ... }, "paymentsApi">> = paymentsAPI.useDeletePaymentMutation;
 
-export const {
-  useGetPaymentsQuery,
-  useCreatePaymentMutation,
-  useUpdatePaymentMutation,
-  useDeletePaymentMutation,
-} = paymentsAPI;
+export default paymentsAPI;

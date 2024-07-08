@@ -1,4 +1,4 @@
-import { useGetVehiclesQuery } from "./VehiclesApi";
+import { vehiclesAPI } from "./VehiclesApi";
 
 const Vehicles = () => {
   const {
@@ -6,7 +6,7 @@ const Vehicles = () => {
     error,
     isLoading,
     isError,
-  } = useGetVehiclesQuery();
+  } = vehiclesAPI.useGetVehiclesQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -26,7 +26,9 @@ const Vehicles = () => {
       <p>Vehicles</p>
       {vehiclesData?.map((vehicle) => (
         <div key={vehicle.vehicleId}>
-          <>{vehicle.availability}</>
+          <>
+            {vehicle.vehicleId}-{vehicle.rentalRate}
+          </>
         </div>
       ))}
     </div>

@@ -23,19 +23,18 @@ export const usersAPI = createApi({
       invalidatesTags: ["getUsers"],
     }),
     updateUser: builder.mutation<TUser, Partial<TUser>>({
-      query: ({ id, ...rest }) => ({
-        url: `users/${id}`,
+      query: ({ userId, ...rest }) => ({
+        url: `users/${userId}`,
         method: "PUT",
         body: rest,
         providesTags: ["updateUser"],
       }),
       invalidatesTags: ["getUsers"],
     }),
-    deleteUsers: builder.mutation<{ success: boolean; id: number }, number>({
-      query: ({ id, ...rest }) => ({
-        url: `users/${id}`,
-        method: "PUT",
-        body: rest,
+    deleteUsers: builder.mutation<{ success: boolean; userId: number }, number>({
+      query: (userId ) => ({
+        url: `users/${userId}`,
+        method: "DELETE",
         providesTags: ["deleteUser"],
       }),
       invalidatesTags: ["getUsers"],
@@ -43,9 +42,4 @@ export const usersAPI = createApi({
   }),
 });
 
-export const {
-  useGetUsersQuery,
-  useCreateUserMutation,
-  useUpdateUserMutation,
-  useDeleteUserMutation,
-} = usersAPI;
+export default usersAPI;

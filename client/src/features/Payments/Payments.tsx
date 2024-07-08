@@ -1,4 +1,4 @@
-import { useGetPaymentsQuery } from "./PaymentsApi";
+import { paymentsAPI } from "./PaymentsApi";
 
 const Payments = () => {
   const {
@@ -6,7 +6,7 @@ const Payments = () => {
     error,
     isLoading,
     isError,
-  } = useGetPaymentsQuery();
+  } = paymentsAPI.useGetPaymentsQuery();
 
   if (isLoading) {
     return <div>Loading...</div>;
