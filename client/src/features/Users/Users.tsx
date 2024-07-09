@@ -39,10 +39,10 @@ const Users = () => {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-yellow-400 text-2xl mb-4">Users</h2>
-      <div className="overflow-x-auto">
+      <div className="">
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="bg-slate-400">
               <th className="py-2 px-4 border-b">User ID</th>
               <th className="py-2 px-4 border-b">Full Name</th>
               <th className="py-2 px-4 border-b">Email</th>
@@ -67,7 +67,7 @@ const Users = () => {
                     Edit
                   </button>
                   <button
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                    className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-600"
                     onClick={() => handleDelete(user.userId)}
                   >
                     Delete
