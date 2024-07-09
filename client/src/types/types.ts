@@ -2,7 +2,7 @@ export interface TUser {
   userId: number;
   fullName: string;
   email: string;
-  phone: string;
+  contactPhone: string;
   address: string;
 }
 
