@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const usersAPI = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api",
+    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api/",
   }),
   tagTypes: ["getUsers"],
 
@@ -31,14 +31,16 @@ export const usersAPI = createApi({
       }),
       invalidatesTags: ["getUsers"],
     }),
-    deleteUsers: builder.mutation<{ success: boolean; userId: number }, number>({
-      query: (userId ) => ({
-        url: `users/${userId}`,
-        method: "DELETE",
-        providesTags: ["deleteUser"],
-      }),
-      invalidatesTags: ["getUsers"],
-    }),
+    deleteUsers: builder.mutation<{ success: boolean; userId: number }, number>(
+      {
+        query: (userId) => ({
+          url: `users/${userId}`,
+          method: "DELETE",
+          providesTags: ["deleteUser"],
+        }),
+        invalidatesTags: ["getUsers"],
+      }
+    ),
   }),
 });
 
