@@ -50,9 +50,4 @@ export const bookingsAPI = createApi({
   }),
 });
 
-export const {
-  useGetBookingsQuery,
-  useCreateBookingMutation,
-  useUpdateBookingMutation,
-  useDeleteBookingMutation,
-} = bookingsAPI;
+export default bookingsAPI;

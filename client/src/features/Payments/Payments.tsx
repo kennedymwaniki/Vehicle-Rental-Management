@@ -7,6 +7,7 @@ const Payments = () => {
     isLoading,
     isError,
   } = paymentsAPI.useGetPaymentsQuery();
+  console.log(paymentData);
 
   if (isLoading) {
     return <div>Loading...</div>;
