@@ -4,6 +4,7 @@ export interface TUser {
   email: string;
   contactPhone: string;
   address: string;
+  role:string
 }
 
 export interface TFleet {

@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { TPayment } from "./../../types/types";
 
-
 export const paymentsAPI = createApi({
   reducerPath: "paymentsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api/",
+  }),
   tagTypes: ["getPayments"],
   endpoints: (builder) => ({
     getPayments: builder.query<TPayment[], void>({
