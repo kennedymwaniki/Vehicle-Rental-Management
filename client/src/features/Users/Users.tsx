@@ -7,7 +7,7 @@ import { LuClipboardEdit } from "react-icons/lu";
 import Modal from "../../ui/Modal"; // Import the Modal component
 
 const Users = () => {
-  const [editUserId, setEditUserId] = useState<number | null>(null);
+  const [editUserId, setEditUserId] = useState<number | null | undefined>(null);
   const [userData, setUserData] = useState<Partial<TUser>>({});
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [newUserData, setNewUserData] = useState<Partial<TUser>>({});
@@ -19,6 +19,7 @@ const Users = () => {
     isLoading: isUsersLoading,
     isError,
   } = usersAPI.useGetUsersQuery();
+  console.log(usersData);
 
   const [updateUser] = usersAPI.useUpdateUserMutation();
   const [deleteUser] = usersAPI.useDeleteUsersMutation();

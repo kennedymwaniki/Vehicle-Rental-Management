@@ -1,10 +1,10 @@
 export interface TUser {
-  userId: number;
+  userId: number|null| undefined;
   fullName: string;
   email: string;
   contactPhone: string;
   address: string;
-  role:string
+  role: string;
 }
 
 export interface TFleet {
@@ -20,7 +20,7 @@ export interface TFleet {
 }
 
 export interface TPayment {
-  paymentId: number;
+  paymentId: number | null | undefined;
   bookingId: number;
   amount: number;
   paymentStatus: "Pending" | "Completed" | "Failed";
@@ -31,7 +31,7 @@ export interface TPayment {
   updatedAt: string;
 }
 export interface TBooking {
-  bookingId: number;
+  bookingId: number | null | undefined;
   userId: number;
   vehicleId: number;
   locationId: number;
