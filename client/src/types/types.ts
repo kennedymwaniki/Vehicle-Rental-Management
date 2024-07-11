@@ -1,5 +1,5 @@
 export interface TUser {
-  userId: number|null| undefined;
+  userId: number | null | undefined;
   fullName: string;
   email: string;
   contactPhone: string;
@@ -53,7 +53,7 @@ export interface TVehicle {
 }
 
 export interface TTicket {
-  ticketId: number;
+  ticketId: number | null | undefined;
   userId: number;
   subject: string;
   description: string;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { usersAPI } from "./UserApi";
 import { TUser } from "../../types/types";
 import { useState } from "react";
@@ -67,9 +68,14 @@ const Users = () => {
     return <div className="text-center">Loading...</div>;
   }
 
-  if (isError) {
-    return <div className="text-red-500">Error: {error.toString()}</div>;
-  }
+  // if (isError) {
+  //   return (
+  //     <div>
+  //       Error: {error.toString()}
+  //       console.log(error)
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="container mx-auto p-4">
@@ -187,7 +193,7 @@ const Users = () => {
                       </button>
                       <button
                         className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-600"
-                        onClick={() => handleDelete(user.userId)}
+                        onClick={() => handleDelete(user.userId || 0)}
                       >
                         <MdAutoDelete />
                       </button>

@@ -22,8 +22,6 @@ const BookingsTable = () => {
   const [newBookingData, setNewBookingData] = useState<Partial<TBooking>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
- 
-
   console.log("Loading:", LoadingBookings);
   console.log("Error:", error);
   console.log("BookingsData:", BookingsData);
@@ -53,7 +51,6 @@ const BookingsTable = () => {
       } catch (error) {
         toast.error("Failed to delete booking");
       }
-
     } else {
       // Handle the case where bookingId is null or undefined
     }
@@ -86,9 +83,9 @@ const BookingsTable = () => {
     }
   };
 
-  if (LoadingBookings) {
-    return <div className="text-center">Loading...</div>;
-  }
+  // if (LoadingBookings) {
+  //   return <div className="text-center">Loading...</div>;
+  // }
 
   if (isError) {
     return <div className="text-red-500">Error: {error.toString()}</div>;
@@ -115,9 +112,7 @@ const BookingsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {
-              
-            BookingsData?.map((booking: TBooking) => (
+            {BookingsData?.map((booking: TBooking) => (
               <tr key={booking.bookingId}>
                 <td className="py-2 px-4 border-b">{booking.bookingId}</td>
                 <td className="py-2 px-4 border-b">
