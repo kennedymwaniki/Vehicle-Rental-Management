@@ -4,7 +4,7 @@ import { TPayment } from "./../../types/types";
 export const paymentsAPI = createApi({
   reducerPath: "paymentsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api",
+    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api/",
   }),
   tagTypes: ["getPayments"],
   endpoints: (builder) => ({

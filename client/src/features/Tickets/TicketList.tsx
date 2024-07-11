@@ -23,7 +23,7 @@ const TicketsTable = () => {
   } = ticketsAPI.useGetTicketsQuery();
 
   console.log("TicketsData:",ticketsData)
-  console.log("TicketsData:",isError)
+  // console.log("TicketsData:",isError)
 
   const [updateTicket] = ticketsAPI.useUpdateTicketMutation();
   const [deleteTicket] = ticketsAPI.useDeleteTicketMutation();

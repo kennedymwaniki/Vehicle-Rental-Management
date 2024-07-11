@@ -7,11 +7,17 @@ import {
   updateTicket,
   deleteTicket,
 } from "./customerSupportController";
+import { adminRoleAuth, bothRoleAuth } from "../middleware/authBearer";
 
 export const customerSupportRouter = new Hono();
 
-customerSupportRouter.get("/support-tickets", getTickets);
-customerSupportRouter.get("/support-tickets/:id", getTicket);
-customerSupportRouter.post("/support-tickets", createTicket);
-customerSupportRouter.put("/support-tickets/:id", updateTicket);
-customerSupportRouter.delete("/support-tickets/:id", deleteTicket);
+
+customerSupportRouter.get("/support-tickets", bothRoleAuth, getTickets);
+customerSupportRouter.get("/support-tickets/:id", adminRoleAuth, getTicket);
+customerSupportRouter.post("/support-tickets", adminRoleAuth, createTicket);
+customerSupportRouter.put("/support-tickets/:id", adminRoleAuth, updateTicket);
+customerSupportRouter.delete(
+  "/support-tickets/:id",
+  adminRoleAuth,
+  deleteTicket
+);

@@ -4,6 +4,8 @@ import {
   getUserById,
   getUsersService,
   updateUserService,
+  getUserBookingsById,
+  getUserSupportTicketsById
 } from "./userService";
 
 import { type Context } from "hono";
@@ -76,4 +78,42 @@ export const deleteUser = async (c: Context) => {
   } catch (error: any) {
     return c.json({ error: error?.message }, 400);
   }
+};
+
+export const getUserBookings = async (c: Context) => {
+  const userId = parseInt(c.req.param("id"));
+
+  if (isNaN(userId)) {
+    return c.json({ error: "Invalid user ID" }, 400);
+  }
+
+  const userBookings = await getUserBookingsById(userId);
+
+  if (!userBookings) {
+    return c.json({ error: "User not found" }, 404);
+  }
+
+  const { bookings, ...userData } = userBookings;
+
+  return c.json({ user: userData, bookings }, 200);
+};
+
+
+
+export const getUserSupportTickets = async (c: Context) => {
+  const userId = parseInt(c.req.param("id"));
+
+  if (isNaN(userId)) {
+    return c.json({ error: "Invalid user ID" }, 400);
+  }
+
+  const userSupportTickets = await getUserSupportTicketsById(userId);
+
+  if (!userSupportTickets) {
+    return c.json({ error: "User not found" }, 404);
+  }
+
+  const { customerSupportTickets, ...userData } = userSupportTickets;
+
+  return c.json({ user: userData, supportTickets: customerSupportTickets }, 200);
 };

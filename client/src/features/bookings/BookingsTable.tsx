@@ -13,7 +13,8 @@ const BookingsTable = () => {
     isLoading: LoadingBookings,
     isError,
   } = bookingsAPI.useGetBookingsQuery();
-  // const [editBookingId, setEditBookingId] = useState<number | null| undefined>(null);
+  console.log("BookingsData:", BookingsData);
+
   const [editBookingId, setEditBookingId] = useState<number | null | undefined>(
     null
   );
@@ -24,7 +25,6 @@ const BookingsTable = () => {
 
   console.log("Loading:", LoadingBookings);
   console.log("Error:", error);
-  console.log("BookingsData:", BookingsData);
 
   const [updateBooking] = bookingsAPI.useUpdateBookingMutation();
   const [deleteBooking] = bookingsAPI.useDeleteBookingMutation();
@@ -83,9 +83,9 @@ const BookingsTable = () => {
     }
   };
 
-  // if (LoadingBookings) {
-  //   return <div className="text-center">Loading...</div>;
-  // }
+  if (LoadingBookings) {
+    return <div className="text-center">Loading...</div>;
+  }
 
   if (isError) {
     return <div className="text-red-500">Error: {error.toString()}</div>;

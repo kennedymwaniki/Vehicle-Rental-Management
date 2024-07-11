@@ -4,6 +4,7 @@ import TicketList from "../features/Tickets/TicketList";
 import Users from "../features/Users/Users";
 import Hero from "../ui/Hero";
 import Navbar from "../ui/Navbar";
+import AdminDashboard from "./AdminDashboard";
 
 const Homepage = () => {
   return (
@@ -14,6 +15,7 @@ const Homepage = () => {
       <BookingsTable />
       <Payments />
       <TicketList />
+      <AdminDashboard />
     </>
   );
 };

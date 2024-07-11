@@ -6,12 +6,15 @@ import {
   createVehicle,
   updateVehicle,
   deleteVehicle,
+  getVehicleSpecifications,
 } from "./vehicleController";
+import { adminRoleAuth, bothRoleAuth } from "../middleware/authBearer";
 
 export const vehicleRouter = new Hono();
 
-vehicleRouter.get("/vehicles", getVehicles);
-vehicleRouter.get("/vehicles/:id", getVehicle);
-vehicleRouter.post("/vehicles", createVehicle);
-vehicleRouter.put("/vehicles/:id", updateVehicle);
-vehicleRouter.delete("/vehicles/:id", deleteVehicle);
+vehicleRouter.get("/vehicles", adminRoleAuth, getVehicles);
+vehicleRouter.get("/vehicles/:id", bothRoleAuth, getVehicle);
+vehicleRouter.post("/vehicles", adminRoleAuth, createVehicle);
+vehicleRouter.put("/vehicles/:id", adminRoleAuth, updateVehicle);
+vehicleRouter.delete("/vehicles/:id", adminRoleAuth, deleteVehicle);
+vehicleRouter.get("vehicle/specification/:id", getVehicleSpecifications);

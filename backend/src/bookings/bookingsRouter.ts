@@ -1,3 +1,5 @@
+import { bothRoleAuth } from "../middleware/authBearer";
+import { adminRoleAuth } from "./../middleware/authBearer";
 import { Hono } from "hono";
 
 import {
@@ -7,12 +9,11 @@ import {
   updateBooking,
   deleteBooking,
 } from "./bookingController";
-import { bothRoleAuth } from "../middleware/authBearer";
 
 export const bookingRouter = new Hono();
 
-bookingRouter.get("/bookings", getBookings);
-bookingRouter.get("/bookings/:id", getBooking);
-bookingRouter.post("/bookings", createBooking);
-bookingRouter.put("/bookings/:id", updateBooking);
-bookingRouter.delete("/bookings/:id", deleteBooking);
+bookingRouter.get("/bookings", bothRoleAuth, getBookings);
+bookingRouter.get("/bookings/:id", bothRoleAuth, getBooking);
+bookingRouter.post("/bookings", adminRoleAuth, createBooking);
+bookingRouter.put("/bookings/:id", adminRoleAuth, updateBooking);
+bookingRouter.delete("/bookings/:id", adminRoleAuth, deleteBooking);

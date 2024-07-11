@@ -1,12 +1,24 @@
 ###
 GET http://localhost:3000/api/users
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZWFuLmRvZUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwMTA3NjcyfQ.YvF2NI0oTJv1QtT1PazfglrERBExuEWNIcgbFcO_nVY
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 ###
+
+//userBookings
+###
+GET http://localhost:3000/api/user/bookings/1
+
+###
+GET http://localhost:3000/api/user/support-tickets/13
+
+
+
 GET http://localhost:3000/api/users/20
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 ###
 
 PUT http://localhost:3000/api/users/3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 Content-Type: application/json
 
 {
@@ -16,7 +28,7 @@ Content-Type: application/json
 
 ###
 DELETE  http://localhost:3000/api/users/19
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 //end of user actions
 
@@ -25,33 +37,41 @@ DELETE  http://localhost:3000/api/users/19
 //bookings
 ###
 GET http://localhost:3000/api/bookings
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 ###
 DELETE  http://localhost:3000/api/bookings/3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 
 ###
 GET http://localhost:3000/api/fleet
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 ###
 GET http://localhost:3000/api/fleet/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 
 ///end of fleets
 ###
 GET http://localhost:3000/api/locations
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 ###
 GET http://localhost:3000/api/payments
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 ###
 GET http://localhost:3000/api/vehicles
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
+###
+GET http://localhost:3000/api/vehicle/specification/3
 
 
 
 ///vehiclespecs
 ###
 GET http://localhost:3000/api/vehicle-specs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 
 
@@ -59,6 +79,7 @@ GET http://localhost:3000/api/vehicle-specs
 
 ###
 GET http://localhost:3000/api/support-tickets
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWUuZG9lQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzIwNzA1MzY1fQ.Lu3JBxn3ZqzkQ2dzSeZWm0EoMr2n3ZH-tYvDo2DFZH8
 
 ###
 //authRouter
