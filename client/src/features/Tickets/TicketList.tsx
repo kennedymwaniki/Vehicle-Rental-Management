@@ -22,7 +22,7 @@ const TicketsTable = () => {
     isError,
   } = ticketsAPI.useGetTicketsQuery();
 
-  console.log("TicketsData:",ticketsData)
+  console.log("TicketsData:", ticketsData);
   // console.log("TicketsData:",isError)
 
   const [updateTicket] = ticketsAPI.useUpdateTicketMutation();

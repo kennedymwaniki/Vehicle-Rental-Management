@@ -12,8 +12,8 @@ export const registerUser = async (c: Context) => {
     console.log("AuthController:", user);
 
     // Get and hash the user password
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    user.password = hashedPassword;
+    // const hashedPassword = await bcrypt.hash(user.password, 10);
+    // user.password = hashedPassword;
 
     const createdUser = await createAuthUserService(user);
     if (!createdUser) return c.text("User not created", 404);
@@ -135,6 +135,7 @@ export const loginUser = async (c: Context) => {
 
     // Check if user exists
     const foundUser = await logInAuthService(user);
+    console.log(foundUser);
     if (!foundUser) return c.json({ error: "User not found" }, 404);
 
     // Validate user password
@@ -161,8 +162,10 @@ export const loginUser = async (c: Context) => {
         {
           token,
           user: {
+            id: foundUser.userId,
             fullName: foundUser.fullName,
             email: foundUser.email,
+            role: foundUser.role,
           },
         },
         200

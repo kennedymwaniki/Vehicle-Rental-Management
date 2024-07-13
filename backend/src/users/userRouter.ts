@@ -10,22 +10,40 @@ import {
   getUserSupportTickets,
 } from "./userController";
 import { adminRoleAuth, bothRoleAuth } from "../middleware/authBearer";
-
+import { zValidator } from "@hono/zod-validator";
+import { UserSchema } from "../validator";
 export const userRouter = new Hono();
 // userRouter.use("*");
 
 // get users route
 userRouter.get("/users", adminRoleAuth, getUsers);
 userRouter.get("/users/:id", bothRoleAuth, getUser);
-userRouter.post("/users", adminRoleAuth, createUser);
+userRouter.post(
+  "/users",
+  zValidator("json", UserSchema, (result, c) => {
+    if (!result.success) {
+      return c.json(result.error, 400);
+    }
+  }),
+  adminRoleAuth,
+  createUser
+);
 // userRouter.post("/users/register", createUser);
 
 // create a user
 
 //update a user
-userRouter.put("/users/:id", bothRoleAuth, updateUser);
+userRouter.put(
+  "/users/:id",
+  zValidator("json", UserSchema, (result, c) => {
+    if (!result.success) {
+      return c.json(result.error, 400);
+    }
+  }),
+  updateUser
+);
 // delete user
-userRouter.delete("/users/:id", adminRoleAuth, deleteUser);
+userRouter.delete("/users/:id", deleteUser);
 
 userRouter.get("/user/bookings/:id", getUserBookings);
 userRouter.get("/user/support-tickets/:id", getUserSupportTickets);

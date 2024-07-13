@@ -1,4 +1,4 @@
-import { adminRoleAuth, bothRoleAuth } from "./../middleware/authBearer";
+import { bothRoleAuth } from "./../middleware/authBearer";
 import { Hono } from "hono";
 
 import {
@@ -11,11 +11,11 @@ import {
 
 export const paymentsRouter = new Hono();
 
-paymentsRouter.get("/payments", adminRoleAuth, getPayments);
-paymentsRouter.get("/payments/:id", bothRoleAuth, getPayment);
+paymentsRouter.get("/payments", getPayments);
+paymentsRouter.get("/payments/:id", getPayment);
 // paymentsRouter.post("/payments", createPayment);
-paymentsRouter.put("/payments/:id", adminRoleAuth, updatePayment);
-paymentsRouter.delete("/payments/:id", adminRoleAuth, deletePayment);
+paymentsRouter.put("/payments/:id", updatePayment);
+paymentsRouter.delete("/payments/:id", deletePayment);
 
 paymentsRouter.post(
   "/create-checkout-session",

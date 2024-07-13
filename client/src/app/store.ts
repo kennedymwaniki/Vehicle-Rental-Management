@@ -9,6 +9,10 @@ import { paymentsAPI } from "../features/Payments/PaymentsApi";
 import { fleetsAPI } from "../features/fleet/FleetApis";
 import { bookingsAPI } from "../features/bookings/BookingsApi";
 import { ticketsAPI } from "../features/Tickets/TicketsApi";
+import loginAPI from "../features/Login/LoginAPI";
+import authSlice from "../features/Auth/authSlice";
+
+
 
 // Persist configuration
 const persistConfig = {
@@ -25,6 +29,8 @@ const rootReducer = combineReducers({
   [fleetsAPI.reducerPath]: fleetsAPI.reducer,
   [bookingsAPI.reducerPath]: bookingsAPI.reducer,
   [ticketsAPI.reducerPath]: ticketsAPI.reducer,
+  [loginAPI.reducerPath]:loginAPI.reducer,
+  auth:authSlice
 });
 
 // Create persisted reducer
@@ -40,6 +46,7 @@ export const store = configureStore({
       },
     }).concat(
       usersAPI.middleware,
+      loginAPI.middleware,
       vehiclesAPI.middleware,
       paymentsAPI.middleware,
       fleetsAPI.middleware,

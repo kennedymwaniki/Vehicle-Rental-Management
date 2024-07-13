@@ -38,9 +38,4 @@ export const vehiclesAPI = createApi({
   }),
 });
 
-export const {
-  useGetVehiclesQuery,
-  useCreateVehicleMutation,
-  useUpdateVehicleMutation,
-  useDeleteVehicleMutation,
-} = vehiclesAPI;
+export default vehiclesAPI;

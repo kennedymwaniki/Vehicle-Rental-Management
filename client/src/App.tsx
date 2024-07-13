@@ -1,28 +1,49 @@
-// import Fleets from "./features/fleet/Fleets";
-// import Payments from "./features/Payments/Payments";
-// import TicketList from "./features/Tickets/TicketList";
-// import Users from "./features/Users/Users";
-// import Vehicles from "./features/vehicles/Vehicles";
-
+import BookingsTable from "./features/bookings/BookingsTable";
+import Login from "./features/Login/Login";
+import RegisterComponent from "./features/Login/Register";
+import Payments from "./features/Payments/Payments";
+import Users from "./features/Users/Users";
+import AdminDashboard from "./Pages/AdminDashboard";
 import Homepage from "./Pages/Homepage";
 
-// import AdminDashboard from "./Pages/AdminDashboard";
-Homepage;
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-{
-  /* <Users />
-      <Payments />
-      <Vehicles />
-      <Fleets />
-      <TicketList />
-      <AdminDashboard /> */
-}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Homepage />,
+  },
+  {
+    path: "register",
+    element: <RegisterComponent />,
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+  
+  {
+    path: "admindashboard",
+    element: <AdminDashboard />,
+    children: [
+      {
+        path: "bookings",
+        element: <BookingsTable />,
+      },
+      {
+        path: "users",
+        element: <Users />,
+      },
+      {
+        path: "payments",
+        element: <Payments />,
+      },
+    ],
+  },
+]);
+
 const App = () => {
-  return (
-    <div className="text-black flex flex-col gap-4">
-      <Homepage />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

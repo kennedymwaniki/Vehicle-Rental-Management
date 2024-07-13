@@ -4,7 +4,7 @@ import { TBooking } from "./../../types/types";
 export const bookingsAPI = createApi({
   reducerPath: "bookingsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api",
+    baseUrl: "http://localhost:3000/api",
   }),
   tagTypes: ["getBookings"],
 

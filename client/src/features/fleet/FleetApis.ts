@@ -14,7 +14,7 @@ import { TFleet } from "./../../types/types";
 
 export const fleetsAPI = createApi({
   reducerPath: "fleetsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
   tagTypes: ["getFleets"],
 
   endpoints: (builder) => ({

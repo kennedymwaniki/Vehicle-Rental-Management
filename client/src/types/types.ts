@@ -6,6 +6,24 @@ export interface TUser {
   address: string;
   role: string;
 }
+export interface User {
+  fullName: string;
+  token: string;
+  userId: string;
+  role: string;
+}
+
+// export interface AuthState {
+//   user: null ;
+//   token: string | null;
+//   isAuthenticated: boolean;
+// }
+
+export interface AuthState {
+  user: User | null;
+  token: string | null;
+  isAuthenticated: boolean;
+}
 
 export interface TFleet {
   fleetId: number;
