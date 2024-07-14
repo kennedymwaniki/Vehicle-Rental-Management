@@ -1,20 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { TFleet } from "./../../types/types";
-// interface TFleet {
-//   fleetId: number;
-//   vehicleId: number;
-//   acquisitionDate: string;
-//   depreciationRate: number;
-//   currentValue: number;
-//   maintenanceCost: number;
-//   status: string;
-//   createdAt: string;
-//   updatedAt: string;
-// }
+
 
 export const fleetsAPI = createApi({
   reducerPath: "fleetsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api",
+  }),
   tagTypes: ["getFleets"],
 
   endpoints: (builder) => ({

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import logo from "../../assets/kenny blue-Photoroom.png";
 import { useForm } from "react-hook-form";
 import loginAPI from "./LoginAPI";
@@ -5,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "../Auth/authSlice";
 import { toast, Toaster } from "sonner";
 import { useNavigate } from "react-router";
+import MiniLoader from "../../ui/MiniLoader";
 
 type FormValues = {
   email: string;
@@ -16,37 +18,41 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginUser] = loginAPI.useLoginUserMutation();
   const { register, handleSubmit } = useForm<FormValues>();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
+    setLoading(true);
     try {
       const response = await loginUser(data).unwrap();
-      console.log("API Response:", response); // Debug: Log the entire response
-
+      console.log("API Response:", response); // ?:Debug: Log the entire response
+      // ?: check for response
       if (response) {
-        console.log("Valid response received"); // Debug
+        console.log("response received"); 
         dispatch(setCredentials({ user: response, token: response.token }));
-        toast.success("Logged in Successfully");
+        toast.success("Logged in successfully");
 
-        console.log("User role:", response.user.role); // Debug: Log the role
+        console.log("User role:", response.user.role); 
 
         if (response.user.role === "admin") {
           console.log(response.user.role);
-          console.log("Redirecting to admin dashboard"); // Debug
+          console.log("Redirecting to admin dashboard"); 
           navigate("/admindashboard");
         } else {
-          console.log("Redirecting to user dashboard"); // Debug
+          console.log("Redirecting to user dashboard");
           navigate("/userdashboard");
         }
       } else {
-        console.log("Invalid response structure:", response); // Debug
+        console.log("Invalid response structure:", response);
         toast.error("Failed to login: Invalid response from server");
       }
     } catch (err: any) {
-      console.error("Login Error:", err); // Debug: Log the full error
+      console.error("Login Error:", err);
       toast.error(
         "Failed to login: " +
           (err.data?.msg || err.error || err.message || String(err))
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -117,9 +123,9 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center items-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 h-10"
             >
-              Sign in
+              {loading ? <MiniLoader /> : "Sign in"}
             </button>
           </div>
         </form>

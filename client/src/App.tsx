@@ -4,6 +4,7 @@ import RegisterComponent from "./features/Login/Register";
 import Payments from "./features/Payments/Payments";
 import Users from "./features/Users/Users";
 import AdminDashboard from "./Pages/AdminDashboard";
+import Error from "./Pages/Error";
 import Homepage from "./Pages/Homepage";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -12,6 +13,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
+    
+  },
+  {
+    path: "*",
+    element: <Error/>
   },
   {
     path: "register",
@@ -21,6 +27,11 @@ const router = createBrowserRouter([
     path: "login",
     element: <Login />,
   },
+  {
+    path: "login",
+    element: <Login />,
+  },
+
   
   {
     path: "admindashboard",

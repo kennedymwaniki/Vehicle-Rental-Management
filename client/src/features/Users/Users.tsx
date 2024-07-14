@@ -13,6 +13,7 @@ const Users = () => {
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [newUserData, setNewUserData] = useState<Partial<TUser>>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  
 
   const {
     data: usersData,
@@ -68,14 +69,14 @@ const Users = () => {
     return <div className="text-center">Loading...</div>;
   }
 
-  // if (isError) {
-  //   return (
-  //     <div>
-  //       Error: {error.toString()}
-  //       console.log(error)
-  //     </div>
-  //   );
-  // }
+  if (isError) {
+    return (
+      <div>
+        Error: {error.toString()}
+        console.log(error)
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -247,6 +248,21 @@ const Users = () => {
                     }
                     className="border p-2 rounded w-full"
                   />
+                      <div className="mb-2">
+          <label className="block">Password</label>
+          <input
+            type="password"
+            value={newUserData.password || ""}
+            onChange={(e) =>
+              setNewUserData({
+                ...newUserData,
+                password: e.target.value,
+              })
+            }
+            className="border p-2 rounded w-full"
+          />
+        </div>
+
                 </div>
                 <div className="mb-2">
                   <label className="block">Phone</label>

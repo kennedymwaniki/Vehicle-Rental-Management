@@ -8,7 +8,9 @@ export interface logInUser {
 
 export const loginAPI = createApi({
   reducerPath: "loginAPI",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/auth" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api/auth/",
+  }),
   endpoints: (builder) => ({
     loginUser: builder.mutation<User, logInUser>({
       query: (user) => ({
@@ -17,7 +19,10 @@ export const loginAPI = createApi({
         body: user,
       }),
     }),
+
+   // *! create a createuser endpoint which is a post request
     logout: builder.mutation<null, void>({
+      // Todo : use this on the profile dropdown menu and call this function the dispatch clear credentials and clear local storage
       query: () => ({
         url: "logout",
         method: "POST",

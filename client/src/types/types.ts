@@ -1,23 +1,22 @@
 export interface TUser {
   userId: number | null | undefined;
   fullName: string;
+  password?:string,
   email: string;
   contactPhone: string;
   address: string;
   role: string;
 }
 export interface User {
-  fullName: string;
   token: string;
-  userId: string;
-  role: string;
+  user: {
+    role: string;
+    userId: string;
+    fullName: string;
+  };
 }
 
-// export interface AuthState {
-//   user: null ;
-//   token: string | null;
-//   isAuthenticated: boolean;
-// }
+
 
 export interface AuthState {
   user: User | null;
