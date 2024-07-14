@@ -90,3 +90,10 @@ export interface TVehicleSpecs {
   color: string;
   features: string;
 }
+
+export interface TLocation{
+  locationId:number,
+    name: string,
+    address:string,
+    contactPhone:string,
+}

@@ -8,16 +8,18 @@ import Error from "./Pages/Error";
 import Homepage from "./Pages/Homepage";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import UserDashboard from "./Pages/UserDashboard";
+import Vehicles from "./features/vehicles/Vehicles";
+import Summary from "./ui/Summary";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
-    
   },
   {
     path: "*",
-    element: <Error/>
+    element: <Error />
   },
   {
     path: "register",
@@ -28,15 +30,17 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "login",
-    element: <Login />,
+    path: "userdashboard",
+    element: <UserDashboard />,
   },
-
-  
   {
     path: "admindashboard",
     element: <AdminDashboard />,
     children: [
+      {
+        index: true,
+        element: <Summary />,
+      },
       {
         path: "bookings",
         element: <BookingsTable />,
@@ -48,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "payments",
         element: <Payments />,
+      },
+      {
+        path: "vehicles",
+        element: <Vehicles />,
       },
     ],
   },

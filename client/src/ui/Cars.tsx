@@ -55,7 +55,7 @@ const Cars: React.FC = () => {
             className="bg-white shadow-md rounded-lg overflow-hidden"
           >
             <img
-              src={car.image}
+              src="src/assets/hero.png"
               alt={car.name}
               className="w-full h-48 object-cover"
             />
