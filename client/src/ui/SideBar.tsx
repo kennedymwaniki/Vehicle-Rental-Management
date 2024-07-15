@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col h-full bg-blue-600 p-4 text-white">
+    <div className="flex flex-col h-full bg-blue-600 p-2 text-white">
       <nav className="flex flex-col h-full">
         <div className="mb-8 flex items-center space-x-2">
           <FaTachometerAlt className="h-6 w-6" />

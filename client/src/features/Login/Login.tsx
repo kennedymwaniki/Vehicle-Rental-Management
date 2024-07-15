@@ -24,8 +24,8 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await loginUser(data).unwrap();
-      console.log("API Response:", response); // ?:Debug: Log the entire response
-      // ?: check for response
+      console.log("API Response:", response); // *:Debug: Log the entire response
+      // *! check for response
       if (response) {
         console.log("response received"); 
         dispatch(setCredentials({ user: response, token: response.token }));

@@ -1,4 +1,4 @@
-import { TUser } from "./../../types/types";
+import { TUser,TUserBookingsResponse } from "./../../types/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const usersAPI = createApi({
@@ -41,6 +41,14 @@ export const usersAPI = createApi({
         invalidatesTags: ["getUsers"],
       }
     ),
+    getUserBookingsById: builder.query<TUserBookingsResponse,void>({
+      query: (userId)=>({
+
+        url:`users/bookings/${userId}`,
+        method: "GET",
+        providesTags:["getUserBookings"]
+      })
+    })
   }),
 });
 

@@ -25,7 +25,7 @@ export interface AuthState {
 }
 
 export interface TFleet {
-  fleetId: number;
+  fleetId: number|null| undefined;
   vehicleId: number;
   acquisitionDate: string;
   depreciationRate: number;
@@ -96,4 +96,9 @@ export interface TLocation{
     name: string,
     address:string,
     contactPhone:string,
+}
+
+export interface TUserBookingsResponse {
+  user: TUser;
+  bookings: TBooking[];
 }

@@ -5,6 +5,8 @@ import {
   } from "react-icons/hi";
   import { FaCar } from "react-icons/fa6";
   import { IoTicket ,IoHome} from "react-icons/io5";
+import { Link } from "react-router-dom";
+
 
 const UserNav = () => {
   return (
@@ -16,30 +18,31 @@ const UserNav = () => {
           <h1 className="text-xl font-bold">User Dashboard</h1>
         </div>
         <ul className="space-y-4">
-          <li className="flex items-center space-x-2">
+        <li className="flex items-center space-x-2">
             <IoHome className="h-5 w-5" />
-            <span>Home</span>
+            <Link to="/userdashboard">Home</Link>
           </li>
           <li className="flex items-center space-x-2">
             <HiOutlineUser className="h-5 w-5" />
-            <span>Profile</span>
+            <Link to="">Profile</Link>
           </li>
           <li className="flex items-center space-x-2">
             <HiBookOpen className="h-5 w-5" />
-            <span> Your Bookings</span>
+            <Link to="mybookings">Your Bookings </Link>
           </li>
           <li className="flex items-center space-x-2">
             <HiOutlineCreditCard className="h-5 w-5" />
-            <span>Payments</span>
+            <Link to="mybookings">Your payments</Link>
           </li>
          
           <li className="flex items-center space-x-2">
             <FaCar className="h-5 w-5" />
-            <span>Vehicles</span>
+            <Link to="mybookings">Your Bookings </Link>
           </li>
           <li className="flex items-center space-x-2">
             <IoTicket className="h-5 w-5" />
-            <span>Your Tickets</span>
+            <Link to="mybookings">Your Tickets</Link>
+
           </li>
          
         </ul>

@@ -11,6 +11,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserDashboard from "./Pages/UserDashboard";
 import Vehicles from "./features/vehicles/Vehicles";
 import Summary from "./ui/Summary";
+import Fleets from "./features/fleet/Fleets";
+import UserBookings from "./features/Users/UserBookings";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,12 @@ const router = createBrowserRouter([
   {
     path: "userdashboard",
     element: <UserDashboard />,
+    children:[
+      {
+        path: 'mybookings',
+        element: <UserBookings/>
+      }
+    ]
   },
   {
     path: "admindashboard",
@@ -56,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "vehicles",
         element: <Vehicles />,
+      },
+      {
+        path: "fleets",
+        element: <Fleets />,
       },
     ],
   },

@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/kenny blue-Photoroom.png";
-
+Link
 const Navbar = () => {
   return (
     <div className="flex justify-between">
@@ -19,10 +20,14 @@ const Navbar = () => {
       </div>
       <div className="m-8">
         <button className="bg-green-500 text-white px-2 py-1 rounded mr-2 hover:bg-blue-600">
+        <Link to="login">
           Login
+        </Link>
         </button>
         <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2 hover:bg-yellow-600">
+          <Link to='register'>
           Register
+          </Link>
         </button>
       </div>
     </div>
