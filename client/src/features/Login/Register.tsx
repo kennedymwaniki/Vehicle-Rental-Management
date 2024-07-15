@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import loginAPI from "./LoginAPI";
+import { useNavigate } from "react-router-dom";
+
+interface RegisterFormInputs {
+  fullName: string;
+  email: string;
+  contactPhone: string;
+  password: string;
+  address: string;
+}
 
 const RegisterComponent = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contactPhone, setContactPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
+  const { register, handleSubmit, reset } = useForm<RegisterFormInputs>();
+  const [registerUser, { isLoading }] = loginAPI.useRegisterUserMutation();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Handle form submission logic here
-    // For example, send registration data to backend or perform validation
-    console.log({ fullName, email, contactPhone, password, address });
-    // Reset form fields after submission if needed
-    setFullName("");
-    setEmail("");
-    setContactPhone("");
-    setPassword("");
-    setAddress("");
+  const onSubmit = async (data:RegisterFormInputs) => {
+    try {
+      await registerUser(data).unwrap();
+      reset();
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration failed", error);
+    }
   };
 
   return (
@@ -29,106 +35,72 @@ const RegisterComponent = () => {
       </div>
 
       <div className="mt-8 sm:w-full sm:max-w-md">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label
-              htmlFor="fullName"
-              className="block text-sm font-medium leading-5 text-gray-900"
-            >
+            <label htmlFor="fullName" className="block text-sm font-medium leading-5 text-gray-900">
               Full Name
             </label>
             <input
               id="fullName"
-              name="fullName"
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              {...register("fullName", { required: true })}
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2"
-              required
             />
           </div>
 
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-5 text-gray-900"
-            >
+            <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-900">
               Email address
             </label>
             <input
               id="email"
-              name="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
+              {...register("email", { required: true })}
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2"
-              required
             />
           </div>
 
           <div>
-            <label
-              htmlFor="contactPhone"
-              className="block text-sm font-medium leading-5 text-gray-900"
-            >
+            <label htmlFor="contactPhone" className="block text-sm font-medium leading-5 text-gray-900">
               Contact Phone
             </label>
             <input
               id="contactPhone"
-              name="contactPhone"
               type="tel"
-              value={contactPhone}
-              onChange={(e) => setContactPhone(e.target.value)}
-              autoComplete="tel"
+              {...register("contactPhone", { required: true })}
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2"
-              required
             />
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium leading-5 text-gray-900"
-            >
+            <label htmlFor="password" className="block text-sm font-medium leading-5 text-gray-900">
               Password
             </label>
             <input
               id="password"
-              name="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="new-password"
+              {...register("password", { required: true })}
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2"
-              required
             />
           </div>
 
           <div>
-            <label
-              htmlFor="address"
-              className="block text-sm font-medium leading-5 text-gray-900"
-            >
+            <label htmlFor="address" className="block text-sm font-medium leading-5 text-gray-900">
               Address
             </label>
             <input
               id="address"
-              name="address"
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              {...register("address", { required: true })}
               className="block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-3 py-2"
-              required
             />
           </div>
 
           <div>
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Register
+              {isLoading ? "Registering..." : "Register"}
             </button>
           </div>
         </form>

@@ -13,6 +13,7 @@ import Vehicles from "./features/vehicles/Vehicles";
 import Summary from "./ui/Summary";
 import Fleets from "./features/fleet/Fleets";
 import UserBookings from "./features/Users/UserBookings";
+import BookingSuccess from "./components/BookingSuccess";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "booking-success",
+    element: <BookingSuccess />,
   },
   {
     path: "userdashboard",

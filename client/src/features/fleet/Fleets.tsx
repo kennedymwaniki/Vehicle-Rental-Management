@@ -21,7 +21,7 @@ const Fleets = () => {
     isError,
   } = fleetsAPI.useGetFleetsQuery();
   console.log(fleetsData);
-//TODO: export this to admon dashboard 
+//TODO: export this to admon dashboard
   const totalFleets = fleetsData?.reduce((acc, _curr) => acc + 1, 0) || 0;
 
   console.log(totalFleets)
@@ -253,6 +253,20 @@ const Fleets = () => {
                   />
                 </div>
                 <div className="mb-2">
+                  <label className="block">Vehicle ID</label>
+                  <input
+                    type="number"
+                    value={newFleetData.vehicleId || ""}
+                    onChange={(e) =>
+                      setNewFleetData({
+                        ...newFleetData,
+                        vehicleId: Number(e.target.value),
+                      })
+                    }
+                    className="border p-2 rounded w-full"
+                  />
+                </div>
+                <div className="mb-2">
                   <label className="block">Depreciation Rate</label>
                   <input
                     type="number"
@@ -276,7 +290,7 @@ const Fleets = () => {
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,
-                        currentValue: parseFloat(e.target.value),
+                        currentValue: Number(e.target.value),
                       })
                     }
                     className="border p-2 rounded w-full"
@@ -291,7 +305,7 @@ const Fleets = () => {
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,
-                        maintenanceCost: parseFloat(e.target.value),
+                        maintenanceCost: Number(e.target.value),
                       })
                     }
                     className="border p-2 rounded w-full"
