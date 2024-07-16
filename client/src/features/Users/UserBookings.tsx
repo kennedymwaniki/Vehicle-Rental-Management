@@ -1,4 +1,4 @@
-import usersAPI from "./UserApi"
+import usersAPI from "./UserApi";
 import { TBooking } from "../../types/types";
 
 const UserBookings = () => {
@@ -6,10 +6,13 @@ const UserBookings = () => {
   const user = userJson ? JSON.parse(userJson).user : null;
   const userId = user?.id;
 
-  const { data, error, isLoading } = usersAPI.useGetUserBookingsByIdQuery(userId, {
-    skip: !userId,
-  });
-  console.log
+  const { data, error, isLoading } = usersAPI.useGetUserBookingsByIdQuery(
+    userId,
+    {
+      skip: !userId,
+    }
+  );
+  console.log(data);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading bookings</div>;
@@ -18,16 +21,16 @@ const UserBookings = () => {
     <div>
       <h1>User Bookings</h1>
       {data?.bookings.length ? (
-        <table>
+        <table className="min-w-full bg-white border border-gray-300">
           <thead>
-            <tr>
-              <th>Booking ID</th>
-              <th>Vehicle ID</th>
-              <th>Location ID</th>
-              <th>Booking Date</th>
-              <th>Return Date</th>
-              <th>Total Amount</th>
-              <th>Status</th>
+            <tr className="bg-gray-100">
+              <th className="py-2 px-4 border-b">Booking ID</th>
+              <th className="py-2 px-4 border-b">Vehicle ID</th>
+              <th className="py-2 px-4 border-b">Location ID</th>
+              <th className="py-2 px-4 border-b">Booking Date</th>
+              <th className="py-2 px-4 border-b">Return Date</th>
+              <th className="py-2 px-4 border-b">Total Amount</th>
+              <th className="py-2 px-4 border-b">Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -42,9 +45,7 @@ const UserBookings = () => {
                 <td>{booking.totalAmount}</td>
                 <td>{booking.bookingStatus}</td>
                 <td>
-                  {booking.bookingStatus === "Pending" && (
-                    <button>Pay</button>
-                  )}
+                  {booking.bookingStatus === "Pending" && <button>Pay</button>}
                 </td>
               </tr>
             ))}
@@ -58,4 +59,3 @@ const UserBookings = () => {
 };
 
 export default UserBookings;
-

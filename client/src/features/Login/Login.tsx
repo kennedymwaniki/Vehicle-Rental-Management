@@ -27,22 +27,20 @@ const Login = () => {
       console.log("API Response:", response); // *:Debug: Log the entire response
       // *! check for response
       if (response) {
-        console.log("response received"); 
+        console.log("response received");
         dispatch(setCredentials({ user: response, token: response.token }));
         toast.success("Logged in successfully");
 
-        console.log("User role:", response.user.role); 
+        console.log("User role:", response.user.role);
 
         if (response.user.role === "admin") {
           console.log(response.user.role);
-          console.log("Redirecting to admin dashboard"); 
+
           navigate("/admindashboard");
         } else {
-          console.log("Redirecting to user dashboard");
           navigate("/userdashboard");
         }
       } else {
-        console.log("Invalid response structure:", response);
         toast.error("Failed to login: Invalid response from server");
       }
     } catch (err: any) {

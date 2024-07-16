@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const ProfileMenu = ({fullName}) => {
+import { RootState } from "../app/store";
+
+const ProfileMenu = ({ fullName }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useSelector((state: RootState) => state.auth);
+  console.log(user);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -33,12 +38,22 @@ const ProfileMenu = ({fullName}) => {
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20">
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          >
-            Your profile
-          </a>
+          {user?.user.role === "admin" ? (
+            <a
+              href="/admindashboard"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              Admin Dashboard
+            </a>
+          ) : (
+            <a
+              href="/userdashboard"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              User Dashboard
+            </a>
+          )}
+
           <a
             href="#"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

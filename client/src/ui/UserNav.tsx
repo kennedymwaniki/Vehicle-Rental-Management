@@ -36,11 +36,11 @@ const UserNav = () => {
             </li>
             <li className="flex items-center space-x-2">
               <IoTicket className="h-5 w-5" />
-              <Link to="mybookings">Your Tickets</Link>
+              <Link to="myTickets">Your Tickets</Link>
             </li>
             <li className="flex items-center space-x-2">
               <MdOutlineExitToApp className="h-5 w-5" />
-              <Link to="homepage">Go to HomePage</Link>
+              <Link to="/">Go to HomePage</Link>
             </li>
           </ul>
         </nav>

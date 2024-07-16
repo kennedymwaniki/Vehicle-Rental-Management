@@ -15,6 +15,9 @@ import Fleets from "./features/fleet/Fleets";
 import UserBookings from "./features/Users/UserBookings";
 import BookingSuccess from "./components/BookingSuccess";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Cars from "./components/Cars";
+import Booking from "./components/BookingComponent";
+import UserTickets from "./features/Users/UserTickets";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <RegisterComponent />,
+  },
+  {
+    path: "cars",
+    element: <Cars />,
   },
   {
     path: "login",
@@ -51,13 +58,17 @@ const router = createBrowserRouter([
             path: "mybookings",
             element: <UserBookings />,
           },
+          {
+            path: "myTickets",
+            element: <UserTickets />,
+          },
         ],
       },
     ],
   },
   {
     path: "admindashboard",
-    element: <ProtectedRoute />, 
+    element: <ProtectedRoute />,
     children: [
       {
         path: "",
@@ -88,6 +99,16 @@ const router = createBrowserRouter([
             element: <Fleets />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "booking/:vehicleId",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "",
+        element: <Booking />,
       },
     ],
   },

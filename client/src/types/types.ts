@@ -1,22 +1,20 @@
 export interface TUser {
-  userId: number | null | undefined;
-  fullName: string;
-  password?:string,
-  email: string;
-  contactPhone: string;
-  address: string;
-  role: string;
+  userId: number | null | undefined,
+  fullName: string,
+  password?: string,
+  email: string,
+  contactPhone: string,
+  address: string,
+  role: string,
 }
 export interface User {
   token: string;
   user: {
     role: string;
-    userId: string;
+    id: string,
     fullName: string;
   };
 }
-
-
 
 export interface AuthState {
   user: User | null;
@@ -25,7 +23,7 @@ export interface AuthState {
 }
 
 export interface TFleet {
-  fleetId: number|null| undefined;
+  fleetId: number | null | undefined;
   vehicleId: number;
   acquisitionDate: string;
   depreciationRate: number;
@@ -91,14 +89,19 @@ export interface TVehicleSpecs {
   features: string;
 }
 
-export interface TLocation{
-  locationId:number,
-    name: string,
-    address:string,
-    contactPhone:string,
+export interface TLocation {
+  locationId: number;
+  name: string;
+  address: string;
+  contactPhone: string;
 }
 
 export interface TUserBookingsResponse {
   user: TUser;
   bookings: TBooking[];
+}
+
+export interface TUserTicketsResponse{
+  user:TUser,
+  tickets:TTicket[]
 }

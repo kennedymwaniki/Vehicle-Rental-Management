@@ -18,15 +18,7 @@ export const userRouter = new Hono();
 // get users route
 userRouter.get("/users", getUsers);
 userRouter.get("/users/:id", getUser);
-userRouter.post(
-  "/users",
-  zValidator("json", UserSchema, (result, c) => {
-    if (!result.success) {
-      return c.json(result.error, 400);
-    }
-  }),
-  createUser
-);
+userRouter.post("/users", createUser);
 // userRouter.post("/users/register", createUser);
 
 // create a user
@@ -34,15 +26,11 @@ userRouter.post(
 //update a user
 userRouter.put(
   "/users/:id",
-  zValidator("json", UserSchema, (result, c) => {
-    if (!result.success) {
-      return c.json(result.error, 400);
-    }
-  }),
+
   updateUser
 );
 // delete user
 userRouter.delete("/users/:id", deleteUser);
 
 userRouter.get("/users/bookings/:id", getUserBookings);
-userRouter.get("/users/support-tickets/:id", getUserSupportTickets);
+userRouter.get("/users/tickets/:id", getUserSupportTickets);

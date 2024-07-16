@@ -44,7 +44,7 @@ const cars: Car[] = [
   },
 ];
 
-const Cars: React.FC = () => {
+const FeatureCars: React.FC = () => {
   return (
     <div className="container mx-auto py-12">
       <h2 className="text-3xl font-bold text-center mb-8">Our Featured Cars</h2>
@@ -77,7 +77,7 @@ const Cars: React.FC = () => {
         ))}
       </div>
       <div className="text-center mt-8">
-        <a href="/store" className="text-lg text-blue-500 hover:underline">
+        <a href="cars" className="text-lg text-blue-500 hover:underline">
           See The Store
         </a>
       </div>
@@ -85,4 +85,4 @@ const Cars: React.FC = () => {
   );
 };
 
-export default Cars;
+export default FeatureCars;

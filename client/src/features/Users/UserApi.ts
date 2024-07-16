@@ -1,4 +1,8 @@
-import { TUser,TUserBookingsResponse } from "./../../types/types";
+import {
+  TUser,
+  TUserBookingsResponse,
+  TUserTicketsResponse,
+} from "./../../types/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const usersAPI = createApi({
@@ -41,14 +45,20 @@ export const usersAPI = createApi({
         invalidatesTags: ["getUsers"],
       }
     ),
-    getUserBookingsById: builder.query<TUserBookingsResponse,void>({
-      query: (userId)=>({
-
-        url:`users/bookings/${userId}`,
+    getUserBookingsById: builder.query<TUserBookingsResponse, void>({
+      query: (userId) => ({
+        url: `users/bookings/${userId}`,
         method: "GET",
-        providesTags:["getUserBookings"]
-      })
-    })
+        providesTags: ["getUserBookings"],
+      }),
+    }),
+    getUserTcketsById: builder.query<TUserTicketsResponse, void>({
+      query: (userId) => ({
+        url: `users/tickets/${userId}`,
+        method: "GET",
+        providesTags: ["getUserTickets"],
+      }),
+    }),
   }),
 });
 
