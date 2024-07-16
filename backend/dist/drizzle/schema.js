@@ -79,7 +79,7 @@ exports.PaymentsTable = (0, pg_core_1.pgTable)("payments", {
     bookingId: (0, pg_core_1.integer)("booking_id").references(() => exports.BookingsTable.bookingId, {
         onDelete: "cascade",
     }),
-    amount: (0, pg_core_1.decimal)("amount").notNull(),
+    amount: (0, pg_core_1.integer)("amount").notNull(),
     paymentStatus: (0, exports.paymentStatusEnum)("payment_status")
         .default("Pending")
         .notNull(),

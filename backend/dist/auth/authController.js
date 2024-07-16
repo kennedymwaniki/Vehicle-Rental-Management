@@ -15,8 +15,8 @@ const registerUser = async (c) => {
         const user = await c.req.json();
         console.log("AuthController:", user);
         // Get and hash the user password
-        const hashedPassword = await bcrypt_1.default.hash(user.password, 10);
-        user.password = hashedPassword;
+        // const hashedPassword = await bcrypt.hash(user.password, 10);
+        // user.password = hashedPassword;
         const createdUser = await (0, authService_1.createAuthUserService)(user);
         if (!createdUser)
             return c.text("User not created", 404);
@@ -134,6 +134,7 @@ const loginUser = async (c) => {
         }
         // Check if user exists
         const foundUser = await (0, authService_1.logInAuthService)(user);
+        console.log(foundUser);
         if (!foundUser)
             return c.json({ error: "User not found" }, 404);
         // Validate user password
@@ -155,8 +156,10 @@ const loginUser = async (c) => {
             return c.json({
                 token,
                 user: {
+                    id: foundUser.userId,
                     fullName: foundUser.fullName,
                     email: foundUser.email,
+                    role: foundUser.role,
                 },
             }, 200); // Return token and user details
         }

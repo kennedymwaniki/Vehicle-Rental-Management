@@ -8,16 +8,7 @@ const drizzle_orm_1 = require("drizzle-orm");
 const db_1 = __importDefault(require("../drizzle/db"));
 const schema_1 = require("../drizzle/schema");
 const getBookingsService = async () => {
-    const bookings = await db_1.default.query.BookingsTable.findMany({
-        columns: {
-            bookingId: true,
-            userId: true,
-            bookingDate: true,
-            returnDate: true,
-            bookingStatus: true,
-            totalAmount: true,
-        },
-    });
+    const bookings = await db_1.default.query.BookingsTable.findMany();
     return bookings;
 };
 exports.getBookingsService = getBookingsService;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ProfileMenu = () => {
+const ProfileMenu = ({fullName}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -15,7 +15,7 @@ const ProfileMenu = () => {
           alt="Profile"
           className="h-8 w-8 rounded-full"
         />
-        <span className="font-medium">Kennedy</span>
+        <span className="font-medium">{fullName}</span>
         <svg
           className="w-4 h-4"
           fill="none"

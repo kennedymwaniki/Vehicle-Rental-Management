@@ -14,6 +14,7 @@ import Summary from "./ui/Summary";
 import Fleets from "./features/fleet/Fleets";
 import UserBookings from "./features/Users/UserBookings";
 import BookingSuccess from "./components/BookingSuccess";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Error />
+    element: <Error />,
   },
   {
     path: "register",
@@ -36,43 +37,57 @@ const router = createBrowserRouter([
     path: "booking-success",
     element: <BookingSuccess />,
   },
+  //!* wrap everything in a protected route and the usersdashboard becomes a child of the protected route and so does the admin page
+  //! ?
   {
     path: "userdashboard",
-    element: <UserDashboard />,
-    children:[
+    element: <ProtectedRoute />,
+    children: [
       {
-        path: 'mybookings',
-        element: <UserBookings/>
-      }
-    ]
+        path: "",
+        element: <UserDashboard />,
+        children: [
+          {
+            path: "mybookings",
+            element: <UserBookings />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "admindashboard",
-    element: <AdminDashboard />,
+    element: <ProtectedRoute />, 
     children: [
       {
-        index: true,
-        element: <Summary />,
-      },
-      {
-        path: "bookings",
-        element: <BookingsTable />,
-      },
-      {
-        path: "users",
-        element: <Users />,
-      },
-      {
-        path: "payments",
-        element: <Payments />,
-      },
-      {
-        path: "vehicles",
-        element: <Vehicles />,
-      },
-      {
-        path: "fleets",
-        element: <Fleets />,
+        path: "",
+        element: <AdminDashboard />,
+        children: [
+          {
+            index: true,
+            element: <Summary />,
+          },
+          {
+            path: "bookings",
+            element: <BookingsTable />,
+          },
+          {
+            path: "users",
+            element: <Users />,
+          },
+          {
+            path: "payments",
+            element: <Payments />,
+          },
+          {
+            path: "vehicles",
+            element: <Vehicles />,
+          },
+          {
+            path: "fleets",
+            element: <Fleets />,
+          },
+        ],
       },
     ],
   },

@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logInAuthService = exports.createAuthUserService = void 0;
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const db_1 = require("../drizzle/db");
 const schema_1 = require("../drizzle/schema");
 const drizzle_orm_1 = require("drizzle-orm");
@@ -15,6 +19,9 @@ const createAuthUserService = async (user) => {
         if (existingUser) {
             throw new Error("User with this email already exists");
         }
+        //hash password before inserting
+        const hashedPassword = await bcrypt_1.default.hash(user.password, 10);
+        user.password = hashedPassword;
         const createdUser = await db_1.db
             .insert(schema_1.UsersTable)
             .values({
@@ -29,7 +36,6 @@ const createAuthUserService = async (user) => {
         console.log("Authservices:", createdUser);
         // Extract the created user ID
         const userId = createdUser[0].userId;
-        // Insert user into `AuthUsersTable` table
         await db_1.db.insert(schema_1.AuthUsersTable).values({
             userId,
             password: user.password,
@@ -50,6 +56,7 @@ const logInAuthService = async (user) => {
         console.log(user);
         const authUser = await db_1.db.query.UsersTable.findFirst({
             columns: {
+                userId: true,
                 role: true,
                 fullName: true,
                 email: true,

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteVehicle = exports.updateVehicle = exports.createVehicle = exports.getVehicle = exports.getVehicles = void 0;
+exports.getVehicleSpecifications = exports.deleteVehicle = exports.updateVehicle = exports.createVehicle = exports.getVehicle = exports.getVehicles = void 0;
 const vehicleService_1 = require("./vehicleService");
 const getVehicles = async (c) => {
     const data = await (0, vehicleService_1.getVehiclesService)();
@@ -33,13 +33,13 @@ const createVehicle = async (c) => {
 };
 exports.createVehicle = createVehicle;
 const updateVehicle = async (c) => {
-    const id = parseInt(c.req.param("id"));
-    if (isNaN(id))
-        return c.text("Invalid ID", 400);
-    const vehicle = await c.req.json();
     try {
+        const id = parseInt(c.req.param("id"));
+        if (isNaN(id))
+            return c.text("Invalid ID", 400);
+        const vehicle = await c.req.json();
         const searchedVehicle = await (0, vehicleService_1.getVehicleById)(id);
-        if (searchedVehicle == undefined)
+        if (searchedVehicle === undefined)
             return c.text("Vehicle not found", 404);
         const res = await (0, vehicleService_1.updateVehicleService)(id, vehicle);
         if (!res)
@@ -69,3 +69,16 @@ const deleteVehicle = async (c) => {
     }
 };
 exports.deleteVehicle = deleteVehicle;
+const getVehicleSpecifications = async (c) => {
+    const vehicleId = parseInt(c.req.param("id"));
+    if (isNaN(vehicleId)) {
+        return c.json({ error: "Invalid vehicle ID" }, 400);
+    }
+    const vehicleSpecifications = await (0, vehicleService_1.getVehicleSpecificationsById)(vehicleId);
+    if (!vehicleSpecifications) {
+        return c.json({ error: "Vehicle not found" }, 404);
+    }
+    const { vehicleSpec, ...vehicleData } = vehicleSpecifications;
+    return c.json({ vehicle: vehicleData, specifications: vehicleSpec }, 200);
+};
+exports.getVehicleSpecifications = getVehicleSpecifications;

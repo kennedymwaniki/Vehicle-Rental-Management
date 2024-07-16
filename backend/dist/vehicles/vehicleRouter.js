@@ -9,3 +9,4 @@ exports.vehicleRouter.get("/vehicles/:id", vehicleController_1.getVehicle);
 exports.vehicleRouter.post("/vehicles", vehicleController_1.createVehicle);
 exports.vehicleRouter.put("/vehicles/:id", vehicleController_1.updateVehicle);
 exports.vehicleRouter.delete("/vehicles/:id", vehicleController_1.deleteVehicle);
+exports.vehicleRouter.get("vehicle/specification/:id", vehicleController_1.getVehicleSpecifications);
