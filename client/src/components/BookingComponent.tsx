@@ -1,16 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { toast, Toaster } from "sonner";
 import bookingsAPI from "../features/bookings/BookingsApi";
 import vehiclesAPI from "../features/vehicles/VehiclesApi";
 import { RootState } from "../app/store";
+import { useState } from "react";
 
 const Booking = () => {
   const { vehicleId } = useParams<{ vehicleId: string }>();
+  const navigate = useNavigate();
   const { user } = useSelector((state: RootState) => state.auth);
-  console.log(user);
   const userId = user?.user.id;
-  console.log(userId);
+
   const [createBooking] = bookingsAPI.useCreateBookingMutation();
   const { data: vehicleData } = vehiclesAPI.useGetVehiclesQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -19,6 +21,7 @@ const Booking = () => {
   });
 
   const { register, handleSubmit } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data: any) => {
     const bookingData = {
@@ -28,10 +31,16 @@ const Booking = () => {
     };
 
     try {
+      setIsSubmitting(true);
       await createBooking(bookingData).unwrap();
-      // Handle success (e.g., redirect or show success message)
+      toast.success("Booking created successfully!");
+      navigate(-2);
+      redirect("userdashboard");
     } catch (err) {
+      toast.error("Failed to create booking");
       console.log(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -39,6 +48,7 @@ const Booking = () => {
 
   return (
     <div className="container mx-auto py-8">
+      <Toaster position="top-center" richColors />
       <h2 className="text-2xl font-bold mb-6">Book Vehicle</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
@@ -65,7 +75,7 @@ const Booking = () => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            totalAmount
+            Total Amount
           </label>
           <input
             type="number"
@@ -99,9 +109,12 @@ const Booking = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          disabled={isSubmitting}
+          className={`mt-4 px-4 py-2 ${
+            isSubmitting ? "bg-gray-400" : "bg-blue-600"
+          } text-white rounded hover:bg-blue-700`}
         >
-          Submit Booking
+          {isSubmitting ? "Submitting..." : "Submit Booking"}
         </button>
       </form>
     </div>

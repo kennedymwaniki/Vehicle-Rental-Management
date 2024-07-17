@@ -1,24 +1,24 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { bookingsAPI } from "./BookingsApi";
 import { TBooking } from "../../types/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { MdAutoDelete } from "react-icons/md";
 import { LuClipboardEdit } from "react-icons/lu";
 import Modal from "../../ui/Modal";
 
 const BookingsTable = () => {
+  const [editBookingId, setEditBookingId] = useState<number | null | undefined>(
+    null
+  );
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const {
     data: BookingsData,
     error,
     isLoading: LoadingBookings,
     isError,
   } = bookingsAPI.useGetBookingsQuery();
-
-  const [editBookingId, setEditBookingId] = useState<number | null | undefined>(
-    null
-  );
-  const [isCreating, setIsCreating] = useState<boolean>(false);
 
   const [updateBooking] = bookingsAPI.useUpdateBookingMutation();
   const [deleteBooking] = bookingsAPI.useDeleteBookingMutation();
@@ -32,17 +32,30 @@ const BookingsTable = () => {
     formState: { errors },
   } = useForm<TBooking>();
 
+  useEffect(() => {
+    if (editBookingId && BookingsData) {
+      const bookingToEdit = BookingsData.find(
+        (booking) => booking.bookingId === editBookingId
+      );
+      if (bookingToEdit) {
+        Object.keys(bookingToEdit).forEach((key) => {
+          setValue(key as keyof TBooking, bookingToEdit[key as keyof TBooking]);
+        });
+      }
+    }
+  }, [editBookingId, BookingsData, setValue]);
+
   const onSubmit: SubmitHandler<TBooking> = async (data) => {
     try {
       if (editBookingId) {
-        await updateBooking({ bookingId: editBookingId, ...data }).unwrap();
+        await updateBooking({ ...data, bookingId: editBookingId }).unwrap();
         toast.success("Booking updated successfully");
-        setEditBookingId(null);
       } else {
         await createBooking(data).unwrap();
         toast.success("Booking created successfully");
-        setIsCreating(false);
       }
+      setIsModalOpen(false);
+      setEditBookingId(null);
       reset();
     } catch (error) {
       toast.error(
@@ -51,19 +64,25 @@ const BookingsTable = () => {
     }
   };
 
-  const handleEdit = (booking: TBooking) => {
-    setEditBookingId(booking.bookingId);
-    Object.keys(booking).forEach((key) => {
-      setValue(key as keyof TBooking, booking[key as keyof TBooking]);
-    });
+  const handleEdit = (bookingId: number) => {
+    if (bookingId !== null && bookingId !== undefined) {
+      setEditBookingId(bookingId);
+      setIsModalOpen(true);
+    } else {
+      toast.error("Invalid BookingId for editing");
+    }
   };
 
   const handleDelete = async (bookingId: number) => {
-    try {
-      await deleteBooking(bookingId).unwrap();
-      toast.success("Booking deleted successfully");
-    } catch (error) {
-      toast.error("Failed to delete booking");
+    if (bookingId !== null && bookingId !== undefined) {
+      try {
+        await deleteBooking(bookingId).unwrap();
+        toast.success("Booking deleted successfully");
+      } catch (error) {
+        toast.error("Failed to delete booking");
+      }
+    } else {
+      toast.error("Invalid booking ID");
     }
   };
 
@@ -77,7 +96,18 @@ const BookingsTable = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <Toaster position="top-center" />
+      <Toaster
+        position="top-center"
+        richColors
+        toastOptions={{
+          classNames: {
+            error: "error-toast",
+            success: "success-toast",
+            warning: "warning-toast",
+            info: "info-toast",
+          },
+        }}
+      />
 
       <h2 className="text-yellow-400 text-2xl mb-4">Bookings</h2>
       <div className="">
@@ -109,7 +139,7 @@ const BookingsTable = () => {
                 <td className="py-2 px-4 border-b">
                   <button
                     className="bg-blue-500 text-white px-2 py-1 rounded mr-2 hover:bg-blue-600"
-                    onClick={() => handleEdit(booking)}
+                    onClick={() => handleEdit(booking.bookingId)}
                   >
                     <LuClipboardEdit />
                   </button>
@@ -126,14 +156,18 @@ const BookingsTable = () => {
         </table>
         <button
           className="bg-green-500 text-white px-4 py-2 mt-4 rounded hover:bg-green-600"
-          onClick={() => setIsCreating(true)}
+          onClick={() => {
+            setEditBookingId(null);
+            setIsModalOpen(true);
+            reset();
+          }}
         >
           Add New Booking
         </button>
-        {(isCreating || editBookingId) && (
+        {isModalOpen && (
           <Modal
             onClose={() => {
-              setIsCreating(false);
+              setIsModalOpen(false);
               setEditBookingId(null);
               reset();
             }}
@@ -261,7 +295,7 @@ const BookingsTable = () => {
                     type="button"
                     className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                     onClick={() => {
-                      setIsCreating(false);
+                      setIsModalOpen(false);
                       setEditBookingId(null);
                       reset();
                     }}

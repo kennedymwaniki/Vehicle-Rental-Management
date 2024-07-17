@@ -18,6 +18,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Cars from "./components/Cars";
 import Booking from "./components/BookingComponent";
 import UserTickets from "./features/Users/UserTickets";
+import UserProfile from "./features/Users/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           {
             path: "myTickets",
             element: <UserTickets />,
+          },
+          {
+            path: "myprofile",
+            element: <UserProfile />,
           },
         ],
       },

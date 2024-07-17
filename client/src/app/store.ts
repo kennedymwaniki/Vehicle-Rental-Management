@@ -11,14 +11,13 @@ import { bookingsAPI } from "../features/bookings/BookingsApi";
 import { ticketsAPI } from "../features/Tickets/TicketsApi";
 import loginAPI from "../features/Login/LoginAPI";
 import authSlice from "../features/Auth/authSlice";
-
-
+import LocationsAPI from "../features/Locations/LocationsAPI";
 
 // Persist configuration
 const persistConfig = {
   key: "root",
   storage,
-  // whitelist: ["usersApi"], // Only persist the users API
+  whitelist: ["usersApi"], // Only persist the users API
 };
 
 // Combine all reducers
@@ -29,8 +28,9 @@ const rootReducer = combineReducers({
   [fleetsAPI.reducerPath]: fleetsAPI.reducer,
   [bookingsAPI.reducerPath]: bookingsAPI.reducer,
   [ticketsAPI.reducerPath]: ticketsAPI.reducer,
-  [loginAPI.reducerPath]:loginAPI.reducer,
-  auth:authSlice
+  [loginAPI.reducerPath]: loginAPI.reducer,
+  [LocationsAPI.reducerPath]: LocationsAPI.reducer,
+  auth: authSlice,
 });
 
 // Create persisted reducer
@@ -51,7 +51,8 @@ export const store = configureStore({
       paymentsAPI.middleware,
       fleetsAPI.middleware,
       ticketsAPI.middleware,
-      bookingsAPI.middleware
+      bookingsAPI.middleware,
+      LocationsAPI.middleware
     ),
 });
 

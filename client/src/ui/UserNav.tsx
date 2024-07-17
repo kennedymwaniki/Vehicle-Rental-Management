@@ -19,7 +19,7 @@ const UserNav = () => {
             </li>
             <li className="flex items-center space-x-2">
               <HiOutlineUser className="h-5 w-5" />
-              <Link to="">Profile</Link>
+              <Link to="myprofile">Profile</Link>
             </li>
             <li className="flex items-center space-x-2">
               <HiBookOpen className="h-5 w-5" />
@@ -27,7 +27,7 @@ const UserNav = () => {
             </li>
             <li className="flex items-center space-x-2">
               <HiOutlineCreditCard className="h-5 w-5" />
-              <Link to="mybookings">Your payments</Link>
+              <Link to="mypayments">Your payments</Link>
             </li>
 
             <li className="flex items-center space-x-2">

@@ -24,28 +24,30 @@ const UserBookings = () => {
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr className="bg-gray-100">
-              <th className="py-2 px-4 border-b">Booking ID</th>
-              <th className="py-2 px-4 border-b">Vehicle ID</th>
-              <th className="py-2 px-4 border-b">Location ID</th>
-              <th className="py-2 px-4 border-b">Booking Date</th>
-              <th className="py-2 px-4 border-b">Return Date</th>
-              <th className="py-2 px-4 border-b">Total Amount</th>
-              <th className="py-2 px-4 border-b">Status</th>
+              <th className="py-2 border-b">Booking ID</th>
+              <th className="py-2  border-b">Vehicle ID</th>
+              <th className="py-2  border-b">Location ID</th>
+              <th className="py-2  border-b">Booking Date</th>
+              <th className="py-2  border-b">Return Date</th>
+              <th className="py-2  border-b">Total Amount</th>
+              <th className="py-2  border-b">Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {data.bookings.map((booking: TBooking) => (
               <tr key={booking.bookingId}>
-                <td>{booking.bookingId}</td>
-                <td>{booking.vehicleId}</td>
-                <td>{booking.locationId}</td>
-                <td>{booking.bookingDate}</td>
-                <td>{booking.returnDate}</td>
-                <td>{booking.totalAmount}</td>
-                <td>{booking.bookingStatus}</td>
+                <td className="py-2 px-6">{booking.bookingId}</td>
+                <td className="py-2 px-6">{booking.vehicleId}</td>
+                <td className="py-2 px-6">{booking.locationId}</td>
+                <td className="py-2 px-6">{booking.bookingDate}</td>
+                <td className="py-2 px-6">{booking.returnDate}</td>
+                <td className="py-2 px-6">{booking.totalAmount}</td>
+                <td className="py-2 px-6">{booking.bookingStatus}</td>
                 <td>
-                  {booking.bookingStatus === "Pending" && <button>Pay</button>}
+                  {booking.bookingStatus === "Pending" && (
+                    <button className="bg-green-600 p-2">Pay</button>
+                  )}
                 </td>
               </tr>
             ))}

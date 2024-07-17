@@ -1,6 +1,9 @@
 const Hero = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between bg-white p-8 md:p-16">
+    <div
+      className="flex flex-col md:flex-row items-center justify-between bg-white p-8 md:p-16
+    "
+    >
       <div className="text-center md:text-left md:w-1/2">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Find, book, rent a car— quick and super easy!

@@ -17,6 +17,13 @@ export const usersAPI = createApi({
       query: () => "users",
       providesTags: ["getUsers"],
     }),
+    getUserById: builder.query<TUser, void>({
+      query: (userId) => ({
+        url: `users/${userId}`,
+        method: "GET",
+        providesTags: ["getUserById"],
+      }),
+    }),
     createUsers: builder.mutation<TUser, Partial<TUser>>({
       query: (newUser) => ({
         url: "users",

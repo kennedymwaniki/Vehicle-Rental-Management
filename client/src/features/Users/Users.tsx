@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { usersAPI } from "./UserApi";
 import { TUser } from "../../types/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast, Toaster } from "sonner";
 import { MdAutoDelete } from "react-icons/md";
 import { LuClipboardEdit } from "react-icons/lu";
@@ -9,8 +9,7 @@ import Modal from "../../ui/Modal";
 
 const Users = () => {
   const [editUserId, setEditUserId] = useState<number | null>(null);
-  const [isCreating, setIsCreating] = useState<boolean>(false);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const {
     data: usersData,
@@ -23,56 +22,58 @@ const Users = () => {
   const [deleteUser] = usersAPI.useDeleteUsersMutation();
   const [createUser] = usersAPI.useCreateUsersMutation();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { errors },
-  } = useForm<TUser & { password: string }>();
+  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm<TUser & { password: string }>();
 
-  const onSubmit: SubmitHandler<TUser & { password: string }> = async (
-    data
-  ) => {
+  useEffect(() => {
+    if (editUserId && usersData) {
+      const userToEdit = usersData.find(user => user.userId === editUserId);
+      if (userToEdit) {
+        setValue("fullName", userToEdit.fullName);
+        setValue("email", userToEdit.email);
+        setValue("contactPhone", userToEdit.contactPhone || "");
+        setValue("address", userToEdit.address || "");
+        setValue("role", userToEdit.role);
+        //* Don't set the password field
+      }
+    }
+  }, [editUserId, usersData, setValue]);
+
+  const onSubmit: SubmitHandler<TUser & { password: string }> = async (data) => {
     try {
       if (editUserId) {
-        // If editing, only include password if it's not empty
-        const updateData = { ...data };
-        if (!updateData.password) {
-          delete updateData.password;
-        }
-        await updateUser({ userId: editUserId, ...updateData }).unwrap();
+        await updateUser({ ...data, userId: editUserId }).unwrap();
         toast.success("User updated successfully");
-        setIsEditing(false);
       } else {
         await createUser(data).unwrap();
         toast.success("User created successfully");
-        setIsCreating(false);
       }
+      setIsModalOpen(false);
+      setEditUserId(null);
       reset();
     } catch (error) {
-      toast.error(
-        editUserId ? "Failed to update user" : "Failed to create user"
-      );
+      toast.error(editUserId ? "Failed to update user" : "Failed to create user");
     }
   };
 
-  const handleEdit = (user: TUser) => {
-    setEditUserId(user.userId);
-    setIsEditing(true);
-    Object.keys(user).forEach((key) => {
-      setValue(key as keyof TUser, user[key as keyof TUser]);
-    });
-    // Clear the password field when editing
-    setValue("password", "");
+  const handleEdit = (userId: number | null | undefined) => {
+    if (userId !== null && userId !== undefined) {
+      setEditUserId(userId);
+      setIsModalOpen(true);
+    } else {
+      toast.error("Invalid user ID for editing");
+    }
   };
 
-  const handleDelete = async (userId: number) => {
-    try {
-      await deleteUser(userId).unwrap();
-      toast.success("User deleted successfully");
-    } catch (error) {
-      toast.error("Failed to delete user");
+  const handleDelete = async (userId: number | null | undefined) => {
+    if (userId !== null && userId !== undefined) {
+      try {
+        await deleteUser(userId).unwrap();
+        toast.success("User deleted successfully");
+      } catch (error) {
+        toast.error("Failed to delete user");
+      }
+    } else {
+      toast.error("Invalid user ID");
     }
   };
 
@@ -114,13 +115,13 @@ const Users = () => {
                 <td className="py-2 px-4 border-b">
                   <button
                     className="bg-blue-500 text-white px-2 py-1 rounded mr-2 hover:bg-blue-600"
-                    onClick={() => handleEdit(user)}
+                    onClick={() => handleEdit(user.userId)}
                   >
                     <LuClipboardEdit />
                   </button>
                   <button
                     className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-600"
-                    onClick={() => handleDelete(user.userId || 0)}
+                    onClick={() => handleDelete(user.userId)}
                   >
                     <MdAutoDelete />
                   </button>
@@ -132,41 +133,30 @@ const Users = () => {
         <button
           className="bg-green-500 text-white px-4 py-2 mt-4 rounded hover:bg-green-600"
           onClick={() => {
-            setIsCreating(true);
             setEditUserId(null);
+            setIsModalOpen(true);
             reset();
           }}
         >
           Add New User
         </button>
-        {(isCreating || isEditing) && (
-          <Modal
-            onClose={() => {
-              setIsCreating(false);
-              setIsEditing(false);
-              setEditUserId(null);
-              reset();
-            }}
-          >
+        {isModalOpen && (
+          <Modal onClose={() => {
+            setIsModalOpen(false);
+            setEditUserId(null);
+            reset();
+          }}>
             <div className="mt-4">
-              <h3 className="text-xl mb-2">
-                {editUserId ? "Edit User" : "Create New User"}
-              </h3>
+              <h3 className="text-xl mb-2">{editUserId ? "Edit User" : "Create New User"}</h3>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-2">
                   <label className="block">Full Name</label>
                   <input
                     type="text"
-                    {...register("fullName", {
-                      required: "Full Name is required",
-                    })}
+                    {...register("fullName", { required: "Full Name is required" })}
                     className="border p-2 rounded w-full"
                   />
-                  {errors.fullName && (
-                    <span className="text-red-500">
-                      {errors.fullName.message}
-                    </span>
-                  )}
+                  {errors.fullName && <span className="text-red-500">{errors.fullName.message}</span>}
                 </div>
                 <div className="mb-2">
                   <label className="block">Email</label>
@@ -175,27 +165,16 @@ const Users = () => {
                     {...register("email", { required: "Email is required" })}
                     className="border p-2 rounded w-full"
                   />
-                  {errors.email && (
-                    <span className="text-red-500">{errors.email.message}</span>
-                  )}
+                  {errors.email && <span className="text-red-500">{errors.email.message}</span>}
                 </div>
                 <div className="mb-2">
-                  <label className="block">
-                    Password{" "}
-                    {editUserId && "(Leave blank to keep current password)"}
-                  </label>
+                  <label className="block">Password {editUserId && "(Leave blank to keep current password)"}</label>
                   <input
                     type="password"
-                    {...register("password", {
-                      required: editUserId ? false : "Password is required",
-                    })}
+                    {...register("password", { required: editUserId ? false : "Password is required" })}
                     className="border p-2 rounded w-full"
                   />
-                  {errors.password && (
-                    <span className="text-red-500">
-                      {errors.password.message}
-                    </span>
-                  )}
+                  {errors.password && <span className="text-red-500">{errors.password.message}</span>}
                 </div>
                 <div className="mb-2">
                   <label className="block">Phone</label>
@@ -220,9 +199,7 @@ const Users = () => {
                     {...register("role", { required: "Role is required" })}
                     className="border p-2 rounded w-full"
                   />
-                  {errors.role && (
-                    <span className="text-red-500">{errors.role.message}</span>
-                  )}
+                  {errors.role && <span className="text-red-500">{errors.role.message}</span>}
                 </div>
                 <div className="flex items-center">
                   <button
@@ -235,8 +212,7 @@ const Users = () => {
                     type="button"
                     className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
                     onClick={() => {
-                      setIsCreating(false);
-                      setIsEditing(false);
+                      setIsModalOpen(false);
                       setEditUserId(null);
                       reset();
                     }}
@@ -254,3 +230,4 @@ const Users = () => {
 };
 
 export default Users;
+

@@ -77,7 +77,7 @@ const TicketsTable = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <Toaster position="top-center" />
+      <Toaster position="top-center" richColors />
 
       <h2 className="text-yellow-400 text-2xl mb-4">Tickets</h2>
       <div className="">

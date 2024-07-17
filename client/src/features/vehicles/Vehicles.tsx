@@ -49,7 +49,10 @@ const Vehicles = () => {
     if (editVehicleId) {
       setIsLoadingAction(true);
       try {
-        await updateVehicle({ vehicleId: editVehicleId, ...vehicleData }).unwrap();
+        await updateVehicle({
+          vehicleId: editVehicleId,
+          ...vehicleData,
+        }).unwrap();
         toast.success("Vehicle updated successfully");
         setEditVehicleId(null);
         setIsEditing(false);
@@ -80,12 +83,26 @@ const Vehicles = () => {
   }
 
   if (isError) {
-    return <div className="text-red-500">Error: {error?.message || "Something went wrong"}</div>;
+    return (
+      <div className="text-red-500">
+        Error: {error?.message || "Something went wrong"}
+      </div>
+    );
   }
 
   return (
     <div className="container mx-auto p-4">
-      <Toaster position="top-center" />
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            error: "error-toast",
+            success: "success-toast",
+            warning: "warning-toast",
+            info: "info-toast",
+          },
+        }}
+      />
       <h2 className="text-yellow-400 text-2xl mb-4">Vehicles</h2>
       <div className="">
         <table className="min-w-full bg-white border border-gray-300">
@@ -146,8 +163,10 @@ const Vehicles = () => {
                         })
                       }
                     />
+                  ) : vehicle.availability ? (
+                    "Yes"
                   ) : (
-                    vehicle.availability ? "Yes" : "No"
+                    "No"
                   )}
                 </td>
                 <td className="py-2 px-4 border-b">
@@ -164,9 +183,15 @@ const Vehicles = () => {
                       <button
                         onClick={() => handleEdit(vehicle)}
                         className="px-2 py-1 bg-yellow-500 text-white rounded"
-                        disabled={isEditing && editVehicleId !== vehicle.vehicleId}
+                        disabled={
+                          isEditing && editVehicleId !== vehicle.vehicleId
+                        }
                       >
-                        {isEditing && editVehicleId === vehicle.vehicleId ? "Editing..." : <LuClipboardEdit />}
+                        {isEditing && editVehicleId === vehicle.vehicleId ? (
+                          "Editing..."
+                        ) : (
+                          <LuClipboardEdit />
+                        )}
                       </button>
                       <button
                         onClick={() => handleDelete(vehicle.vehicleId)}
@@ -185,7 +210,7 @@ const Vehicles = () => {
       </div>
 
       {isCreating && (
-        <Modal  onClose={() => setIsCreating(false)}>
+        <Modal onClose={() => setIsCreating(false)}>
           <div>
             <form
               onSubmit={(e) => {
