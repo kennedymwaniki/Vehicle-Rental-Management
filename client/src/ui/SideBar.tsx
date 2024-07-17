@@ -8,11 +8,27 @@ import { FaCar } from "react-icons/fa6";
 import { IoTicket, IoHome } from "react-icons/io5";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { FaTachometerAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { MdOutlineExitToApp } from "react-icons/md";
+import { toast, Toaster } from "sonner";
+
+import { useDispatch } from "react-redux";
+import { clearCredentials } from "../features/Auth/authSlice";
 
 const SideBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const Logout = () => {
+    console.log("clicked");
+    dispatch(clearCredentials());
+    toast.success("You have been logged out");
+    navigate("/login");
+  };
   return (
     <div className="flex flex-col h-full bg-blue-600 p-2 text-white">
+      <Toaster position="top-center" richColors />
+
       <nav className="flex flex-col h-full">
         <div className="mb-8 flex items-center space-x-2">
           <FaTachometerAlt className="h-6 w-6" />
@@ -45,7 +61,7 @@ const SideBar = () => {
           </li>
           <li className="flex items-center space-x-2">
             <IoTicket className="h-5 w-5" />
-            <Link to="/admindashboard/customer-tickets">Customer Tickets</Link>
+            <Link to="tickets">Customer Tickets</Link>
           </li>
           <li className="flex items-center space-x-2">
             <FaMapLocationDot className="h-5 w-5" />
@@ -53,6 +69,10 @@ const SideBar = () => {
           </li>
         </ul>
       </nav>
+      <button className="mb-[125px] flex" onClick={Logout}>
+        <MdOutlineExitToApp className="h-6 w-6" />
+        <p>Logout</p>
+      </button>
     </div>
   );
 };

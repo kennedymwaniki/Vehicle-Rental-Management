@@ -19,6 +19,8 @@ import Cars from "./components/Cars";
 import Booking from "./components/BookingComponent";
 import UserTickets from "./features/Users/UserTickets";
 import UserProfile from "./features/Users/UserProfile";
+import TicketList from "./features/Tickets/TicketList";
+import UserSummary from "./ui/UserSummary";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,10 @@ const router = createBrowserRouter([
         path: "",
         element: <UserDashboard />,
         children: [
+          {
+            index: true,
+            element: <UserSummary />,
+          },
           {
             path: "mybookings",
             element: <UserBookings />,
@@ -102,6 +108,10 @@ const router = createBrowserRouter([
           {
             path: "fleets",
             element: <Fleets />,
+          },
+          {
+            path: "tickets",
+            element: <TicketList />,
           },
         ],
       },

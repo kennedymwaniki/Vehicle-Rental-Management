@@ -75,7 +75,7 @@ const UserProfile = () => {
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
           <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="">
             <div>
               <label className="block text-gray-700">Full Name</label>
               <input

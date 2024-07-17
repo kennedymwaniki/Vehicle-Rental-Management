@@ -2,11 +2,27 @@ import { HiOutlineUser, HiBookOpen, HiOutlineCreditCard } from "react-icons/hi";
 import { FaCar } from "react-icons/fa6";
 import { IoTicket, IoHome } from "react-icons/io5";
 import { MdOutlineExitToApp } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearCredentials } from "../features/Auth/authSlice";
+import { toast, Toaster } from "sonner";
+import { ImExit } from "react-icons/im";
 
 const UserNav = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const Logout = () => {
+    console.log("clicked");
+    dispatch(clearCredentials());
+    toast.success("You have been logged out");
+    navigate("/login");
+  };
+
   return (
-    <>
+    <div>
+      <Toaster position="top-center" richColors />
+
       <div className="flex flex-col h-full bg-blue-600 p-4 text-white">
         <nav className="flex flex-col h-full">
           <div className="mb-8">
@@ -44,8 +60,12 @@ const UserNav = () => {
             </li>
           </ul>
         </nav>
+        <button className="flex gap-2" onClick={Logout}>
+          <ImExit className="h-6 w-6" />
+          <p>Logout</p>
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

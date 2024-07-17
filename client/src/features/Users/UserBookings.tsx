@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import usersAPI from "./UserApi";
 import { TBooking } from "../../types/types";
 
@@ -5,6 +6,9 @@ const UserBookings = () => {
   const userJson = localStorage.getItem("user");
   const user = userJson ? JSON.parse(userJson).user : null;
   const userId = user?.id;
+  const [payingBookingId, setPayingBookingId] = useState<
+    number | null | undefined
+  >(null);
 
   const { data, error, isLoading } = usersAPI.useGetUserBookingsByIdQuery(
     userId,
@@ -12,10 +16,31 @@ const UserBookings = () => {
       skip: !userId,
     }
   );
-  console.log(data);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading bookings</div>;
+
+  const handleCheckout = async (
+    bookingId: number | null | undefined,
+    amount: number
+  ) => {
+    setPayingBookingId(bookingId);
+    const response = await fetch(
+      "https://vehicle-rental-backend-eg4t.onrender.com/api/create-checkout-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookingId, amount }),
+      }
+    );
+
+    const { checkoutUrl } = await response.json();
+    setPayingBookingId(null);
+
+    window.location.href = checkoutUrl;
+  };
 
   return (
     <div>
@@ -43,10 +68,27 @@ const UserBookings = () => {
                 <td className="py-2 px-6">{booking.bookingDate}</td>
                 <td className="py-2 px-6">{booking.returnDate}</td>
                 <td className="py-2 px-6">{booking.totalAmount}</td>
-                <td className="py-2 px-6">{booking.bookingStatus}</td>
+                <td
+                  className={`py-2 px-6 ${
+                    booking.bookingStatus === "Pending"
+                      ? "text-red-600"
+                      : "text-green-600"
+                  }`}
+                >
+                  {booking.bookingStatus}
+                </td>
                 <td>
                   {booking.bookingStatus === "Pending" && (
-                    <button className="bg-green-600 p-2">Pay</button>
+                    <button
+                      className="bg-green-600 p-2"
+                      onClick={() =>
+                        handleCheckout(booking.bookingId, booking.totalAmount)
+                      }
+                    >
+                      {payingBookingId === booking.bookingId
+                        ? "Paying..."
+                        : "Pay Now"}
+                    </button>
                   )}
                 </td>
               </tr>
