@@ -9,7 +9,7 @@ import Modal from "../../ui/Modal";
 const Vehicles = () => {
   const {
     data: vehiclesData,
-    error,
+
     isLoading,
     isError,
   } = vehiclesAPI.useGetVehiclesQuery();
@@ -85,7 +85,7 @@ const Vehicles = () => {
   if (isError) {
     return (
       <div className="text-red-500">
-        Error: {error?.message || "Something went wrong"}
+        Error: {"error" || "Something went wrong"}
       </div>
     );
   }

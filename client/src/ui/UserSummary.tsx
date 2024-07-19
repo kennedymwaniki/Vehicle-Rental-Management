@@ -1,5 +1,4 @@
 import {
-  HiOutlineUser,
   HiBookOpen,
   HiOutlineCreditCard,
   HiOutlineTruck,
@@ -14,12 +13,6 @@ const UserSummary = () => {
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow overflow-y-auto">
-        <SummaryCard
-          title="Users"
-          count={120}
-          icon={<HiOutlineUser className="h-6 w-6 text-blue-600" />}
-          color="text-blue-600"
-        />
         <SummaryCard
           title="Bookings"
           count={75}

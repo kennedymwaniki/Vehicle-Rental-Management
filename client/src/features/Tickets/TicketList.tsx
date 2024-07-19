@@ -54,6 +54,7 @@ const TicketsTable = () => {
   };
 
   const handleCreateTicket = async () => {
+    console.log(newTicketData);
     setIsLoading(true);
     try {
       await createTicket(newTicketData).unwrap();

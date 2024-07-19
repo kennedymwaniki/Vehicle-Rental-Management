@@ -1,5 +1,4 @@
-
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import loginAPI from "./LoginAPI";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +15,7 @@ const RegisterComponent = () => {
   const [registerUser, { isLoading }] = loginAPI.useRegisterUserMutation();
   const navigate = useNavigate();
 
-  const onSubmit = async (data:RegisterFormInputs) => {
+  const onSubmit = async (data: RegisterFormInputs) => {
     try {
       await registerUser(data).unwrap();
       reset();
@@ -37,7 +36,10 @@ const RegisterComponent = () => {
       <div className="mt-8 sm:w-full sm:max-w-md">
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="fullName" className="block text-sm font-medium leading-5 text-gray-900">
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-medium leading-5 text-gray-900"
+            >
               Full Name
             </label>
             <input
@@ -48,7 +50,10 @@ const RegisterComponent = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-900">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium leading-5 text-gray-900"
+            >
               Email address
             </label>
             <input
@@ -60,7 +65,10 @@ const RegisterComponent = () => {
           </div>
 
           <div>
-            <label htmlFor="contactPhone" className="block text-sm font-medium leading-5 text-gray-900">
+            <label
+              htmlFor="contactPhone"
+              className="block text-sm font-medium leading-5 text-gray-900"
+            >
               Contact Phone
             </label>
             <input
@@ -72,7 +80,10 @@ const RegisterComponent = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium leading-5 text-gray-900">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium leading-5 text-gray-900"
+            >
               Password
             </label>
             <input
@@ -84,7 +95,10 @@ const RegisterComponent = () => {
           </div>
 
           <div>
-            <label htmlFor="address" className="block text-sm font-medium leading-5 text-gray-900">
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium leading-5 text-gray-900"
+            >
               Address
             </label>
             <input

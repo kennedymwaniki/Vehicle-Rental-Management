@@ -1,3 +1,7 @@
+#root {
+  background-color: rgb(8 47 73);
+}
+
 .spinner {
   font-size: 28px;
   position: relative;

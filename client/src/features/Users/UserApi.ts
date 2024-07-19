@@ -10,7 +10,7 @@ export const usersAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api/",
   }),
-  tagTypes: ["getUsers"],
+  tagTypes: ["getUsers", "getUserBookings"],
 
   endpoints: (builder) => ({
     getUsers: builder.query<TUser[], void>({
@@ -56,8 +56,8 @@ export const usersAPI = createApi({
       query: (userId) => ({
         url: `users/bookings/${userId}`,
         method: "GET",
-        providesTags: ["getUserBookings"],
       }),
+      providesTags: ["getUserBookings"],
     }),
     getUserTcketsById: builder.query<TUserTicketsResponse, void>({
       query: (userId) => ({

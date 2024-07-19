@@ -18,13 +18,27 @@ import vehiclesAPI from "../features/vehicles/VehiclesApi";
 import LocationsAPI from "../features/Locations/LocationsAPI";
 
 const Summary = () => {
-  const { data: tickets } = ticketsAPI.useGetTicketsQuery();
-  const { data: bookings } = bookingsAPI.useGetBookingsQuery();
-  const { data: payments } = paymentsAPI.useGetPaymentsQuery();
-  const { data: fleets } = fleetsAPI.useGetFleetsQuery();
-  const { data: users } = usersAPI.useGetUsersQuery();
-  const { data: vehicles } = vehiclesAPI.useGetVehiclesQuery();
-  const { data: locations } = LocationsAPI.useGetLocationsQuery();
+  const { data: tickets } = ticketsAPI.useGetTicketsQuery(undefined, {
+    pollingInterval: 60000,
+  });
+  const { data: bookings } = bookingsAPI.useGetBookingsQuery(undefined, {
+    pollingInterval: 60000,
+  });
+  const { data: payments } = paymentsAPI.useGetPaymentsQuery(undefined, {
+    pollingInterval: 60000,
+  });
+  const { data: fleets } = fleetsAPI.useGetFleetsQuery(undefined, {
+    pollingInterval: 60000,
+  });
+  const { data: users } = usersAPI.useGetUsersQuery(undefined, {
+    pollingInterval: 60000,
+  });
+  const { data: vehicles } = vehiclesAPI.useGetVehiclesQuery(undefined, {
+    pollingInterval: 60000,
+  });
+  const { data: locations } = LocationsAPI.useGetLocationsQuery(undefined, {
+    pollingInterval: 60000,
+  });
 
   const pendingTicketsCount =
     tickets?.filter((ticket) => ticket.status === "pending").length || 0;

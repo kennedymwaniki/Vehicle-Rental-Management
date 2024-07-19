@@ -1,17 +1,17 @@
 export interface TUser {
-  userId: number | null | undefined,
-  fullName: string,
-  password?: string,
-  email: string,
-  contactPhone: string,
-  address: string,
-  role: string,
+  userId: number | null | undefined;
+  fullName: string;
+  password?: string;
+  email: string;
+  contactPhone: string;
+  address: string;
+  role: string;
 }
 export interface User {
   token: string;
   user: {
     role: string;
-    id: string,
+    id: string;
     fullName: string;
   };
 }
@@ -46,7 +46,7 @@ export interface TPayment {
   updatedAt: string;
 }
 export interface TBooking {
-  bookingId: number | null | undefined;
+  bookingId: number;
   userId: number;
   vehicleId: number;
   locationId: number;
@@ -101,7 +101,7 @@ export interface TUserBookingsResponse {
   bookings: TBooking[];
 }
 
-export interface TUserTicketsResponse{
-  user:TUser,
-  tickets:TTicket[]
+export interface TUserTicketsResponse {
+  user: TUser;
+  tickets: TTicket[];
 }

@@ -1,3 +1,5 @@
+import audi from "../assets/download.jpeg";
+
 interface CarItemProps {
   vehicle: {
     vehicleId: number;
@@ -19,9 +21,9 @@ const CarItem = ({ vehicle, onBookClick }: CarItemProps) => {
     >
       <div className="w-1/3">
         <img
-          src="/path/to/image.jpg" // Add image paths manually
+          src={audi} // Add image paths manually
           alt="Vehicle"
-          className="w-full h-auto object-cover rounded-lg"
+          className="w-full h-[200px] object-cover rounded-lg"
         />
       </div>
       <div className="w-2/3 pl-4">

@@ -17,25 +17,25 @@ const UserTickets = () => {
     isLoading,
   } = usersAPI.useGetUserTcketsByIdQuery(userId, {
     skip: !userId,
+    pollingInterval: 20000,
   });
 
+  console.log(UserTickets);
   const [createTicket] = ticketsAPI.useCreateTicketMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
   const { register, handleSubmit, reset } = useForm<TTicket>({
     defaultValues: {
-      ticketId: null,
       userId: userId || 0,
       subject: "",
       description: "",
       status: "open",
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     },
   });
 
   const onSubmit: SubmitHandler<TTicket> = async (data) => {
+    console.log(data);
     setIsCreating(true);
     try {
       await createTicket(data);

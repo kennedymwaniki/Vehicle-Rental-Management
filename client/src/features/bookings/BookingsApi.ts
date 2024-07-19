@@ -6,7 +6,7 @@ export const bookingsAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://vehicle-rental-backend-eg4t.onrender.com/api",
   }),
-  tagTypes: ["getBookings"],
+  tagTypes: ["getBookings", "getUserBookings"],
 
   endpoints: (builder) => ({
     getBookings: builder.query<TBooking[], void>({
@@ -19,7 +19,7 @@ export const bookingsAPI = createApi({
         method: "POST",
         body: newBooking,
       }),
-      invalidatesTags: ["getBookings"],
+      invalidatesTags: ["getBookings", "getUserBookings"],
     }),
     updateBooking: builder.mutation<TBooking, Partial<TBooking>>({
       query: ({ bookingId, ...rest }) => ({

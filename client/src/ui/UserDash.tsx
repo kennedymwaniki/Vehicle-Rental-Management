@@ -12,7 +12,7 @@ const UserDash = () => {
         <h2 className="text-2xl font-bold">Welcome {fullName}</h2>
         <ProfileMenu fullName={fullName} />
       </div>
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex-grow overflow-y-auto ">
         <Outlet />
       </div>
     </div>

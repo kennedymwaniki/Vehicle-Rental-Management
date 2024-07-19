@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import fleetsAPI  from "./FleetApis";
+import fleetsAPI from "./FleetApis";
 import { TFleet } from "../../types/types";
 import { useState } from "react";
 import { toast, Toaster } from "sonner";
@@ -8,7 +8,9 @@ import { LuClipboardEdit } from "react-icons/lu";
 import Modal from "../../ui/Modal"; //! Import the Modal component
 
 const Fleets = () => {
-  const [editFleetId, setEditFleetId] = useState<number | null | undefined>(null);
+  const [editFleetId, setEditFleetId] = useState<number | null | undefined>(
+    null
+  );
   const [fleetData, setFleetData] = useState<Partial<TFleet>>({});
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [newFleetData, setNewFleetData] = useState<Partial<TFleet>>({});
@@ -21,10 +23,10 @@ const Fleets = () => {
     isError,
   } = fleetsAPI.useGetFleetsQuery();
   console.log(fleetsData);
-//TODO: export this to admon dashboard
+  //TODO: export this to admin dashboard
   const totalFleets = fleetsData?.reduce((acc, _curr) => acc + 1, 0) || 0;
 
-  console.log(totalFleets)
+  console.log(totalFleets);
 
   const [updateFleet] = fleetsAPI.useUpdateFleetMutation();
   const [deleteFleet] = fleetsAPI.useDeleteFleetMutation();
@@ -83,7 +85,7 @@ const Fleets = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <Toaster position="top-center" />
+      <Toaster position="top-center" richColors />
 
       <h2 className="text-yellow-400 text-2xl mb-4">Fleets</h2>
       <div className="">
@@ -110,7 +112,10 @@ const Fleets = () => {
                       type="number"
                       value={fleetData.vehicleId || ""}
                       onChange={(e) =>
-                        setFleetData({ ...fleetData, vehicleId: parseInt(e.target.value) })
+                        setFleetData({
+                          ...fleetData,
+                          vehicleId: parseInt(e.target.value),
+                        })
                       }
                     />
                   ) : (
@@ -123,7 +128,10 @@ const Fleets = () => {
                       type="date"
                       value={fleetData.acquisitionDate || ""}
                       onChange={(e) =>
-                        setFleetData({ ...fleetData, acquisitionDate: e.target.value })
+                        setFleetData({
+                          ...fleetData,
+                          acquisitionDate: e.target.value,
+                        })
                       }
                     />
                   ) : (
@@ -137,7 +145,10 @@ const Fleets = () => {
                       step="0.01"
                       value={fleetData.depreciationRate || ""}
                       onChange={(e) =>
-                        setFleetData({ ...fleetData, depreciationRate: parseFloat(e.target.value) })
+                        setFleetData({
+                          ...fleetData,
+                          depreciationRate: Number(e.target.value),
+                        })
                       }
                     />
                   ) : (
@@ -151,7 +162,10 @@ const Fleets = () => {
                       step="0.01"
                       value={fleetData.currentValue || ""}
                       onChange={(e) =>
-                        setFleetData({ ...fleetData, currentValue: parseFloat(e.target.value) })
+                        setFleetData({
+                          ...fleetData,
+                          currentValue: Number(e.target.value),
+                        })
                       }
                     />
                   ) : (
@@ -165,7 +179,10 @@ const Fleets = () => {
                       step="0.01"
                       value={fleetData.maintenanceCost || ""}
                       onChange={(e) =>
-                        setFleetData({ ...fleetData, maintenanceCost: parseFloat(e.target.value) })
+                        setFleetData({
+                          ...fleetData,
+                          maintenanceCost: Number(e.target.value),
+                        })
                       }
                     />
                   ) : (
@@ -242,7 +259,7 @@ const Fleets = () => {
                   <label className="block">Acquisition Date</label>
                   <input
                     type="date"
-                    value={newFleetData.acquisitionDate || ""}
+                    value={newFleetData.acquisitionDate}
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,
@@ -256,7 +273,7 @@ const Fleets = () => {
                   <label className="block">Vehicle ID</label>
                   <input
                     type="number"
-                    value={newFleetData.vehicleId || ""}
+                    value={newFleetData.vehicleId}
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,
@@ -271,11 +288,11 @@ const Fleets = () => {
                   <input
                     type="number"
                     step="0.01"
-                    value={newFleetData.depreciationRate || ""}
+                    value={newFleetData.depreciationRate}
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,
-                        depreciationRate: parseFloat(e.target.value),
+                        depreciationRate: Number(e.target.value),
                       })
                     }
                     className="border p-2 rounded w-full"
@@ -286,7 +303,7 @@ const Fleets = () => {
                   <input
                     type="number"
                     step="0.01"
-                    value={newFleetData.currentValue || ""}
+                    value={newFleetData.currentValue}
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,
@@ -301,7 +318,7 @@ const Fleets = () => {
                   <input
                     type="number"
                     step="0.01"
-                    value={newFleetData.maintenanceCost || ""}
+                    value={newFleetData.maintenanceCost}
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,
@@ -315,7 +332,7 @@ const Fleets = () => {
                   <label className="block">Status</label>
                   <input
                     type="text"
-                    value={newFleetData.status || ""}
+                    value={newFleetData.status}
                     onChange={(e) =>
                       setNewFleetData({
                         ...newFleetData,

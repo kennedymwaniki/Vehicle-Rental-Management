@@ -20,11 +20,15 @@ const getBookingById = async (id) => {
 };
 exports.getBookingById = getBookingById;
 const createBookingService = async (booking) => {
+    booking.bookingDate = new Date(booking.bookingDate).toISOString();
+    booking.returnDate = new Date(booking.returnDate).toISOString();
     await db_1.default.insert(schema_1.BookingsTable).values(booking);
     return booking;
 };
 exports.createBookingService = createBookingService;
 const updateBookingService = async (id, booking) => {
+    booking.bookingDate = new Date(booking.bookingDate).toISOString();
+    booking.returnDate = new Date(booking.returnDate).toISOString();
     await db_1.default
         .update(schema_1.BookingsTable)
         .set(booking)

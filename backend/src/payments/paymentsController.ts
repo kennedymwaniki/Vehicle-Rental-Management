@@ -1,5 +1,6 @@
 import { Session } from "inspector";
 import stripe from "../stripe/stripe";
+import getRawBody from "raw-body";
 import {
   deletePaymentService,
   createPaymentService,
@@ -45,27 +46,47 @@ export const getPayment = async (c: Context) => {
 // };
 
 const paymentService = createPaymentService();
-
 export const createPayment = {
   async createCheckoutSession(c: Context) {
     try {
       const { bookingId, amount } = await c.req.json();
-      if (bookingId === undefined || amount === undefined) {
-        console.error("Booking ID or amount is missing");
+      //! i am checking how the id and amount is received
+      console.log(
+        `this is how we receive the bookingId in the controller ${bookingId} as a :`,
+        typeof bookingId
+      );
+      console.log(
+        `this is how we receive the amount in the controller ${amount} as a :`,
+        typeof amount
+      );
+      //!converting our received booking id and amount into numbers
+
+      const validBookingId = Number(bookingId);
+      const validAmount = Number(amount);
+
+      console.log(
+        `this is the validBookingId ${validBookingId} in the controller which is receiced as :`,
+        `${bookingId}`
+      );
+      console.log(
+        `this is the validAmount ${validBookingId} in the controller which is receiced as :`,
+        `${bookingId}`
+      );
+
+      if (isNaN(validBookingId) || isNaN(validAmount)) {
         return c.json(
-          { success: false, error: "Booking ID or amount is missing" },
+          { success: false, error: "Invalid bookingId or amount" },
           400
         );
       }
 
-      console.log(
-        `Check if id and amount is being received: ${bookingId}, amount: ${amount}`
-      );
-
       const session = await paymentService.createCheckoutSession(
-        bookingId,
-        amount
+        validBookingId,
+        validAmount
       );
+      //!check the session
+
+      console.log(session);
 
       return c.json({
         success: true,
@@ -80,23 +101,16 @@ export const createPayment = {
       );
     }
   },
-  //testing of checkout session
 
   async testCreateCheckoutSession(c: Context) {
     try {
-      // For testing, we'll use hardcoded values
       const bookingId = 8;
-      const amount = 90000; // $100
-      console.log(
-        `Testing checkout session inpts for bookingId: ${bookingId}, amount: ${amount}`
-      );
+      const amount = 90000;
 
       const session = await paymentService.createCheckoutSession(
         bookingId,
         amount
       );
-      console.log(session);
-      ///trying to update data on mytables once successful
       await paymentService.handleSuccessfulPayment(session.id);
 
       return c.json({
@@ -113,12 +127,13 @@ export const createPayment = {
     }
   },
 
-  ///end of test
-
   async handleWebhook(c: Context) {
     try {
       const sig = c.req.header("stripe-signature");
-      const rawBody = await c.req.raw.text();
+      console.log("signature in controller", sig);
+
+      const rawBody = await c.req.text();
+      console.log("rawBody in controller", rawBody);
 
       const event = stripe.webhooks.constructEvent(
         rawBody,
@@ -126,8 +141,12 @@ export const createPayment = {
         process.env.STRIPE_WEBHOOK_SECRET!
       );
 
+      console.log("Received event:", event);
+
       if (event.type === "checkout.session.completed") {
         const session = event.data.object;
+
+        console.log("Session data:", session);
         await paymentService.handleSuccessfulPayment(session.id);
       }
 

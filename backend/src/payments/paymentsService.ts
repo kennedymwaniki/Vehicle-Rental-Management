@@ -46,6 +46,25 @@ export const getPaymentById = async (
 export const createPaymentService = () => {
   return {
     async createCheckoutSession(bookingId: number, amount: number) {
+      console.log(`Booking ID in service: ${bookingId}`, typeof bookingId);
+      console.log(`Amount in service: ${amount}`, typeof amount);
+      //! Ensure bookingId and amount are numbers
+      const validBookingId = Number(bookingId);
+      const validAmount = Number(amount);
+
+      console.log(
+        `this is the validBookingId ${validBookingId} in the service which is receiced as :`,
+        `${bookingId}`
+      );
+      console.log(
+        `this is the validAmount ${validBookingId} in the service which is receiced as :`,
+        `${bookingId}`
+      );
+
+      if (isNaN(validBookingId) || isNaN(validAmount)) {
+        throw new Error("Invalid bookingId or amount");
+      }
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -55,7 +74,7 @@ export const createPaymentService = () => {
               product_data: {
                 name: "Car Booking",
               },
-              unit_amount: amount * 100, // Stripe expects amount in cents
+              unit_amount: validAmount * 100, // Stripe expects amount in cents
             },
             quantity: 1,
           },
@@ -64,35 +83,32 @@ export const createPaymentService = () => {
         success_url: `${process.env.FRONTEND_URL}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.FRONTEND_URL}/booking-cancelled`,
         metadata: {
-          bookingId: bookingId.toString(),
+          bookingId: validBookingId,
         },
       });
-
+      console.log(`service metaData`, session.metadata);
       return session;
     },
 
     async handleSuccessfulPayment(sessionId: string) {
       const session = await stripe.checkout.sessions.retrieve(sessionId);
-      const bookingId = parseInt(session.metadata!.bookingId);
+      const bookingId = Number(session.metadata!.bookingId);
 
-      // Handle possible null value for session.amount_total
       const amountTotal = session.amount_total;
       if (amountTotal === null) {
         throw new Error("session.amount_total is null");
       }
 
-      // Update booking status
       await db
         .update(BookingsTable)
         .set({ bookingStatus: "Completed" })
         .where(eq(BookingsTable.bookingId, bookingId));
 
-      // Create payment record
       await db
         .insert(PaymentsTable)
         .values({
-          bookingId, 
-          amount: amountTotal / 100, 
+          bookingId,
+          amount: amountTotal / 100,
           paymentStatus: "Completed",
           paymentMethod: session.payment_method_types[0],
           transactionId: session.payment_intent as string,

@@ -18,7 +18,7 @@ const BookingsTable = () => {
     error,
     isLoading: LoadingBookings,
     isError,
-  } = bookingsAPI.useGetBookingsQuery();
+  } = bookingsAPI.useGetBookingsQuery(undefined, { pollingInterval: 60000 });
 
   const [updateBooking] = bookingsAPI.useUpdateBookingMutation();
   const [deleteBooking] = bookingsAPI.useDeleteBookingMutation();
@@ -73,7 +73,7 @@ const BookingsTable = () => {
     }
   };
 
-  const handleDelete = async (bookingId: number) => {
+  const handleDelete = async (bookingId: number | null | undefined) => {
     if (bookingId !== null && bookingId !== undefined) {
       try {
         await deleteBooking(bookingId).unwrap();

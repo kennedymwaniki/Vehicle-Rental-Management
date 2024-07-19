@@ -43,8 +43,20 @@ exports.createPayment = {
     async createCheckoutSession(c) {
         try {
             const { bookingId, amount } = await c.req.json();
-            console.log(`Check if id and amount is being received: ${bookingId}, amount: ${amount}`);
-            const session = await paymentService.createCheckoutSession(bookingId, amount);
+            //! i am checking how the id and amount is received
+            console.log(`this is how we receive the bookingId in the controller ${bookingId} as a :`, typeof bookingId);
+            console.log(`this is how we receive the amount in the controller ${amount} as a :`, typeof amount);
+            //!converting our received booking id and amount into numbers
+            const validBookingId = Number(bookingId);
+            const validAmount = Number(amount);
+            console.log(`this is the validBookingId ${validBookingId} in the controller which is receiced as :`, `${bookingId}`);
+            console.log(`this is the validAmount ${validBookingId} in the controller which is receiced as :`, `${bookingId}`);
+            if (isNaN(validBookingId) || isNaN(validAmount)) {
+                return c.json({ success: false, error: "Invalid bookingId or amount" }, 400);
+            }
+            const session = await paymentService.createCheckoutSession(validBookingId, validAmount);
+            //!check the session
+            console.log(session);
             return c.json({
                 success: true,
                 sessionId: session.id,
@@ -56,16 +68,11 @@ exports.createPayment = {
             return c.json({ success: false, error: "Failed to create checkout session" }, 500);
         }
     },
-    //testing of checkout session
     async testCreateCheckoutSession(c) {
         try {
-            // For testing, we'll use hardcoded values
             const bookingId = 8;
-            const amount = 90000; // $100
-            console.log(`Testing checkout session inpts for bookingId: ${bookingId}, amount: ${amount}`);
+            const amount = 90000;
             const session = await paymentService.createCheckoutSession(bookingId, amount);
-            console.log(session);
-            ///trying to update data on mytables once successful
             await paymentService.handleSuccessfulPayment(session.id);
             return c.json({
                 success: true,
@@ -78,14 +85,15 @@ exports.createPayment = {
             return c.json({ success: false, error: "Failed to create checkout session" }, 500);
         }
     },
-    ///end of test
     async handleWebhook(c) {
         try {
             const sig = c.req.header("stripe-signature");
             const rawBody = await c.req.raw.text();
             const event = stripe_1.default.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
+            console.log("Received event:", event);
             if (event.type === "checkout.session.completed") {
                 const session = event.data.object;
+                console.log("Session data:", session);
                 await paymentService.handleSuccessfulPayment(session.id);
             }
             return c.json({ received: true });

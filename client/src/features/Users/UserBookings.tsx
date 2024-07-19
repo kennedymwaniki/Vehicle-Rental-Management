@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import usersAPI from "./UserApi";
 import { TBooking } from "../../types/types";
 
@@ -14,16 +14,15 @@ const UserBookings = () => {
     userId,
     {
       skip: !userId,
+      pollingInterval: 6000,
     }
   );
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading bookings</div>;
 
-  const handleCheckout = async (
-    bookingId: number | null | undefined,
-    amount: number
-  ) => {
+  const handleCheckout = async (bookingId: number, amount: number) => {
+    console.log(bookingId, amount);
     setPayingBookingId(bookingId);
     const response = await fetch(
       "https://vehicle-rental-backend-eg4t.onrender.com/api/create-checkout-session",
@@ -32,7 +31,10 @@ const UserBookings = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ bookingId, amount }),
+        body: JSON.stringify({
+          bookingId: Number(bookingId),
+          amount: Number(amount),
+        }),
       }
     );
 

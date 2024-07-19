@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import usersAPI from "./UserApi";
 import Modal from "../../ui/Modal";
 import { useForm, SubmitHandler } from "react-hook-form";

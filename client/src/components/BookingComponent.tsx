@@ -1,4 +1,4 @@
-import { useParams, useNavigate, redirect } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
@@ -32,10 +32,11 @@ const Booking = () => {
 
     try {
       setIsSubmitting(true);
-      await createBooking(bookingData).unwrap();
+      const res = await createBooking(bookingData).unwrap();
+      console.log(res);
       toast.success("Booking created successfully!");
-      navigate(-2);
-      redirect("userdashboard");
+
+      navigate("/userdashboard");
     } catch (err) {
       toast.error("Failed to create booking");
       console.log(err);
@@ -47,12 +48,15 @@ const Booking = () => {
   if (!vehicleData) return <div>Loading vehicle data...</div>;
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8 text-purple-800">
       <Toaster position="top-center" richColors />
       <h2 className="text-2xl font-bold mb-6">Book Vehicle</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 text-purple-900"
+      >
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-purple-700">
             Vehicle ID
           </label>
           <input
@@ -63,7 +67,7 @@ const Booking = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-purple-700">
             User ID
           </label>
           <input
@@ -74,7 +78,7 @@ const Booking = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-purple-700">
             Total Amount
           </label>
           <input
@@ -86,7 +90,7 @@ const Booking = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-purple-700">
             Booking Date
           </label>
           <input
@@ -98,7 +102,7 @@ const Booking = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-purple-700">
             Return Date
           </label>
           <input

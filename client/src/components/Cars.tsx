@@ -7,7 +7,7 @@ import CarLoader from "./CarLoader";
 const Cars = () => {
   const {
     data: vehiclesData,
-    error,
+
     isLoading,
     isError,
   } = vehiclesAPI.useGetVehiclesQuery();
