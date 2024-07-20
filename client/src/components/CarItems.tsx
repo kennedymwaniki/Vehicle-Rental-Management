@@ -1,8 +1,9 @@
-import audi from "../assets/download.jpeg";
+// import audi from "../assets/download.jpeg";
 
 interface CarItemProps {
   vehicle: {
     vehicleId: number;
+    image_url: string;
     vehicleSpecsId: number;
     rentalRate: number;
     availability: boolean;
@@ -11,7 +12,7 @@ interface CarItemProps {
 }
 
 const CarItem = ({ vehicle, onBookClick }: CarItemProps) => {
-  const { vehicleId, rentalRate, availability } = vehicle;
+  const { vehicleId, rentalRate, availability, image_url } = vehicle;
 
   return (
     <div
@@ -21,9 +22,9 @@ const CarItem = ({ vehicle, onBookClick }: CarItemProps) => {
     >
       <div className="w-1/3">
         <img
-          src={audi} // Add image paths manually
+          src={image_url} // Add image paths manually
           alt="Vehicle"
-          className="w-full h-[200px] object-cover rounded-lg"
+          className="w-full h-auto object-cover rounded-lg"
         />
       </div>
       <div className="w-2/3 pl-4">

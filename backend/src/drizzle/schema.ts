@@ -17,6 +17,7 @@ export const roleEnum = pgEnum("role", ["user", "admin", "both"]);
 export const UsersTable = pgTable("users", {
   userId: serial("user_id").primaryKey(),
   fullName: varchar("full_name").notNull(),
+  image_url: text("imageUrl"),
   email: varchar("email").unique().notNull(),
   password: varchar("password"),
   contactPhone: varchar("contact_phone"),
@@ -41,6 +42,7 @@ export const VehicleSpecificationsTable = pgTable("vehiclespecifications", {
 
 export const VehiclesTable = pgTable("vehicles", {
   vehicleId: serial("vehicle_id").primaryKey(),
+  image_url: text("imageUrl"),
   vehicleSpecsId: integer("vehicle_specId").references(
     () => VehicleSpecificationsTable.vehicleSpecId,
     { onDelete: "cascade" }

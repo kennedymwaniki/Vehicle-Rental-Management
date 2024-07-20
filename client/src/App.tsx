@@ -21,6 +21,7 @@ import UserTickets from "./features/Users/UserTickets";
 import UserProfile from "./features/Users/UserProfile";
 import TicketList from "./features/Tickets/TicketList";
 import UserSummary from "./ui/UserSummary";
+import AdminProfile from "./Pages/AdminProfile";
 
 const router = createBrowserRouter([
   {
@@ -112,6 +113,10 @@ const router = createBrowserRouter([
           {
             path: "tickets",
             element: <TicketList />,
+          },
+          {
+            path: "adminprofile",
+            element: <AdminProfile />,
           },
         ],
       },

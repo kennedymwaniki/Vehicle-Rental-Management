@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 
 import { RootState } from "../app/store";
 
-const ProfileMenu = ({ fullName }) => {
+const ProfileMenu = ({ fullName }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useSelector((state: RootState) => state.auth);
   console.log(user);
+
+  const hasImage = Boolean(user?.user.image);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -16,7 +18,7 @@ const ProfileMenu = ({ fullName }) => {
     <div className="relative">
       <button onClick={toggleMenu} className="flex items-center space-x-2">
         <img
-          src="https://via.placeholder.com/150"
+          src={hasImage ? user?.user.image : "https://via.placeholder.com/100"}
           alt="Profile"
           className="h-8 w-8 rounded-full"
         />

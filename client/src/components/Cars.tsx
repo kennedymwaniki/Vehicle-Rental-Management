@@ -20,6 +20,7 @@ const Cars = () => {
     if (!isAuthenticated) {
       navigate("/login");
     } else {
+      //! redirect user to the bookingComponent  with the specific vehicle id
       navigate(`/booking/${vehicleId}`);
     }
   };

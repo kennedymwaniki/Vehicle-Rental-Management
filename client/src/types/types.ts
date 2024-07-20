@@ -1,6 +1,8 @@
 export interface TUser {
   userId: number | null | undefined;
   fullName: string;
+  image: string;
+
   password?: string;
   email: string;
   contactPhone: string;
@@ -13,6 +15,7 @@ export interface User {
     role: string;
     id: string;
     fullName: string;
+    image: string;
   };
 }
 
@@ -60,6 +63,7 @@ export interface TBooking {
 
 export interface TVehicle {
   vehicleId: number;
+  image_url: string;
   vehicleSpecsId: number;
   rentalRate: number;
   availability: boolean;
@@ -79,6 +83,7 @@ export interface TTicket {
 export interface TVehicleSpecs {
   vehicleSpec_id: number;
   manufacturer: string;
+  image: string;
   model: string;
   year: number;
   fuel_type: string;
@@ -105,3 +110,8 @@ export interface TUserTicketsResponse {
   user: TUser;
   tickets: TTicket[];
 }
+  export interface TuserRealtions{
+    user: TUser;
+    tickets: TTicket[];
+    bookings:TBooking[]
+  }

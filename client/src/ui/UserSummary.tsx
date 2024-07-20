@@ -1,11 +1,11 @@
 import {
   HiBookOpen,
   HiOutlineCreditCard,
-  HiOutlineTruck,
+  // HiOutlineTruck,
 } from "react-icons/hi";
-import { FaCar } from "react-icons/fa6";
+// import { FaCar } from "react-icons/fa6";
 import { IoTicket } from "react-icons/io5";
-import { FaMapLocationDot } from "react-icons/fa6";
+// import { FaMapLocationDot } from "react-icons/fa6";
 
 import SummaryCard from "./SummaryCard";
 
@@ -25,18 +25,7 @@ const UserSummary = () => {
           icon={<HiOutlineCreditCard className="h-6 w-6 text-yellow-600" />}
           color="text-yellow-600"
         />
-        <SummaryCard
-          title="Fleets"
-          count={5}
-          icon={<HiOutlineTruck className="h-6 w-6 text-purple-600" />}
-          color="text-purple-600"
-        />
-        <SummaryCard
-          title="Vehicles"
-          count={15}
-          icon={<FaCar className="h-6 w-6 text-red-600" />}
-          color="text-red-600"
-        />
+
         <SummaryCard
           title="Pending Tickets"
           count={8}
@@ -48,12 +37,6 @@ const UserSummary = () => {
           count={20}
           icon={<IoTicket className="h-6 w-6 text-green-600" />}
           color="text-green-600"
-        />
-        <SummaryCard
-          title="Locations"
-          count={10}
-          icon={<FaMapLocationDot className="h-6 w-6 text-pink-600" />}
-          color="text-pink-600"
         />
       </div>
     </div>

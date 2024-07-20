@@ -1,8 +1,7 @@
 import { useState } from "react";
-import usersAPI from "./UserApi";
-import Modal from "../../ui/Modal";
+import usersAPI from "../features/Users/UserApi";
+import Modal from "../ui/Modal";
 import { useForm, SubmitHandler } from "react-hook-form";
-
 interface FormData {
   fullName: string;
   email: string;
@@ -13,7 +12,7 @@ interface FormData {
   avatar?: File; // Optional field for avatar image
 }
 
-const UserProfile = () => {
+const AdminProfile = () => {
   const userJson = localStorage.getItem("user");
   const user = userJson ? JSON.parse(userJson).user : null;
 
@@ -49,7 +48,7 @@ const UserProfile = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-blue-50 p-6 rounded-lg shadow-lg w-full max-w-sm">
+      <div className="bg-blue-500 p-6 rounded-3xl shadow-lg w-full max-w-sm">
         <div className="flex justify-center mb-4">
           <img
             src={hasImage ? user.image : "https://via.placeholder.com/100"}
@@ -66,7 +65,7 @@ const UserProfile = () => {
             <p className="text-gray-600 mb-1">Phone: {data.contactPhone}</p>
             <p className="text-gray-600 mb-4">Role: {data.role}</p>
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-blue-50 text-black px-4 py-2 rounded"
               onClick={() => setIsModalOpen(true)}
             >
               Edit Profile
@@ -154,4 +153,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default AdminProfile;

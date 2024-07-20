@@ -67,6 +67,10 @@ const SideBar = () => {
             <FaMapLocationDot className="h-5 w-5" />
             <Link to="locations">Locations</Link>
           </li>
+          <li className="flex items-center space-x-2">
+            <HiOutlineUser className="h-5 w-5" />
+            <Link to="adminprofile">Your Profile</Link>
+          </li>
         </ul>
       </nav>
       <button className="mb-[125px] flex" onClick={Logout}>

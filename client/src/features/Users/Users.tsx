@@ -33,7 +33,6 @@ const Users = () => {
         setValue("contactPhone", userToEdit.contactPhone || "");
         setValue("address", userToEdit.address || "");
         setValue("role", userToEdit.role);
-        //* Don't set the password field
       }
     }
   }, [editUserId, usersData, setValue]);

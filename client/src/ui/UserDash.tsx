@@ -5,7 +5,7 @@ import { RootState } from "../app/store";
 
 const UserDash = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const fullName = user?.user.fullName;
+  const fullName = user?.user.fullName as string;
   return (
     <div className="flex flex-col flex-grow p-6 bg-gray-100 h-full">
       <div className="flex justify-between items-center mb-4">
