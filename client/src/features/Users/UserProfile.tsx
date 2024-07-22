@@ -64,14 +64,14 @@ const UserProfile = () => {
         imageUrl = res.data.secure_url;
       }
 
-      const res = await updateUser({ userId, ...formData, image: imageUrl });
-      console.log(res);
+      const response = await updateUser({ userId, ...formData, image: imageUrl });
+      console.log(response);
 
-      if (res.data) {
+      if (response.data) {
         const updatedUser = {
           ...user,
-          fullName: res.data.msg.fullName,
-          image: res.data.msg.image,
+          fullName: response.data.msg.fullName,
+          image: response.data.msg.image,
         };
         localStorage.setItem("user", JSON.stringify({ user: updatedUser }));
       }
