@@ -26,7 +26,7 @@ const RegisterComponent = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-full items-center justify-center px-6 py-12 lg:px-8">
+    <div className="flex flex-col min-h-full items-center justify-center px-6 py-12 lg:px-8 bg-gray-300">
       <div className="sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Create your account

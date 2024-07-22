@@ -55,7 +55,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex  flex-col justify-center px-6 py-12 lg:px-8 ">
       <Toaster position="top-center" richColors />
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
@@ -68,7 +68,7 @@ const Login = () => {
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-4 rounded-lg">
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
@@ -100,7 +100,7 @@ const Login = () => {
               <div className="text-sm">
                 <a
                   href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  className="font-semibold text-indigo-900 hover:text-indigo-600"
                 >
                   Forgot password?
                 </a>
@@ -125,6 +125,14 @@ const Login = () => {
             >
               {loading ? <MiniLoader /> : "Sign in"}
             </button>
+            <div className="text-sm mt-4">
+              <a
+                href="register"
+                className="font-semibold text-indigo-900 hover:text-indigo-500"
+              >
+                You don't have an account?
+              </a>
+            </div>
           </div>
         </form>
       </div>

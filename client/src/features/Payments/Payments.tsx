@@ -77,7 +77,7 @@ const Payments = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <Toaster position="top-center" />
+      <Toaster position="top-center" richColors />
       <h2 className="text-yellow-400 text-2xl mb-4">Payments</h2>
       <div className="">
         <table className="min-w-full bg-white border border-gray-300">

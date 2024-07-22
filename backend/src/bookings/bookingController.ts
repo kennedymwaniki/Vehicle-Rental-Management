@@ -5,7 +5,6 @@ import {
   getBookingsService,
   updateBookingService,
 } from "./bookingService";
-
 import { type Context } from "hono";
 
 export const getBookings = async (c: Context) => {
@@ -44,15 +43,7 @@ export const updateBooking = async (c: Context) => {
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
     const booking = await c.req.json();
-    console.log("This the booking the controller gets",booking);
-
-    if (booking.bookingDate && typeof booking.bookingDate !== 'string') {
-      booking.bookingDate = new Date(booking.bookingDate).toISOString();
-    }
-    if (booking.returnDate && typeof booking.returnDate !== 'string') {
-      booking.returnDate = new Date(booking.returnDate).toISOString();
-    }
-
+    console.log("This the booking the controller gets", booking);
 
     const searchedBooking = await getBookingById(id);
     if (searchedBooking == undefined) return c.text("Booking not found", 404);
@@ -75,7 +66,7 @@ export const deleteBooking = async (c: Context) => {
     if (booking === undefined) return c.text("Booking not found", 404);
 
     const res = await deleteBookingService(id);
-    if (res === undefined) return c.text("Booking not deleted", 404);
+    if (!res) return c.text("Booking not deleted", 404);
 
     return c.json({ msg: res }, 201);
   } catch (error: any) {

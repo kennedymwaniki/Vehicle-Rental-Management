@@ -1,4 +1,5 @@
 export interface TUser {
+  [x: string]: any;
   userId: number | null | undefined;
   fullName: string;
   image: string;
@@ -57,8 +58,8 @@ export interface TBooking {
   returnDate: string;
   totalAmount: number;
   bookingStatus: "Pending" | "Completed" | "Failed";
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface TVehicle {
@@ -69,6 +70,15 @@ export interface TVehicle {
   availability: boolean;
   createdAt: string;
   updatedAt: string;
+  vehicleSpec: {
+    color: string;
+    model: string;
+    year: number;
+    seatingCapacity: number;
+    manufacturer: string;
+    fuelType: string;
+    engineCapacity: string;
+  };
 }
 
 export interface TTicket {
@@ -108,10 +118,10 @@ export interface TUserBookingsResponse {
 
 export interface TUserTicketsResponse {
   user: TUser;
-  tickets: TTicket[];
+  supportTickets: TTicket[];
 }
-  export interface TuserRealtions{
-    user: TUser;
-    tickets: TTicket[];
-    bookings:TBooking[]
-  }
+export interface TuserRealtions {
+  user: TUser;
+  tickets: TTicket[];
+  bookings: TBooking[];
+}

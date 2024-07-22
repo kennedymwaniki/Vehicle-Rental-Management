@@ -1,5 +1,3 @@
-// import audi from "../assets/download.jpeg";
-
 interface CarItemProps {
   vehicle: {
     vehicleId: number;
@@ -7,41 +5,74 @@ interface CarItemProps {
     vehicleSpecsId: number;
     rentalRate: number;
     availability: boolean;
+    vehicleSpec: {
+      color: string;
+      model: string;
+      year: number;
+      seatingCapacity: number;
+      manufacturer: string;
+      fuelType: string;
+      engineCapacity: string;
+    };
   };
   onBookClick: (vehicleId: number) => void;
 }
 
 const CarItem = ({ vehicle, onBookClick }: CarItemProps) => {
-  const { vehicleId, rentalRate, availability, image_url } = vehicle;
+  const { vehicleId, rentalRate, availability, image_url, vehicleSpec } =
+    vehicle;
+  const {
+    model,
+    manufacturer,
+    year,
+    color,
+    seatingCapacity,
+    fuelType,
+    engineCapacity,
+  } = vehicleSpec;
 
   return (
     <div
-      className={`flex items-center p-4 bg-white rounded-lg shadow-md ${
+      className={`flex flex-col bg-white rounded-lg shadow-md p-4 ${
         !availability ? "grayscale" : ""
       }`}
     >
-      <div className="w-1/3">
+      <div className="flex-shrink-0">
         <img
-          src={image_url} // Add image paths manually
-          alt="Vehicle"
-          className="w-full h-auto object-cover rounded-lg"
+          src={image_url}
+          alt={`${manufacturer} ${model}`}
+          className="w-full h-48 object-cover rounded-lg"
         />
       </div>
-      <div className="w-2/3 pl-4">
-        <h3 className="text-xl font-bold">Vehicle Name</h3>
-        <p className="text-gray-700">Rental Rate: ${rentalRate} per day</p>
-        <button
-          onClick={() => onBookClick(vehicleId)}
-          disabled={!availability}
-          className={`mt-4 px-4 py-2 text-white rounded ${
-            availability
-              ? "bg-yellow-500 hover:bg-yellow-600"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
-        >
-          Book
-        </button>
+      <div className="flex-grow mt-4">
+        <h3 className="text-xl font-bold">{`${year} ${manufacturer} ${model}`}</h3>
+        <p className="text-gray-700">
+          <strong>Color:</strong> {color}
+        </p>
+        <p className="text-gray-700">
+          <strong>Seating Capacity:</strong> {seatingCapacity}
+        </p>
+        <p className="text-gray-700">
+          <strong>Fuel Type:</strong> {fuelType}
+        </p>
+        <p className="text-gray-700">
+          <strong>Engine Capacity:</strong> {engineCapacity}
+        </p>
+        <p className="text-gray-700">
+          <strong>Rental Rate:</strong> ${rentalRate} per day
+        </p>
       </div>
+      <button
+        onClick={() => onBookClick(vehicleId)}
+        disabled={!availability}
+        className={`mt-4 px-4 py-2 text-white rounded ${
+          availability
+            ? "bg-yellow-500 hover:bg-yellow-600"
+            : "bg-gray-400 cursor-not-allowed"
+        }`}
+      >
+        Book
+      </button>
     </div>
   );
 };

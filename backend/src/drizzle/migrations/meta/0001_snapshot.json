@@ -1,6 +1,6 @@
 {
-  "id": "122e28c1-6881-4959-8f18-0607068edb06",
-  "prevId": "81e59264-6670-4a91-a4c9-99fa89dc971d",
+  "id": "b57847e0-6fec-4f2e-a9f2-dfe614ee4bef",
+  "prevId": "5ade79eb-2289-4ab8-8836-8e2dde776ad6",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -19,6 +19,20 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'user'"
         },
         "password": {
           "name": "password",
@@ -58,7 +72,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "auth_users_email_unique": {
+          "name": "auth_users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
     },
     "public.bookings": {
       "name": "bookings",
@@ -92,13 +114,13 @@
           "name": "booking_date",
           "type": "date",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "return_date": {
           "name": "return_date",
           "type": "date",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "total_amount": {
           "name": "total_amount",
@@ -390,7 +412,7 @@
         },
         "amount": {
           "name": "amount",
-          "type": "numeric",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -470,6 +492,12 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "imageUrl": {
+          "name": "imageUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "email": {
           "name": "email",
@@ -611,6 +639,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "imageUrl": {
+          "name": "imageUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "vehicle_specId": {
           "name": "vehicle_specId",
           "type": "integer",
@@ -689,7 +723,8 @@
       "schema": "public",
       "values": [
         "user",
-        "admin"
+        "admin",
+        "both"
       ]
     }
   },

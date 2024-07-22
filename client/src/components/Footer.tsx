@@ -25,7 +25,7 @@ const Footer = () => {
                 <FaLinkedin size={20} />
               </a>
               <a
-                href="#"
+                href="mailto:michaelmwasame6@gmail.com"
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 <FaEnvelope size={20} />

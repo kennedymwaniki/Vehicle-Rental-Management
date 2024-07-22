@@ -13,6 +13,7 @@ const Vehicles = () => {
     isLoading,
     isError,
   } = vehiclesAPI.useGetVehiclesQuery();
+  console.log(vehiclesData);
 
   const [editVehicleId, setEditVehicleId] = useState<number | null>(null);
   const [vehicleData, setVehicleData] = useState<Partial<TVehicle>>({});

@@ -6,7 +6,7 @@ import About from "../components/About";
 
 const Homepage = () => {
   return (
-    <div className="gap-8">
+    <div className="">
       <Navbar />
       <Hero />
       <About />

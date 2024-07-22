@@ -2,6 +2,9 @@ import { useState } from "react";
 import usersAPI from "../features/Users/UserApi";
 import Modal from "../ui/Modal";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast, Toaster } from "sonner";
+import { useNavigate } from "react-router-dom";
+
 interface FormData {
   fullName: string;
   email: string;
@@ -13,6 +16,7 @@ interface FormData {
 }
 
 const AdminProfile = () => {
+  const navigate = useNavigate();
   const userJson = localStorage.getItem("user");
   const user = userJson ? JSON.parse(userJson).user : null;
 
@@ -24,6 +28,8 @@ const AdminProfile = () => {
     skip: !userId,
   });
 
+  const [updateUser] = usersAPI.useUpdateUserMutation();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     register,
@@ -31,11 +37,24 @@ const AdminProfile = () => {
     formState: { isSubmitting },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (formData) => {
-    // Handle form submission
-    console.log(formData);
-    // Close modal after submission
-    setIsModalOpen(false);
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    try {
+      console.log(formData);
+      const res = await updateUser({ userId, ...formData });
+      console.log(res);
+
+      if (res.data) {
+        const updatedUser = { ...user, fullName: res.data.msg.fullName };
+        localStorage.setItem("user", JSON.stringify({ user: updatedUser }));
+      }
+
+      // Close modal after submission
+      setIsModalOpen(false);
+      toast.success("Profile successfully updated");
+      navigate("/admindashboard");
+    } catch (error) {
+      toast.error("update failed");
+    }
   };
 
   if (isLoading) {
@@ -48,6 +67,18 @@ const AdminProfile = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <Toaster
+        position="top-center"
+        richColors
+        toastOptions={{
+          classNames: {
+            error: "error-toast",
+            success: "success-toast",
+            warning: "warning-toast",
+            info: "info-toast",
+          },
+        }}
+      />
       <div className="bg-blue-500 p-6 rounded-3xl shadow-lg w-full max-w-sm">
         <div className="flex justify-center mb-4">
           <img

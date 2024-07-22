@@ -1,3 +1,4 @@
+import hero from "../assets/hero.png"
 const Hero = () => {
   return (
     <div
@@ -17,7 +18,7 @@ const Hero = () => {
         </button>
       </div>
       <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
-        <img src="src/assets/hero.png" alt="Car" className="w-full h-auto" />
+        <img src={hero} alt="Car" className="w-full h-auto" />
       </div>
     </div>
   );

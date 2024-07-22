@@ -67,7 +67,7 @@ const UserTickets = () => {
       >
         Create Ticket
       </button>
-      {UserTickets?.tickets?.length ? (
+      {UserTickets?.supportTickets?.length ? (
         <table className="min-w-full border-collapse">
           <thead>
             <tr>
@@ -79,20 +79,30 @@ const UserTickets = () => {
             </tr>
           </thead>
           <tbody>
-            {UserTickets.tickets.map((ticket: TTicket, index: number) => (
-              <tr
-                key={ticket.ticketId}
-                className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
-              >
-                <td className="border-b py-2 px-4">{ticket.ticketId}</td>
-                <td className="border-b py-2 px-4">{ticket.subject}</td>
-                <td className="border-b py-2 px-4">{ticket.description}</td>
-                <td className="border-b py-2 px-4">{ticket.status}</td>
-                <td className="border-b py-2 px-4">
-                  {new Date(ticket.createdAt).toLocaleDateString()}
-                </td>
-              </tr>
-            ))}
+            {UserTickets.supportTickets.map(
+              (ticket: TTicket, index: number) => (
+                <tr
+                  key={ticket.ticketId}
+                  className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
+                >
+                  <td className="border-b py-2 px-4">{ticket.ticketId}</td>
+                  <td className="border-b py-2 px-4">{ticket.subject}</td>
+                  <td className="border-b py-2 px-4">{ticket.description}</td>
+                  <td
+                    className={`border-b py-2 px-4 ${
+                      ticket.status === "open"
+                        ? "text-red-600"
+                        : "text-green-500"
+                    }`}
+                  >
+                    {ticket.status}
+                  </td>
+                  <td className="border-b py-2 px-4">
+                    {new Date(ticket.createdAt).toLocaleDateString()}
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       ) : (

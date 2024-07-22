@@ -22,6 +22,7 @@ import UserProfile from "./features/Users/UserProfile";
 import TicketList from "./features/Tickets/TicketList";
 import UserSummary from "./ui/UserSummary";
 import AdminProfile from "./Pages/AdminProfile";
+import LocationsTable from "./features/Locations/LocationsTable";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,10 @@ const router = createBrowserRouter([
           {
             path: "adminprofile",
             element: <AdminProfile />,
+          },
+          {
+            path: "locations",
+            element: <LocationsTable />,
           },
         ],
       },

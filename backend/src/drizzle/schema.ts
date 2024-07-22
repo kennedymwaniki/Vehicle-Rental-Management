@@ -81,14 +81,14 @@ export const BookingsTable = pgTable("bookings", {
     () => LocationsTable.locationId,
     { onDelete: "cascade" }
   ),
-  bookingDate: date("booking_date").notNull(),
-  returnDate: date("return_date").notNull(),
+  bookingDate: date("booking_date", { mode: "string" }),
+  returnDate: date("return_date", { mode: "string" }),
   totalAmount: decimal("total_amount").notNull(),
   bookingStatus: bookingStatusEnum("booking_status")
     .default("Pending")
     .notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow(),
 });
 
 // payment Enum (['Pending', 'Completed', 'Failed']

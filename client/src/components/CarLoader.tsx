@@ -57,7 +57,9 @@ const CarLoader = () => {
             />
           </g>
         </svg>
-        <p className="m-4 text-sky-500">Holdon as we fet the vehicles.......</p>
+        <p className="m-4 text-sky-500">
+          Holdon as we fetch the vehicles.......
+        </p>
       </div>
     </div>
   );
