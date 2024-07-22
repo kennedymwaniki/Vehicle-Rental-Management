@@ -1,4 +1,4 @@
-import React from "react";
+
 import { HiBookOpen, HiOutlineCreditCard } from "react-icons/hi";
 import { IoTicket } from "react-icons/io5";
 import SummaryCard from "./SummaryCard";
