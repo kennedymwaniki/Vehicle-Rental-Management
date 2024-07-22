@@ -1,4 +1,3 @@
-
 import { HiBookOpen, HiOutlineCreditCard } from "react-icons/hi";
 import { IoTicket } from "react-icons/io5";
 import SummaryCard from "./SummaryCard";
@@ -42,7 +41,7 @@ const UserSummary = () => {
 
   const totalPayments = bookings
     .filter((booking) => booking.bookingStatus === "Completed")
-    .reduce((acc, booking) => acc + booking.totalAmount, 0);
+    .reduce((acc, booking) => Number(acc + booking.totalAmount), 0);
 
   return (
     <div>
