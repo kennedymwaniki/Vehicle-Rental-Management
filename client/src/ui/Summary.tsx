@@ -22,7 +22,7 @@ import ReportModal from "./ReportModal";
 const Summary = () => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const { data: tickets } = ticketsAPI.useGetTicketsQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 2000,
   });
   const { data: bookings } = bookingsAPI.useGetBookingsQuery(undefined, {
     pollingInterval: 60000,
