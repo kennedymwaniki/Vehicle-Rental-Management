@@ -5,13 +5,6 @@ import Modal from "../../ui/Modal";
 import { toast, Toaster } from "sonner";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
-// import { Cloudinary } from "@cloudinary/url-gen";
-
-// const cld = new Cloudinary({
-//   cloud: {
-//     cloudName: "dt7qq0zt2",
-//   },
-// });
 
 interface FormData {
   fullName: string;
@@ -64,7 +57,16 @@ const UserProfile = () => {
         imageUrl = res.data.secure_url;
       }
 
-      const response = await updateUser({ userId, ...formData, image: imageUrl });
+      const response = await updateUser({
+        userId,
+        fullName: formData.fullName,
+        email: formData.email,
+        username: formData.username,
+        address: formData.address,
+        contactPhone: formData.contactPhone,
+        password: formData.password,
+        image: imageUrl,
+      });
       console.log(response);
 
       if (response.data) {
@@ -81,7 +83,7 @@ const UserProfile = () => {
       toast.success("Profile successfully updated");
       navigate("/");
     } catch (error) {
-      toast.error("update failed");
+      toast.error("Update failed");
     }
   };
 
