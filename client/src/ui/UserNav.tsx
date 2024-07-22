@@ -1,4 +1,4 @@
-import { HiOutlineUser, HiBookOpen, HiOutlineCreditCard } from "react-icons/hi";
+import { HiOutlineUser, HiBookOpen } from "react-icons/hi";
 // import { FaCar } from "react-icons/fa6";
 import { IoTicket, IoHome } from "react-icons/io5";
 import { MdOutlineExitToApp } from "react-icons/md";
@@ -41,10 +41,10 @@ const UserNav = () => {
               <HiBookOpen className="h-5 w-5" />
               <Link to="mybookings">Your Bookings </Link>
             </li>
-            <li className="flex items-center space-x-2">
+            {/* <li className="flex items-center space-x-2">
               <HiOutlineCreditCard className="h-5 w-5" />
               <Link to="mypayments">Your payments</Link>
-            </li>
+            </li> */}
 
             <li className="flex items-center space-x-2">
               <IoTicket className="h-5 w-5" />

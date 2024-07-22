@@ -1,7 +1,8 @@
 #root {
   padding: 0;
   margin: 0;
-  height: 100vh;
+  /* background-color: blueviolet; */
+  min-height: 100vh;
   /* background-color: aqua; */
 }
 .spinner {

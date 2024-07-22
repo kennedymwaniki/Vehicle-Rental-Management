@@ -125,3 +125,9 @@ export interface TuserRealtions {
   tickets: TTicket[];
   bookings: TBooking[];
 }
+
+export interface TAlluserRelations {
+  user: TUser;
+  bookings: TBooking[];
+  customerSupportTickets: TTicket[];
+}

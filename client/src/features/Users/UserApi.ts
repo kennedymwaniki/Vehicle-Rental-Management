@@ -1,4 +1,5 @@
 import {
+  TAlluserRelations,
   TUser,
   TUserBookingsResponse,
   TUserTicketsResponse,
@@ -64,6 +65,13 @@ export const usersAPI = createApi({
         url: `users/tickets/${userId}`,
         method: "GET",
         providesTags: ["getUserTickets"],
+      }),
+    }),
+    getAllUserRelations: builder.query<TAlluserRelations, void>({
+      query: (userId) => ({
+        url: `users/relations/${userId}`,
+        method: "GET",
+        providesTags: ["getAllUserRelations"],
       }),
     }),
   }),

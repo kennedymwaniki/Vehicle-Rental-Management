@@ -11,7 +11,7 @@ const Navbar = () => {
   const fullName = user?.user.fullName;
   console.log(user);
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between bg-white">
       <div className="logo">
         <img src={logo} alt="" className="p-0 m-0 h-[80px]" />
       </div>

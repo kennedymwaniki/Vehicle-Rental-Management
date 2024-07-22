@@ -33,7 +33,7 @@ const CarItem = ({ vehicle, onBookClick }: CarItemProps) => {
 
   return (
     <div
-      className={`flex flex-col bg-white rounded-lg shadow-md p-4 ${
+      className={`flex flex-col bg-white rounded-lg shadow-md m-2 p-2 ${
         !availability ? "grayscale" : ""
       }`}
     >
@@ -47,19 +47,22 @@ const CarItem = ({ vehicle, onBookClick }: CarItemProps) => {
       <div className="flex-grow mt-4">
         <h3 className="text-xl font-bold">{`${year} ${manufacturer} ${model}`}</h3>
         <p className="text-gray-700">
-          <strong>Color:</strong> {color}
+          <strong className="text-blue-800">Color:</strong> {color}
         </p>
         <p className="text-gray-700">
-          <strong>Seating Capacity:</strong> {seatingCapacity}
+          <strong className="text-blue-800">Seating Capacity:</strong>{" "}
+          {seatingCapacity}
+        </p>
+        <p className="text-indigo-600">
+          <strong className="text-blue-800">Fuel Type:</strong> {fuelType}
         </p>
         <p className="text-gray-700">
-          <strong>Fuel Type:</strong> {fuelType}
+          <strong className="text-blue-800">Engine Capacity:</strong>{" "}
+          {engineCapacity}
         </p>
         <p className="text-gray-700">
-          <strong>Engine Capacity:</strong> {engineCapacity}
-        </p>
-        <p className="text-gray-700">
-          <strong>Rental Rate:</strong> ${rentalRate} per day
+          <strong className="text-blue-800">Rental Rate:</strong> ${rentalRate}{" "}
+          per day
         </p>
       </div>
       <button
