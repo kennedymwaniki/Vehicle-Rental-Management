@@ -5,13 +5,13 @@ import Modal from "../../ui/Modal";
 import { toast, Toaster } from "sonner";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { Cloudinary } from "@cloudinary/url-gen";
+// import { Cloudinary } from "@cloudinary/url-gen";
 
-const cld = new Cloudinary({
-  cloud: {
-    cloudName: "dt7qq0zt2",
-  },
-});
+// const cld = new Cloudinary({
+//   cloud: {
+//     cloudName: "dt7qq0zt2",
+//   },
+// });
 
 interface FormData {
   fullName: string;
