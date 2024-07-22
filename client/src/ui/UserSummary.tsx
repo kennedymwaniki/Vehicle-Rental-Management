@@ -27,6 +27,7 @@ const UserSummary = () => {
   const pendingBookings = bookings.filter(
     (booking) => booking.bookingStatus === "Pending"
   ).length;
+
   const completedBookings = bookings.filter(
     (booking) => booking.bookingStatus === "Completed"
   ).length;
@@ -35,6 +36,7 @@ const UserSummary = () => {
   const openTickets = tickets.filter(
     (ticket) => ticket.status === "open"
   ).length;
+
   const closedTickets = tickets.filter(
     (ticket) => ticket.status === "closed"
   ).length;

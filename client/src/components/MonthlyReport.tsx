@@ -1,150 +1,84 @@
+import React from "react";
+import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+// Define types for our data
+interface TBooking {
+  bookingId: number;
+  userId: number;
+  vehicleId: string;
+  locationId: string;
+  bookingDate: string;
+  returnDate: string;
+  totalAmount: number;
+  bookingStatus: string;
+}
 
-// Create styles
+interface TUser {
+  userId: number;
+  fullName: string;
+  email: string;
+  contactPhone: string;
+  address: string;
+  role: string;
+}
+
+// Create styles for PDF
 const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'column',
-    backgroundColor: '#ffffff',
-    padding: 30,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  text: {
-    fontSize: 12,
-    marginBottom: 5,
-  },
-  table: { 
-    display: 'flex',
-    width: 'auto',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRightWidth: 0,
-    borderBottomWidth: 0,
-  },
-  tableRow: { 
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-  tableCol: {
-    width: '25%',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    borderTopWidth: 0,
-  },
-  tableCell: {
-    margin: 'auto',
-    marginTop: 5,
-    fontSize: 10,
-  },
+  page: { padding: 30 },
+  title: { fontSize: 24, marginBottom: 10, textAlign: "center", color: "red" },
+  section: { margin: 10, padding: 10 },
+  text: { fontSize: 12, marginBottom: 5 },
 });
 
-// Sample data (replace with actual data in a real scenario)
-const vehicleData = [
-  { type: 'Sedan', available: 10, booked: 5 },
-  { type: 'SUV', available: 8, booked: 7 },
-  { type: 'Van', available: 5, booked: 2 },
-];
+// Create MonthlyReport component
+const MonthlyReport: React.FC<{
+  bookingsData: TBooking[];
+  usersData: TUser[];
+}> = ({ bookingsData, usersData }) => {
+  const currentMonth = new Date().toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
+  const totalUsers = usersData.length;
+  const totalBookings = bookingsData.length;
+  const totalRevenue = bookingsData.reduce(
+    (sum, booking) => sum + booking.totalAmount,
+    0
+  );
 
-const bookingData = {
-  total: 50,
-  completed: 45,
-  cancelled: 5,
-};
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <Text style={styles.title}>Monthly Report - {currentMonth}</Text>
 
-const financialData = {
-  revenue: 25000,
-  expenses: 15000,
-  profit: 10000,
-};
+        <View style={styles.section}>
+          <Text style={styles.text}>Total Users: {totalUsers}</Text>
+          <Text style={styles.text}>Total Bookings: {totalBookings}</Text>
+          <Text style={styles.text}>
+            Total Revenue: ${totalRevenue.toFixed(2)}
+          </Text>
+        </View>
 
-// Create Document Component
-const MonthlyReport = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <Text style={styles.title}>Monthly Rental Report - July 2024</Text>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>1. Executive Summary</Text>
-        <Text style={styles.text}>This report provides an overview of our vehicle rental operations for July 2024, including vehicle inventory, bookings, financial performance, and key insights.</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>2. Vehicle Inventory Overview</Text>
-        <View style={styles.table}>
-          <View style={styles.tableRow}>
-            <View style={styles.tableCol}><Text style={styles.tableCell}>Vehicle Type</Text></View>
-            <View style={styles.tableCol}><Text style={styles.tableCell}>Available</Text></View>
-            <View style={styles.tableCol}><Text style={styles.tableCell}>Booked</Text></View>
-            <View style={styles.tableCol}><Text style={styles.tableCell}>Total</Text></View>
-          </View>
-          {vehicleData.map((vehicle, index) => (
-            <View style={styles.tableRow} key={index}>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{vehicle.type}</Text></View>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{vehicle.available}</Text></View>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{vehicle.booked}</Text></View>
-              <View style={styles.tableCol}><Text style={styles.tableCell}>{vehicle.available + vehicle.booked}</Text></View>
-            </View>
+        <View style={styles.section}>
+          <Text style={styles.text}>Sample Users:</Text>
+          {usersData.slice(0, 5).map((user, index) => (
+            <Text key={user.userId} style={styles.text}>
+              {index + 1}. {user.fullName} ({user.email})
+            </Text>
           ))}
         </View>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>3. Booking Statistics</Text>
-        <Text style={styles.text}>Total Bookings: {bookingData.total}</Text>
-        <Text style={styles.text}>Completed Bookings: {bookingData.completed}</Text>
-        <Text style={styles.text}>Cancelled Bookings: {bookingData.cancelled}</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>4. Financial Performance</Text>
-        <Text style={styles.text}>Total Revenue: ${financialData.revenue}</Text>
-        <Text style={styles.text}>Total Expenses: ${financialData.expenses}</Text>
-        <Text style={styles.text}>Net Profit: ${financialData.profit}</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>5. Fleet Utilization</Text>
-        <Text style={styles.text}>Average utilization rate across all vehicle types: 65%</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>6. Customer Insights</Text>
-        <Text style={styles.text}>Customer satisfaction score: 4.5/5</Text>
-        <Text style={styles.text}>Top customer request: More electric vehicles</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>7. Operational Metrics</Text>
-        <Text style={styles.text}>Average rental duration: 3.5 days</Text>
-        <Text style={styles.text}>Most popular vehicle type: SUV</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>8. Market Analysis</Text>
-        <Text style={styles.text}>Increasing demand for eco-friendly options noted in the market.</Text>
-      </View>
-      
-      <View style={styles.section}>
-        <Text style={styles.subtitle}>9. Recommendations</Text>
-        <Text style={styles.text}>1. Consider expanding the electric vehicle fleet.</Text>
-        <Text style={styles.text}>2. Implement a loyalty program to increase customer retention.</Text>
-      </View>
-    </Page>
-  </Document>
-);
 
+        <View style={styles.section}>
+          <Text style={styles.text}>Recent Bookings:</Text>
+          {bookingsData.slice(0, 5).map((booking, index) => (
+            <Text key={booking.bookingId} style={styles.text}>
+              {index + 1}. Booking ID: {booking.bookingId}, Amount: $
+              {booking.totalAmount}
+            </Text>
+          ))}
+        </View>
+      </Page>
+    </Document>
+  );
+};
 export default MonthlyReport;

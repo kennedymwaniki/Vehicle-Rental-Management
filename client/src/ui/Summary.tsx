@@ -15,10 +15,9 @@ import fleetsAPI from "../features/fleet/FleetApis";
 import usersAPI from "../features/Users/UserApi";
 import vehiclesAPI from "../features/vehicles/VehiclesApi";
 import LocationsAPI from "../features/Locations/LocationsAPI";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+
 import { useState } from "react";
 import ReportModal from "./ReportModal";
-import MonthlyReport from "../components/MonthlyReport";
 
 const Summary = () => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
@@ -126,28 +125,12 @@ const Summary = () => {
         >
           Download Report
         </button>
-
         <ReportModal
           isOpen={isReportModalOpen}
           onClose={() => setIsReportModalOpen(false)}
-        >
-          <div className="w-full max-w-4xl">
-            <h2 className="text-2xl font-bold mb-4">Monthly Report</h2>
-            <PDFViewer width="100%" height="600px">
-              <MonthlyReport />
-            </PDFViewer>
-            <div className="mt-4 flex justify-end">
-              <PDFDownloadLink
-                document={<MonthlyReport />}
-                fileName="monthly_report.pdf"
-              >
-                {({ blob, url, loading, error }) =>
-                  loading ? "Loading document..." : "Download PDF"
-                }
-              </PDFDownloadLink>
-            </div>
-          </div>
-        </ReportModal>
+          bookingsData={bookings || []}
+          usersData={users || []}
+        />
       </div>
     </>
   );
