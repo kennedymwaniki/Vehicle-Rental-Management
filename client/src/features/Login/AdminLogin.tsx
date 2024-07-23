@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { toast, Toaster } from "sonner";
 import { setCredentials } from "../Auth/authSlice";
 import loginAPI from "./LoginAPI";
 import MiniLoader from "../../ui/MiniLoader";
-import userLogin from "../../assets/userLogin.jpeg"; // Make sure to replace this path with the correct path to your image
+import adminlogin from "../../assets/adminLogin.jpg";
 
 type FormValues = {
   email: string;
@@ -56,7 +56,7 @@ const AdminLogin = () => {
     <div className="flex flex-col lg:flex-row min-h-screen">
       <div className="flex-1 flex items-center justify-center bg-purple-100">
         <img
-          src={userLogin}
+          src={adminlogin}
           alt="Login Illustration"
           className="w-full max-w-md"
         />
@@ -65,10 +65,10 @@ const AdminLogin = () => {
         <Toaster position="top-center" richColors />
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-purple-900">
-           User Log In
+            Admin LogIn
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Log in with your data that you entered during your registration
+            It's good to see you back, dear admin
           </p>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 p-4 rounded-lg">
@@ -78,7 +78,7 @@ const AdminLogin = () => {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Username
+                Email
               </label>
               <div className="mt-2">
                 <input
@@ -102,10 +102,10 @@ const AdminLogin = () => {
                 </label>
                 <div className="text-sm">
                   <a
-                    href="adminlogin"
+                    href="#"
                     className="font-semibold text-indigo-900 hover:text-indigo-600"
                   >
-                    are you an admin?
+                    Forgot Password?
                   </a>
                 </div>
               </div>

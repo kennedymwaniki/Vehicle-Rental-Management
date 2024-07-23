@@ -25,6 +25,7 @@ import AdminProfile from "./Pages/AdminProfile";
 import LocationsTable from "./features/Locations/LocationsTable";
 import Footer from "./components/Footer";
 import About from "./components/About";
+import AdminLogin from "./features/Login/AdminLogin";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <RegisterComponent />,
+  },
+  {
+    path: "adminlogin",
+    element: <AdminLogin />,
   },
   {
     path: "cars",
