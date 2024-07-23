@@ -41,7 +41,7 @@ interface ReportModalProps {
 //! styles for the document,page text (section/view)
 const styles = StyleSheet.create({
   page: { padding: 30 },
-  title: { fontSize: 24, marginBottom: 10, textAlign: "center" },
+  title: { fontSize: 24, marginBottom: 10, textAlign: "center", color: "red" },
   section: { margin: 10, padding: 10 },
   text: { fontSize: 12, marginBottom: 5 },
 });
@@ -58,10 +58,12 @@ const MonthlyReport: React.FC<{
   const totalUsers = usersData.length;
   const totalBookings = bookingsData.length;
 
+  // .filter((booking) => booking.bookingStatus === "Completed")
   // !Updated totalRevenue calculation still bringing (NaN)
-  const totalRevenue = bookingsData
-    .filter((booking) => booking.bookingStatus === "Completed")
-    .reduce((sum, booking) => Number(sum + booking.totalAmount), 0);
+  const totalRevenue = bookingsData.reduce(
+    (sum, booking) => Number(sum + booking.totalAmount),
+    0
+  );
 
   // !Format the total
   const formattedTotalRevenue = totalRevenue;
