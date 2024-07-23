@@ -131,3 +131,9 @@ export interface TAlluserRelations {
   bookings: TBooking[];
   customerSupportTickets: TTicket[];
 }
+
+
+export interface BarChartData {
+  name: string;
+  value: number;
+}
