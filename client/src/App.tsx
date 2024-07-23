@@ -23,6 +23,7 @@ import TicketList from "./features/Tickets/TicketList";
 import UserSummary from "./ui/UserSummary";
 import AdminProfile from "./Pages/AdminProfile";
 import LocationsTable from "./features/Locations/LocationsTable";
+import Footer from "./components/Footer";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "footer",
+    element: <Footer />,
   },
   {
     path: "booking-success",

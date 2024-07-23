@@ -1,4 +1,7 @@
-import hero from "../assets/hero.png"
+import hero from "../assets/hero.png";
+import audi from "../assets/audi.png";
+import { Link } from "react-router-dom";
+
 const Hero = () => {
   return (
     <div
@@ -14,7 +17,7 @@ const Hero = () => {
           process.
         </p>
         <button className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
-          Explore Cars
+          <Link to="cars">Explore Cars</Link>
         </button>
       </div>
       <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">

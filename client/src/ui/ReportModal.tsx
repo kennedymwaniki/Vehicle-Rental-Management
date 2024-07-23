@@ -8,6 +8,7 @@ import {
   View,
   StyleSheet,
 } from "@react-pdf/renderer";
+import paymentsAPI from "../features/Payments/PaymentsApi";
 
 // Updated type definitions
 interface TBooking {
@@ -50,6 +51,12 @@ const MonthlyReport: React.FC<{
   bookingsData: TBooking[];
   usersData: TUser[];
 }> = ({ bookingsData, usersData }) => {
+  const { data: payments } = paymentsAPI.useGetPaymentsQuery(undefined, {
+    pollingInterval: 60000,
+  });
+
+
+
   const currentMonth = new Date().toLocaleString("default", {
     month: "long",
     year: "numeric",
@@ -58,9 +65,11 @@ const MonthlyReport: React.FC<{
   const totalBookings = bookingsData.length;
 
   // !Updated totalRevenue calculation still bringing (NaN)
-  const totalRevenue = bookingsData
-    .filter((booking) => booking.bookingStatus === "Completed")
-    .reduce((sum, booking) => Number(sum + booking.totalAmount), 0);
+  const totalRevenue =  payments
+  ?.filter((pay) => pay.paymentStatus === "Completed")
+  .reduce((acc, pay) => acc + pay.amount, 0) as number;
+console.log(totalRevenue);
+
 
   // !Format the total
   const formattedTotalRevenue = totalRevenue;
