@@ -24,6 +24,7 @@ import UserSummary from "./ui/UserSummary";
 import AdminProfile from "./Pages/AdminProfile";
 import LocationsTable from "./features/Locations/LocationsTable";
 import Footer from "./components/Footer";
+import About from "./components/About";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "about",
+    element: <About />,
+  },
+  {
     path: "footer",
     element: <Footer />,
   },
@@ -54,8 +59,8 @@ const router = createBrowserRouter([
     path: "booking-success",
     element: <BookingSuccess />,
   },
-  //!* wrap everything in a protected route and the usersdashboard becomes a child of the protected route and so does the admin page
-  //! ?
+  //! wrap everything in a protected route and the usersdashboard becomes a child of the protected route and so does the admin page
+
   {
     path: "userdashboard",
     element: <ProtectedRoute />,

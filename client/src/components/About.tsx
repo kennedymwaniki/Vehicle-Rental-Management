@@ -2,7 +2,7 @@ import { FaCrown, FaMoneyBillWave, FaLaptop } from "react-icons/fa";
 
 const About = () => {
   return (
-    <section className="bg-gray-900 text-white py-16 mt-4 mb-4">
+    <section className="bg-gray-900 text-white py-16  min-h-screen">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-8">
           Our Services & Benefits
