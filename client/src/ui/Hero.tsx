@@ -1,5 +1,5 @@
 import hero from "../assets/hero.png";
-import audi from "../assets/audi.png";
+// import audi from "../assets/audi.png";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
