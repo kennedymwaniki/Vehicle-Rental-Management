@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -65,7 +65,7 @@ const AdminLogin = () => {
         <Toaster position="top-center" richColors />
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-purple-900">
-           User Log In
+            User Log In
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Log in with your data that you entered during your registration
@@ -142,6 +142,14 @@ const AdminLogin = () => {
               >
                 {loading ? <MiniLoader /> : "Login"}
               </button>
+            </div>
+            <div className="text-sm">
+              <a
+                href="register"
+                className="font-semibold text-indigo-900 hover:text-indigo-600"
+              >
+                You don't have an account?
+              </a>
             </div>
           </form>
         </div>

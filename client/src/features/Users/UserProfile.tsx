@@ -65,7 +65,7 @@ const UserProfile = () => {
         address: formData.address,
         contactPhone: formData.contactPhone,
         password: formData.password,
-        imageUrl: imageUrl,
+        image: imageUrl,
       });
       console.log(response);
 
