@@ -8,7 +8,6 @@ import {
   View,
   StyleSheet,
 } from "@react-pdf/renderer";
-// import paymentsAPI from "../features/Payments/PaymentsApi";
 
 // Updated type definitions
 interface TBooking {
