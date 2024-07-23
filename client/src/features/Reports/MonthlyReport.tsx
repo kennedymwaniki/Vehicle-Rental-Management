@@ -61,7 +61,7 @@ const MonthlyReport = ({ data }: any) => {
 
   return (
     <Document>
-      {/* Page 1: Overview */}
+      //!Page 1: Overview
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>
           Kenny Motors Automotive Monthly Report - {currentDate}
@@ -106,7 +106,7 @@ const MonthlyReport = ({ data }: any) => {
         />
       </Page>
 
-      {/* Page 2: User Analysis */}
+      //!Page 2: User Analysis
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>User Analysis</Text>
 
@@ -152,7 +152,7 @@ const MonthlyReport = ({ data }: any) => {
         />
       </Page>
 
-      {/* Page 3: Booking Analysis */}
+      //!Page 3: Booking Analysis
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>Booking Analysis</Text>
 
@@ -191,7 +191,7 @@ const MonthlyReport = ({ data }: any) => {
         />
       </Page>
 
-      {/* Page 4: Fleet Management */}
+     //TODO Page 4: Fleet Management
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>Fleet Management</Text>
 
