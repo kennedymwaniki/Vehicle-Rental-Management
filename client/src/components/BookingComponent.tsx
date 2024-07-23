@@ -20,10 +20,34 @@ const Booking = () => {
     }),
   });
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setError } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data: any) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const bookingDate = new Date(data.bookingDate);
+    const returnDate = new Date(data.returnDate);
+
+    //! Check if bookingDate and returnDate are valid
+    if (
+      (currentMonth >= 7 && bookingDate.getMonth() + 1 <= 6) ||
+      bookingDate < currentDate ||
+      returnDate < currentDate ||
+      returnDate < bookingDate
+    ) {
+      setError("bookingDate", {
+        type: "manual",
+        message: "Invalid booking date",
+      });
+      setError("returnDate", {
+        type: "manual",
+        message: "Invalid return date",
+      });
+      toast.error("Invalid booking or return date");
+      return;
+    }
+
     const bookingData = {
       ...data,
       vehicleId: Number(vehicleId),

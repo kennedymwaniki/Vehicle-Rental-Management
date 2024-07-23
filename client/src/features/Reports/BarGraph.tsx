@@ -29,12 +29,12 @@ const BarGraph: React.FC<BarGraphProps> = ({ data }) => {
         data={data}
         margin={{
           top: 5,
-          right: 30,
-          left: 20,
+          right: 0,
+          left: 0,
           bottom: 5,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="2 2" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />

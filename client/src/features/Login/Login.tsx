@@ -54,6 +54,7 @@ const AdminLogin = () => {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
+      <Toaster position="top-center" richColors />
       <div className="flex-1 flex items-center justify-center bg-purple-100">
         <img
           src={userLogin}
@@ -62,7 +63,6 @@ const AdminLogin = () => {
         />
       </div>
       <div className="flex-1 flex flex-col justify-center px-6 py-12 lg:px-8">
-        <Toaster position="top-center" richColors />
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-tight text-purple-900">
             User Log In
