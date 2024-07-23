@@ -27,7 +27,7 @@ export interface BarChartData {
 const Summary = () => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const { data: tickets } = ticketsAPI.useGetTicketsQuery(undefined, {
-    pollingInterval: 2000,
+    pollingInterval: 60000,
   });
   const { data: bookings } = bookingsAPI.useGetBookingsQuery(undefined, {
     pollingInterval: 60000,
@@ -72,6 +72,19 @@ const Summary = () => {
     { name: "Vehicles", value: vehicles?.length || 0 },
     { name: "Fleets", value: fleets?.length || 0 },
   ];
+
+  const reportData = {
+    bookings: bookings || [],
+    users: users || [],
+    payments: payments || [],
+    vehicles: vehicles || [],
+    fleets: fleets || [],
+    tickets: tickets || [],
+    locations: locations || [],
+    totalPayments,
+    pendingTicketsCount,
+    solvedTicketsCount,
+  };
 
   return (
     <>
@@ -141,8 +154,7 @@ const Summary = () => {
         <ReportModal
           isOpen={isReportModalOpen}
           onClose={() => setIsReportModalOpen(false)}
-          bookingsData={bookings || []}
-          usersData={users || []}
+          reportData={reportData}
         />
       </div>
       <h2 className="text-2xl text-center font-bold mb-5">System Overview</h2>

@@ -46,8 +46,7 @@ const UserProfile = () => {
         const imageFile = formData.image[0];
         const formDataImage = new FormData();
         formDataImage.append("file", imageFile);
-        formDataImage.append("upload_preset", "upload_preset"); // Replace with your Cloudinary upload preset
-
+        formDataImage.append("upload_preset", "upload_preset"); 
         const res = await axios.post(
           `https://api.cloudinary.com/v1_1/dt7qq0zt2/image/upload`,
           formDataImage
