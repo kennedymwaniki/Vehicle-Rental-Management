@@ -41,7 +41,13 @@ interface ReportModalProps {
 //! styles for the document,page text (section/view)
 const styles = StyleSheet.create({
   page: { padding: 30 },
-  title: { fontSize: 24, marginBottom: 10, textAlign: "center", color: "red" },
+  title: {
+    fontSize: 24,
+    marginBottom: 10,
+    textAlign: "center",
+    color: "rgb(16 185 129)",
+    textDecoration: "underline",
+  },
   section: { margin: 10, padding: 10 },
   text: { fontSize: 12, marginBottom: 5 },
 });
