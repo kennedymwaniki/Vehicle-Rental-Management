@@ -52,7 +52,7 @@ const Navbar = () => {
             <Link to="cars">Vehicles</Link>
           </li>
           <li>
-            <Link to="/footer">Contact us</Link>
+            <Link to="footer">Contact us</Link>
           </li>
         </ul>
       </nav>
