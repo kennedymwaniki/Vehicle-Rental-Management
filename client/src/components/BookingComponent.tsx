@@ -107,9 +107,8 @@ const Booking = () => {
           </label>
           <input
             type="number"
-            {...register("totalAmount", {
-              required: "Amount is required",
-            })}
+            value={vehicleData.rentalRate}
+            readOnly
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
