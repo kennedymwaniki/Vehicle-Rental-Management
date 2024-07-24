@@ -27,16 +27,16 @@ export interface BarChartData {
 const Summary = () => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const { data: tickets } = ticketsAPI.useGetTicketsQuery(undefined, {
-    pollingInterval: 6000,
+    pollingInterval: 7000,
   });
   const { data: bookings } = bookingsAPI.useGetBookingsQuery(undefined, {
-    pollingInterval: 6000,
+    pollingInterval: 7000,
   });
 
   console.log(bookings);
 
   const { data: payments } = paymentsAPI.useGetPaymentsQuery(undefined, {
-    pollingInterval: 6000,
+    pollingInterval: 7000,
   });
 
   const { data: fleets } = fleetsAPI.useGetFleetsQuery(undefined, {
@@ -48,11 +48,11 @@ const Summary = () => {
   });
 
   const { data: vehicles } = vehiclesAPI.useGetVehiclesQuery(undefined, {
-    pollingInterval: 6000,
+    pollingInterval: 7000,
   });
 
   const { data: locations } = LocationsAPI.useGetLocationsQuery(undefined, {
-    pollingInterval: 6000,
+    pollingInterval: 7000,
   });
 
   const pendingTicketsCount =
