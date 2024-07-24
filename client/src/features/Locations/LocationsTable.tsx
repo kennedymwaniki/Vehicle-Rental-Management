@@ -15,7 +15,7 @@ const LocationsTable = () => {
     error,
     isLoading: loadingLocations,
     isError,
-  } = LocationsAPI.useGetLocationsQuery(undefined, { pollingInterval: 60000 });
+  } = LocationsAPI.useGetLocationsQuery(undefined, { pollingInterval: 2000 });
 
   const [updateLocation] = LocationsAPI.useUpdateLocationMutation();
 
