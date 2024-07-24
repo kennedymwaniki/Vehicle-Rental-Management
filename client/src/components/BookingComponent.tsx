@@ -75,88 +75,76 @@ const Booking = () => {
     <div className="container mx-auto py-8 text-purple-800">
       <Toaster position="top-center" richColors />
       <h2 className="text-2xl font-bold mb-6">Book Vehicle</h2>
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="flex-shrink-0 md:w-1/2">
-          <img
-            src={vehicleData.image_url}
-            alt={`${vehicleData.vehicleSpec.manufacturer} ${vehicleData.vehicleSpec.model}`}
-            className="w-full h-auto object-cover rounded-lg"
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 text-purple-900"
+      >
+        <div>
+          <label className="block text-sm font-medium text-purple-700">
+            Vehicle ID
+          </label>
+          <input
+            type="text"
+            value={vehicleData.vehicleId}
+            readOnly
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
-        <div className="flex-grow">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 text-purple-900"
-          >
-            <div>
-              <label className="block text-sm font-medium text-purple-700">
-                Vehicle ID
-              </label>
-              <input
-                type="text"
-                value={vehicleData.vehicleId}
-                readOnly
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-purple-700">
-                User ID
-              </label>
-              <input
-                type="text"
-                value={userId}
-                readOnly
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-purple-700">
-                Total Amount
-              </label>
-              <input
-                type="number"
-                value={vehicleData.rentalRate}
-                readOnly
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-purple-700">
-                Booking Date
-              </label>
-              <input
-                type="date"
-                {...register("bookingDate", {
-                  required: "Booking date is required",
-                })}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-purple-700">
-                Return Date
-              </label>
-              <input
-                type="date"
-                {...register("returnDate", {
-                  required: "Return date is required",
-                })}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`mt-4 px-4 py-2 ${
-                isSubmitting ? "bg-gray-400" : "bg-blue-600"
-              } text-white rounded hover:bg-blue-700`}
-            >
-              {isSubmitting ? "Submitting..." : "Submit Booking"}
-            </button>
-          </form>
+        <div>
+          <label className="block text-sm font-medium text-purple-700">
+            User ID
+          </label>
+          <input
+            type="text"
+            value={userId}
+            readOnly
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
         </div>
-      </div>
+        <div>
+          <label className="block text-sm font-medium text-purple-700">
+            Total Amount
+          </label>
+          <input
+            type="number"
+            {...register("totalAmount", {
+              required: "Amount is required",
+            })}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-purple-700">
+            Booking Date
+          </label>
+          <input
+            type="date"
+            {...register("bookingDate", {
+              required: "Booking date is required",
+            })}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-purple-700">
+            Return Date
+          </label>
+          <input
+            type="date"
+            {...register("returnDate", { required: "Return date is required" })}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`mt-4 px-4 py-2 ${
+            isSubmitting ? "bg-gray-400" : "bg-blue-600"
+          } text-white rounded hover:bg-blue-700`}
+        >
+          {isSubmitting ? "Submitting..." : "Submit Booking"}
+        </button>
+      </form>
     </div>
   );
 };
