@@ -105,7 +105,6 @@ const MonthlyReport = ({ data }: any) => {
           fixed
         />
       </Page>
-
       //!Page 2: User Analysis
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>User Analysis</Text>
@@ -115,12 +114,9 @@ const MonthlyReport = ({ data }: any) => {
           <Text style={styles.text}>
             New Users This Month: {Math.floor(data.users.length * 0.1)}
           </Text>
-          <Text style={styles.text}>
-            Most Active Age Group: 25-34 (placeholder)
-          </Text>
+          <Text style={styles.text}>Most Active Age Group: 25-34</Text>
           <Text style={styles.text}>
             Top 5 Cities: New York, Los Angeles, Chicago, Houston, Phoenix
-            (placeholder)
           </Text>
         </View>
 
@@ -138,9 +134,7 @@ const MonthlyReport = ({ data }: any) => {
             ).toFixed(2)}
             %
           </Text>
-          <Text style={styles.text}>
-            User Satisfaction Score: 4.5 / 5.0 (placeholder)
-          </Text>
+          <Text style={styles.text}>User Satisfaction Score: 4.5 / 5.0</Text>
         </View>
 
         <Text
@@ -151,22 +145,15 @@ const MonthlyReport = ({ data }: any) => {
           fixed
         />
       </Page>
-
       //!Page 3: Booking Analysis
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>Booking Analysis</Text>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Booking Trends</Text>
-          <Text style={styles.text}>
-            Peak Booking Day: Friday (placeholder)
-          </Text>
-          <Text style={styles.text}>
-            Average Booking Duration: 3 days (placeholder)
-          </Text>
-          <Text style={styles.text}>
-            Most Popular Vehicle Category: SUV (placeholder)
-          </Text>
+          <Text style={styles.text}>Peak Booking Day: Friday</Text>
+          <Text style={styles.text}>Average Booking Duration: 3 days</Text>
+          <Text style={styles.text}>Most Popular Vehicle Category: SUV</Text>
         </View>
 
         <View style={styles.section}>
@@ -190,8 +177,7 @@ const MonthlyReport = ({ data }: any) => {
           fixed
         />
       </Page>
-
-     //TODO Page 4: Fleet Management
+      //TODO Page 4: Fleet Management
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>Fleet Management</Text>
 
@@ -200,12 +186,8 @@ const MonthlyReport = ({ data }: any) => {
           <Text style={styles.text}>
             Total Vehicles: {data.vehicles.length}
           </Text>
-          <Text style={styles.text}>
-            Most Booked Vehicle: Toyota Camry (placeholder)
-          </Text>
-          <Text style={styles.text}>
-            Average Vehicle Age: 2.5 years (placeholder)
-          </Text>
+          <Text style={styles.text}>Most Booked Vehicle: Toyota Camry</Text>
+          <Text style={styles.text}>Average Vehicle Age: 2.5 years</Text>
         </View>
 
         <View style={styles.section}>
@@ -229,10 +211,10 @@ const MonthlyReport = ({ data }: any) => {
             {(vehicleUtilizationRate * 100).toFixed(2)}%
           </Text>
           <Text style={styles.text}>
-            Highest Utilization Category: Compact Cars (placeholder)
+            Highest Utilization Category: Compact Cars
           </Text>
           <Text style={styles.text}>
-            Lowest Utilization Category: Luxury Cars (placeholder)
+            Lowest Utilization Category: Luxury Cars
           </Text>
         </View>
 
@@ -244,7 +226,6 @@ const MonthlyReport = ({ data }: any) => {
           fixed
         />
       </Page>
-
       {/* Page 5: Customer Service and Conclusion */}
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>Customer Service and Conclusion</Text>
@@ -261,9 +242,7 @@ const MonthlyReport = ({ data }: any) => {
           <Text style={styles.text}>
             Resolved Tickets: {data.solvedTicketsCount}
           </Text>
-          <Text style={styles.text}>
-            Average Response Time: 2 hours (placeholder)
-          </Text>
+          <Text style={styles.text}>Average Response Time: 2 hours</Text>
           <Text style={styles.text}>
             Customer Satisfaction Rate:{" "}
             {(

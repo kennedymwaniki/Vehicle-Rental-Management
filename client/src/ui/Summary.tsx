@@ -36,11 +36,11 @@ const Summary = () => {
   console.log(bookings);
 
   const { data: payments } = paymentsAPI.useGetPaymentsQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 2000,
   });
 
   const { data: fleets } = fleetsAPI.useGetFleetsQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 2000,
   });
 
   const { data: users } = usersAPI.useGetUsersQuery(undefined, {
@@ -48,11 +48,11 @@ const Summary = () => {
   });
 
   const { data: vehicles } = vehiclesAPI.useGetVehiclesQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 2000,
   });
 
   const { data: locations } = LocationsAPI.useGetLocationsQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 2000,
   });
 
   const pendingTicketsCount =
