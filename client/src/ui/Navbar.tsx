@@ -86,9 +86,7 @@ const Navbar = () => {
             <li className="w-full text-center py-2">
               <Link to="/about">About</Link>
             </li>
-            <li className="w-full text-center py-2">
-              <Link to="/services">Services</Link>
-            </li>
+            
             <li className="w-full text-center py-2">
               <Link to="cars">Vehicles</Link>
             </li>
