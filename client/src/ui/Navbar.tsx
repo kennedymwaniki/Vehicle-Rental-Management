@@ -49,9 +49,6 @@ const Navbar = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/services">Services</Link>
-          </li>
-          <li>
             <Link to="cars">Vehicles</Link>
           </li>
           <li>
@@ -86,7 +83,7 @@ const Navbar = () => {
             <li className="w-full text-center py-2">
               <Link to="/about">About</Link>
             </li>
-            
+
             <li className="w-full text-center py-2">
               <Link to="cars">Vehicles</Link>
             </li>
