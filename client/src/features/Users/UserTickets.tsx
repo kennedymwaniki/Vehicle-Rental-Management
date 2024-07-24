@@ -17,7 +17,7 @@ const UserTickets = () => {
     isLoading,
   } = usersAPI.useGetUserTcketsByIdQuery(userId, {
     skip: !userId,
-    pollingInterval: 20000,
+    pollingInterval: 2000,
   });
 
   console.log(UserTickets);
