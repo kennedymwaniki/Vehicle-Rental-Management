@@ -27,32 +27,32 @@ export interface BarChartData {
 const Summary = () => {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const { data: tickets } = ticketsAPI.useGetTicketsQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 6000,
   });
   const { data: bookings } = bookingsAPI.useGetBookingsQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 6000,
   });
 
   console.log(bookings);
 
   const { data: payments } = paymentsAPI.useGetPaymentsQuery(undefined, {
-    pollingInterval: 2000,
+    pollingInterval: 6000,
   });
 
   const { data: fleets } = fleetsAPI.useGetFleetsQuery(undefined, {
-    pollingInterval: 2000,
+    pollingInterval: 6000,
   });
 
   const { data: users } = usersAPI.useGetUsersQuery(undefined, {
-    pollingInterval: 60000,
+    pollingInterval: 6000,
   });
 
   const { data: vehicles } = vehiclesAPI.useGetVehiclesQuery(undefined, {
-    pollingInterval: 2000,
+    pollingInterval: 6000,
   });
 
   const { data: locations } = LocationsAPI.useGetLocationsQuery(undefined, {
-    pollingInterval: 2000,
+    pollingInterval: 6000,
   });
 
   const pendingTicketsCount =

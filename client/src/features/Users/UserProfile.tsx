@@ -26,7 +26,7 @@ const UserProfile = () => {
 
   const { data, error, isLoading } = usersAPI.useGetUserByIdQuery(userId, {
     skip: !userId,
-    pollingInterval: 2000,
+    pollingInterval: 5000,
   });
   const [updateUser] = usersAPI.useUpdateUserMutation();
 

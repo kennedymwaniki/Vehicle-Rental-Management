@@ -14,7 +14,7 @@ const UserSummary = () => {
     error,
   } = usersAPI.useGetAllUserRelationsQuery(userId, {
     skip: !userId,
-    pollingInterval: 2000,
+    pollingInterval: 5000,
   });
 
   if (isLoading) return <div>Loading...</div>;

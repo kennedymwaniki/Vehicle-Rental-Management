@@ -14,7 +14,7 @@ const UserBookings = () => {
     userId,
     {
       skip: !userId,
-      pollingInterval: 2000,
+      pollingInterval: 5000,
     }
   );
 
