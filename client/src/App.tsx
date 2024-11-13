@@ -1,3 +1,4 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BookingsTable from "./features/bookings/BookingsTable";
 import Login from "./features/Login/Login";
 import RegisterComponent from "./features/Login/Register";
@@ -6,8 +7,6 @@ import Users from "./features/Users/Users";
 import AdminDashboard from "./Pages/AdminDashboard";
 import Error from "./Pages/Error";
 import Homepage from "./Pages/Homepage";
-
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserDashboard from "./Pages/UserDashboard";
 import Vehicles from "./features/vehicles/Vehicles";
 import Summary from "./ui/Summary";
@@ -26,6 +25,7 @@ import LocationsTable from "./features/Locations/LocationsTable";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import AdminLogin from "./features/Login/AdminLogin";
+import Unauthorized from "./components/Unauthorized";
 
 const router = createBrowserRouter([
   {
@@ -64,11 +64,15 @@ const router = createBrowserRouter([
     path: "booking-success",
     element: <BookingSuccess />,
   },
+  {
+    path: "unauthorized",
+    element: <Unauthorized />,
+  },
   //! wrap everything in a protected route and the usersdashboard becomes a child of the protected route and so does the admin page
 
   {
     path: "userdashboard",
-    element: <ProtectedRoute />,
+    element: <ProtectedRoute requiredRole="user" />,
     children: [
       {
         path: "",
@@ -96,7 +100,7 @@ const router = createBrowserRouter([
   },
   {
     path: "admindashboard",
-    element: <ProtectedRoute />,
+    element: <ProtectedRoute requiredRole="admin" />,
     children: [
       {
         path: "",
@@ -144,7 +148,7 @@ const router = createBrowserRouter([
   },
   {
     path: "booking/:vehicleId",
-    element: <ProtectedRoute />,
+    element: <ProtectedRoute requiredRole="user" />,
     children: [
       {
         path: "",

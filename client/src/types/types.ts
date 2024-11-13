@@ -1,5 +1,5 @@
 export interface TUser {
-  [x: string]: any;
+  [x: string]: string | number | null | undefined;
   userId: number | null | undefined;
   fullName: string;
   image: string;
@@ -13,7 +13,7 @@ export interface TUser {
 export interface User {
   token: string;
   user: {
-    role: string;
+    role: "admin" | "user";
     id: string;
     fullName: string;
     image: string;
@@ -132,11 +132,7 @@ export interface TAlluserRelations {
   customerSupportTickets: TTicket[];
 }
 
-
 export interface BarChartData {
   name: string;
   value: number;
 }
-
-
-
