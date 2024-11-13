@@ -17,7 +17,7 @@ const Unauthorized = () => {
 
   return (
     <div className="text-center">
-      <h1 className="mb-4 text-6xl font-semibold text-red-500">
+      <h1 className="mb-4 text-4xl font-semibold text-red-500">
         You are not authorized to view this page
         <span>❌</span>
       </h1>
