@@ -1,14 +1,14 @@
 export interface TUser {
   [x: string]: string | number | null | undefined;
-  userId: number | null | undefined;
+  userId: number | null | undefined | string;
   fullName: string;
   image: string;
-
   password?: string;
   email: string;
   contactPhone: string;
   address: string;
   role: string;
+  avatar?: string;
 }
 export interface User {
   token: string;
@@ -135,4 +135,9 @@ export interface TAlluserRelations {
 export interface BarChartData {
   name: string;
   value: number;
+}
+
+export interface UserResponseMsg {
+  fullName: string;
+  image: string;
 }

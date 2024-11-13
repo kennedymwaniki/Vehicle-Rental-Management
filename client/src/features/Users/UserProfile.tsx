@@ -5,6 +5,7 @@ import Modal from "../../ui/Modal";
 import { toast, Toaster } from "sonner";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { UserResponseMsg } from "../../types/types";
 
 interface FormData {
   fullName: string;
@@ -46,7 +47,7 @@ const UserProfile = () => {
         const imageFile = formData.image[0];
         const formDataImage = new FormData();
         formDataImage.append("file", imageFile);
-        formDataImage.append("upload_preset", "upload_preset"); 
+        formDataImage.append("upload_preset", "upload_preset");
         const res = await axios.post(
           `https://api.cloudinary.com/v1_1/dt7qq0zt2/image/upload`,
           formDataImage
@@ -68,11 +69,13 @@ const UserProfile = () => {
       });
       console.log(response);
 
-      if (response.data) {
+      if (response?.data?.msg) {
+        const msg: UserResponseMsg = response.data
+          .msg as unknown as UserResponseMsg;
         const updatedUser = {
           ...user,
-          fullName: response.data.msg.fullName,
-          image: response.data.msg.image,
+          fullName: msg.fullName,
+          image: msg.image,
         };
         localStorage.setItem("user", JSON.stringify({ user: updatedUser }));
       }
