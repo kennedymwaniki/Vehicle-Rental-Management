@@ -1,14 +1,15 @@
 export interface TUser {
-  [x: string]: string | number | null | undefined;
-  userId: number | null | undefined | string;
+  userId: number | null | undefined;
   fullName: string;
   image: string;
   password?: string;
+  username?: string;
   email: string;
   contactPhone: string;
   address: string;
   role: string;
   avatar?: string;
+  msg: UserResponseMsg;
 }
 export interface User {
   token: string;

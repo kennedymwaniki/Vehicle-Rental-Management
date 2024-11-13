@@ -12,7 +12,7 @@ interface FormData {
   address: string;
   contactPhone: string;
   password?: string; // Optional field
-  avatar?: File; // Optional field for avatar image
+  avatar?: string; // Optional field for avatar image
 }
 
 const AdminProfile = () => {
@@ -40,11 +40,11 @@ const AdminProfile = () => {
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     try {
       console.log(formData);
-      const res = await updateUser({ userId, ...formData });
+      const res = await updateUser({ userId, ...formData }).unwrap();
       console.log(res);
 
-      if (res.data) {
-        const updatedUser = { ...user, fullName: res.data.msg.fullName };
+      if (res) {
+        const updatedUser = { ...user, fullName: res.fullName };
         localStorage.setItem("user", JSON.stringify({ user: updatedUser }));
       }
 

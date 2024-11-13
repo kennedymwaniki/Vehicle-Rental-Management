@@ -3,6 +3,7 @@ import {
   TUser,
   TUserBookingsResponse,
   TUserTicketsResponse,
+  UserResponseMsg,
 } from "./../../types/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -25,7 +26,7 @@ export const usersAPI = createApi({
         providesTags: ["getUserById"],
       }),
     }),
-    createUsers: builder.mutation<TUser, Partial<TUser>>({
+    createUsers: builder.mutation<{ msg: UserResponseMsg }, Partial<TUser>>({
       query: (newUser) => ({
         url: "users",
         method: "POST",
